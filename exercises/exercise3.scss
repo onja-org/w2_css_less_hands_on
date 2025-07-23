@@ -1,12 +1,95 @@
-// SASS Conditional Mixins
-@mixin mixin($a) {
-  @if $a == true {
-    background-color: black;
-  } @else {
-    background-color: white;
+// Exercise 3: LESS-Specific Features (SCSS Comparison)
+@import "exercise1.scss";
+
+// SCSS version - single mixin with conditionals (vs LESS guarded mixins)
+@mixin respond-to($size) {
+  @if $size == mobile {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else if $size == tablet {
+    @media (min-width: 768px) and (max-width: 1023px) {
+      @content;
+    }
+  } @else if $size == desktop {
+    @media (min-width: 1024px) {
+      @content;
+    }
   }
 }
 
-.element {
-  @include mixin(true);
+@mixin card-size($size: medium) {
+  @if $size == small {
+    padding: 1rem;
+    font-size: 0.9rem;
+  } @else if $size == large {
+    padding: 2rem;
+    font-size: 1.1rem;
+  } @else {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+// Card component
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  color: $dark;
+  
+  @include card-size();
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  
+  h3 {
+    margin-top: 0;
+    color: $primary;
+  }
+  
+  // Theme contexts
+  .light-theme & {
+    background: white;
+    border: 1px solid #ecf0f1;
+  }
+  
+  .dark-theme & {
+    background: $dark;
+    color: white;
+    border: 1px solid lighten($dark, 20%);
+    
+    h3 {
+      color: lighten($primary, 20%);
+    }
+  }
+  
+  // Responsive behavior
+  @include respond-to(mobile) {
+    @include card-size(small);
+  }
+  
+  @include respond-to(desktop) {
+    @include card-size(large);
+  }
+}
+
+// Theme mixin with SCSS conditionals
+@mixin apply-theme($theme) {
+  @if $theme == light {
+    background: white;
+    color: $dark;
+    border: 1px solid #ecf0f1;
+  } @else if $theme == dark {
+    background: $dark;
+    color: white;
+    border: 1px solid lighten($dark, 20%);
+  } @else if $theme == colorful {
+    background: linear-gradient(45deg, $primary, $secondary);
+    color: white;
+    border: none;
+  }
 }

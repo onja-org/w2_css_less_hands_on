@@ -1,10 +1,82 @@
-// LESS Mixins
-.border-radius(@radius) {
-  -webkit-border-radius: @radius;
-     -moz-border-radius: @radius;
-          border-radius: @radius;
+// Exercise 2: Mixins & Functions
+// Import variables from exercise 1
+@import "exercise1.less";
+
+// TODO: Create the flex-center mixin shown in the README
+// Hint: LESS mixins look like CSS classes with parameters
+// .flex-center(@direction: row) {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: @direction;
+// }
+
+// TODO: Create the button-style mixin
+// This should use the 'when' conditional to handle different sizes
+// .button-style(@bg: @primary, @size: medium) {
+//   background: @bg;
+//   border: none;
+//   padding: when(@size=small, 0.5rem 1rem, 0.75rem 1.5rem);
+//   border-radius: 4px;
+//   cursor: pointer;
+//   
+//   &:hover {
+//     background: darken(@bg, 10%);
+//   }
+// }
+
+// Demo: Flex center usage
+.flex-center-demo {
+  // TODO: Use your flex-center mixin here
+  width: 200px;
+  height: 100px;
+  background: lighten(@primary, 40%);
+  border: 2px dashed @primary;
+  border-radius: 8px;
+  
+  span {
+    color: @primary;
+    font-weight: bold;
+  }
 }
 
-.box {
-  .border-radius(10px);
+// Demo: Button style variations
+// TODO: Create button classes using your mixin
+// .btn-styled {
+//   .button-style(@primary, medium);
+// }
+// 
+// .btn-small {
+//   .button-style(@secondary, small);
+// }
+// 
+// .btn-large {
+//   .button-style(@danger, large);
+// }
+
+// Demo: LESS Color Functions
+.color-functions-demo {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  
+  .color-sample {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+  }
+  
+  // TODO: Experiment with LESS color functions
+  .original { background: @primary; }
+  // .lightened { background: lighten(@primary, 20%); }
+  // .darkened { background: darken(@primary, 20%); }
+  // .saturated { background: saturate(@primary, 30%); }
+  // .faded { background: fade(@primary, 50%); color: @dark; }
 }
