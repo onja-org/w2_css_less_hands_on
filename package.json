@@ -1,16 +1,16 @@
 {
-  "name": "w2_css_less_hands_on",
+  "name": "w2_css_less_tutorial",
   "version": "1.0.0",
-  "description": "LESS CSS tutorial",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
+  "description": "LESS CSS Tutorial",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile-less": "lessc exercises/exercise1.less exercises/exercise1.css",
+    "compile-sass": "sass exercises/exercise1.scss exercises/exercise1.css"
   },
-  "dependencies": {
-    "less": "^4.4.0",
-    "sass": "^1.89.2"
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^4.2.0",
+    "sass": "^1.56.1"
   }
 }
