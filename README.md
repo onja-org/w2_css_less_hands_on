@@ -52,15 +52,15 @@ Welcome to the LESS CSS tutorial! This tutorial is designed to help you get star
 
 ### Installation
 
-- **Install Node.js and npm**:
+- **Install Node.js and npm** (You should already have this installed)
+
+  In case you don't have it installed:
   - Download and install Node.js from [nodejs.org](https://nodejs.org/).
   - npm (Node Package Manager) comes bundled with Node.js.
 
-- **Install LESS and SASS globally**:
-  ```bash
-  npm install -g less
-  npm install -g sass
-  ```
+- **Install LESS and SASS Compilers in the project**:
+
+All you need to do is run `npm install`.
 
 ### Basic Configuration
 
