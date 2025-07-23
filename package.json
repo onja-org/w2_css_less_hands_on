@@ -1,0 +1,16 @@
+{
+  "name": "w2_css_less_hands_on",
+  "version": "1.0.0",
+  "description": "LESS CSS tutorial",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "less": "^4.4.0",
+    "sass": "^1.89.2"
+  }
+}
