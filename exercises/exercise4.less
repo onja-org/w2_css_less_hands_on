@@ -1,0 +1,209 @@
+// Exercise 4: Mini Project - Theme Switcher Component
+// Your mission: Create a card component that showcases all LESS features!
+
+@import "exercise1.less";
+
+// TODO: Create advanced theme variables
+// @light-bg: #ffffff;
+// @light-text: @dark;
+// @light-border: #ecf0f1;
+// @light-shadow: rgba(0,0,0,0.1);
+
+// @dark-bg: @dark;
+// @dark-text: #ffffff;
+// @dark-border: lighten(@dark, 20%);
+// @dark-shadow: rgba(0,0,0,0.3);
+
+// TODO: Create a comprehensive theme mixin using guarded mixins
+// This is where LESS really shines - multiple mixins with the same name!
+// .theme-style(@theme) when (@theme = light) {
+//   background: @light-bg;
+//   color: @light-text;
+//   border: 1px solid @light-border;
+//   box-shadow: 0 2px 10px @light-shadow;
+// }
+
+// .theme-style(@theme) when (@theme = dark) {
+//   background: @dark-bg;
+//   color: @dark-text;
+//   border: 1px solid @dark-border;
+//   box-shadow: 0 2px 15px @dark-shadow;
+// }
+
+// .theme-style(@theme) when (@theme = colorful) {
+//   background: linear-gradient(135deg, @primary, @secondary);
+//   color: white;
+//   border: none;
+//   box-shadow: 0 4px 20px fade(@primary, 40%);
+// }
+
+// TODO: Create size variants using guarded mixins
+// .component-size(@size) when (@size = compact) {
+//   padding: 1rem;
+//   font-size: 0.9rem;
+//   
+//   .component-btn {
+//     padding: 0.4rem 0.8rem;
+//     font-size: 0.8rem;
+//   }
+// }
+
+// .component-size(@size) when (@size = comfortable) {
+//   padding: 2rem;
+//   font-size: 1.1rem;
+//   
+//   .component-btn {
+//     padding: 0.8rem 1.6rem;
+//     font-size: 1rem;
+//   }
+// }
+
+// .component-size(@size) when (default()) {
+//   padding: 1.5rem;
+//   font-size: 1rem;
+//   
+//   .component-btn {
+//     padding: 0.6rem 1.2rem;
+//     font-size: 0.9rem;
+//   }
+// }
+
+// Your main component
+.card-component {
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  // TODO: Apply your default theme and size
+  // .theme-style(light);
+  // .component-size(default);
+  
+  &:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, @primary, @secondary, @danger);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+  
+  h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5em;
+    font-weight: 600;
+    
+    // TODO: Add theme-aware color using parent selector
+    .light-theme & {
+      color: @primary;
+    }
+    
+    // .dark-theme & {
+    //   color: lighten(@primary, 20%);
+    // }
+  }
+  
+  p {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  
+  // TODO: Style the action button with theme awareness
+  .component-btn {
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    
+    // Default button style
+    background: @primary;
+    color: white;
+    
+    &:hover {
+      background: darken(@primary, 10%);
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    // TODO: Add theme-specific button styles
+    // .light-theme & {
+    //   box-shadow: 0 2px 8px fade(@primary, 30%);
+    // }
+    
+    // .dark-theme & {
+    //   background: lighten(@primary, 10%);
+    //   box-shadow: 0 2px 12px fade(@primary, 50%);
+    //   
+    //   &:hover {
+    //     background: lighten(@primary, 20%);
+    //   }
+    // }
+  }
+}
+
+// Theme context applications
+.light-theme .card-component {
+  // TODO: Apply light theme using your mixin
+  // .theme-style(light);
+}
+
+.dark-theme .card-component {
+  // TODO: Apply dark theme using your mixin
+  // .theme-style(dark);
+}
+
+// Bonus: Responsive behavior
+@media (max-width: 767px) {
+  .card-component {
+    // TODO: Apply compact size on mobile
+    // .component-size(compact);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-component {
+    // TODO: Apply comfortable size on desktop
+    // .component-size(comfortable);
+  }
+}
+
+// Bonus: Animation states
+.card-component {
+  // TODO: Add loading state with LESS color functions
+  // &.loading {
+  //   background: fade(@primary, 10%);
+  //   
+  //   .component-btn {
+  //     background: desaturate(@primary, 50%);
+  //     cursor: not-allowed;
+  //   }
+  // }
+  
+  // TODO: Add success state
+  // &.success {
+  //   border-color: @secondary;
+  //   
+  //   &::before {
+  //     background: @secondary;
+  //     opacity: 1;
+  //   }
+  // }
+}

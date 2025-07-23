@@ -1,238 +1,181 @@
-# LESS CSS Tutorial
+# LESS CSS Hands-On Lab (1 Hour)
 
-Welcome to the LESS CSS tutorial! This tutorial is designed to help you get started with LESS CSS, focusing on the differences between LESS and SASS.
+**🎯 Goal:** Get familiar with LESS as an alternative to SCSS through hands-on practice  
+**⏱️ Duration:** ~60 minutes  
+**📚 Prerequisites:** Basic knowledge of SCSS from previous lessons
 
-## Table of Contents
+## What You'll Learn
 
-1. [Introduction](#introduction)
-2. [Key Differences](#key-differences)
-3. [Setup](#setup)
-4. [Basic Concepts](#basic-concepts)
-5. [Advanced Features](#advanced-features)
-6. [Exercises](#exercises)
-7. [Conclusion](#conclusion)
+By the end of this lab, you'll understand:
+- How LESS differs from SCSS syntactically
+- When you might choose LESS over SCSS in real projects  
+- Key LESS-specific features that make it unique
+- How LESS fits into the broader frontend tooling ecosystem
 
-## Introduction
+## Lab Structure
 
-### Purpose of the Tutorial
-- This tutorial aims to introduce you to the LESS CSS preprocessor and highlight its key differences from SASS.
-- By the end of this tutorial, you should be able to write basic LESS code and understand how to use its features effectively.
+- **Setup** (5 min)
+- **Exercise 1: Variables & Basic Syntax** (15 min)
+- **Exercise 2: Mixins & Functions** (15 min) 
+- **Exercise 3: LESS-Specific Features** (15 min)
+- **Exercise 4: Mini Project** (10 min)
 
-### Overview of LESS and SASS
-- **LESS (Leaner Style Sheets)**:
-  - A CSS preprocessor that extends CSS with dynamic behavior such as variables, mixins, operations, and functions.
-  - Compiled into standard CSS before being sent to the browser.
-- **SASS (Syntactically Awesome Style Sheets)**:
-  - Another CSS preprocessor with similar features but different syntax.
-  - Supports two syntaxes: SCSS (Sassy CSS) and indented syntax.
+## Quick Start
 
-## Key Differences
+```bash
+# Install dependencies
+npm install
 
-### Syntax
+# Start watching files (we'll use this throughout)
+npm run watch-all
+```
 
-- **Variable Declaration**
-  - **LESS**: `@variable: value;`
-  - **SASS**: `$variable: value;`
+## Why LESS?
 
-- **Mixins**
-  - **LESS**: Uses `.mixin()`
-  - **SASS**: Uses `@mixin`
+LESS was one of the first CSS preprocessors and remains popular because:
+- **Simpler syntax** - Closer to vanilla CSS
+- **Client-side compilation** - Can run in the browser during development
+- **JavaScript integration** - Written in JavaScript, easy to extend
+- **Bootstrap legacy** - Bootstrap used LESS before switching to SCSS
 
-- **Interpolation**
-  - **LESS**: Uses `~"@{variable}"`
-  - **SASS**: Uses `#{$variable}`
+## LESS vs SCSS: Quick Reference
 
-- **Importing**
-  - Both support `@import`, but LESS is case-insensitive.
+| Feature | LESS | SCSS |
+|---------|------|------|
+| Variables | `@color: blue;` | `$color: blue;` |
+| Mixins | `.border-radius(@r) { }` | `@mixin border-radius($r) { }` |
+| Using Mixins | `.border-radius(5px);` | `@include border-radius(5px);` |
+| Interpolation | `@{variable}` | `#{$variable}` |
+| Conditionals | `when (@a > 0)` | `@if $a > 0` |
 
-- **Operations**
-  - Both support arithmetic operations, but LESS uses `@variable * 2` while SASS uses `$variable * 2`.
+---
 
-## Setup
+## Exercise 1: Variables & Basic Syntax (15 min)
 
-### Installation
+**🎯 Objective:** Compare LESS and SCSS variable syntax by building a simple color theme.
 
-- **Install Node.js and npm**:
-  - Download and install Node.js from [nodejs.org](https://nodejs.org/).
-  - npm (Node Package Manager) comes bundled with Node.js.
+### Task 1A: Create Theme Variables
+1. Open `exercises/exercise1.less` and `exercises/exercise1.scss`
+2. Add theme variables to both files:
+   ```less
+   // LESS version
+   @primary: #3498db;
+   @secondary: #2ecc71;
+   @danger: #e74c3c;
+   @dark: #2c3e50;
+   @spacing: 1rem;
+   ```
 
-- **Clone the repository**:
-  ```bash
-  git clone <repository-url>
-  cd w2_css_less_tutorial
-  ```
+3. Apply these to create a simple button theme
+4. Run `npm run compile:ex1` to see the results
+5. Open `demo.html` in your browser
 
-- **Install dependencies locally**:
-  ```bash
-  npm install
-  ```
+### Task 1B: Spot the Differences
+- Compare the compiled CSS from both preprocessors
+- Notice: Are there any differences in output? Why or why not?
 
-### Basic Configuration
+---
 
-- **Example LESS file and compilation command**:
-  ```bash
-  echo "// LESS Variables\n@primary-color: #3498db;\n@font-size: 16px;\n\nbody {\n  color: @primary-color;\n  font-size: @font-size;\n}\n" > exercises/exercise1.less
-  npm run compile-less
-  ```
+## Exercise 2: Mixins & Functions (15 min)
 
-- **Example SASS file and compilation command**:
-  ```bash
-  echo "// SASS Variables\n\$primary-color: #3498db;\n\$font-size: 16px;\n\nbody {\n  color: \$primary-color;\n  font-size: \$font-size;\n}\n" > exercises/exercise1.scss
-  npm run compile-sass
-  ```
+**🎯 Objective:** Experience LESS's simpler mixin syntax and built-in functions.
 
-## Basic Concepts
+### Task 2A: Create Utility Mixins
+Add these mixins to `exercise2.less`:
+```less
+// Flexbox center mixin
+.flex-center(@direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: @direction;
+}
 
-### Variables
-
-- **LESS**:
-  ```less
-  @primary-color: #3498db;
-  body {
-    color: @primary-color;
+// Button style mixin
+.button-style(@bg: @primary, @size: medium) {
+  background: @bg;
+  border: none;
+  padding: when(@size=small, 0.5rem 1rem, 0.75rem 1.5rem);
+  border-radius: 4px;
+  cursor: pointer;
+  
+  &:hover {
+    background: darken(@bg, 10%);
   }
-  ```
+}
+```
 
-- **SASS**:
-  ```scss
-  $primary-color: #3498db;
-  body {
-    color: $primary-color;
+### Task 2B: Use LESS Built-in Functions
+Experiment with these LESS color functions:
+- `lighten(@color, 20%)`
+- `darken(@color, 10%)`
+- `saturate(@color, 30%)`
+- `fade(@color, 50%)`
+
+---
+
+## Exercise 3: LESS-Specific Features (15 min)
+
+**🎯 Objective:** Explore features that make LESS unique.
+
+### Task 3A: Guarded Mixins (LESS's version of conditionals)
+```less
+// Responsive breakpoint mixin
+.respond-to(@size) when (@size = mobile) {
+  @media (max-width: 767px) { @content(); }
+}
+.respond-to(@size) when (@size = tablet) {
+  @media (min-width: 768px) and (max-width: 1023px) { @content(); }
+}
+.respond-to(@size) when (@size = desktop) {
+  @media (min-width: 1024px) { @content(); }
+}
+```
+
+### Task 3B: Parent Selector Magic
+Create hover effects and state variations:
+```less
+.card {
+  background: white;
+  padding: 1rem;
+  
+  &:hover {
+    transform: translateY(-2px);
   }
-  ```
-
-### Mixins
-
-- **LESS**:
-  ```less
-  .border-radius(@radius) {
-    -webkit-border-radius: @radius;
-       -moz-border-radius: @radius;
-            border-radius: @radius;
+  
+  .dark-theme & {
+    background: @dark;
+    color: white;
   }
+}
+```
 
-  .box {
-    .border-radius(10px);
-  }
-  ```
+---
 
-- **SASS**:
-  ```scss
-  @mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-       -moz-border-radius: $radius;
-            border-radius: $radius;
-  }
+## Exercise 4: Mini Project - Theme Switcher (10 min)
 
-  .box {
-    @include border-radius(10px);
-  }
-  ```
+**🎯 Objective:** Build a component with light/dark theme using LESS.
 
-### Importing
+### Your Mission
+Create a card component that:
+1. Uses LESS variables for theming
+2. Has different styles for `.light-theme` and `.dark-theme` contexts
+3. Uses mixins for reusable button styles
+4. Includes hover animations using LESS functions
 
-- Both:
-  ```less
-  @import "variables";
-  ```
+**Starter code is in `exercises/exercise4.less`**
 
-### Operations
+---
 
-- **LESS**:
-  ```less
-  @base-font-size: 16px;
-  h1 {
-    font-size: @base-font-size * 2;
-  }
-  ```
+## What You've Learned
 
-- **SASS**:
-  ```scss
-  $base-font-size: 16px;
-  h1 {
-    font-size: $base-font-size * 2;
-  }
-  ```
+✅ **Syntax Differences:** `@` vs `$`, `.mixin()` vs `@include`  
+✅ **LESS Advantages:** Simpler syntax, guarded mixins, parent selector flexibility  
+✅ **When to Choose LESS:** Simpler projects, teams preferring CSS-like syntax, client-side compilation needs  
+✅ **Ecosystem Fit:** Understanding preprocessor choices in different frameworks
 
-## Advanced Features
+## Next Steps
 
-### Guarded Mixins
-
-- **LESS**:
-  ```less
-  .mixin (@a) when (@a = true) {
-    background-color: black;
-  }
-  .mixin (@a) when (@a = false) {
-    background-color: white;
-  }
-
-  .element {
-    .mixin(true);
-  }
-  ```
-
-- **SASS**:
-  ```scss
-  @mixin mixin($a) {
-    @if $a == true {
-      background-color: black;
-    } @else {
-      background-color: white;
-    }
-  }
-
-  .element {
-    @include mixin(true);
-  }
-  ```
-
-## Exercises
-
-### Exercise 1: Basic Variables
-
-- **Objective**: Create a LESS file and a SASS file with the same variables for colors and fonts.
-- **Instructions**:
-  1. Create `exercise1.less` and `exercise1.scss` in the `exercises` directory.
-  2. Define variables for `primary-color` and `font-size`.
-  3. Use these variables to style the `body` element.
-  4. Compile both files to CSS using the respective commands:
-     - LESS: `npm run compile-less`
-     - SASS: `npm run compile-sass`
-  5. Compare the resulting CSS files.
-
-### Exercise 2: Mixins
-
-- **Objective**: Create a mixin for border-radius in both LESS and SASS.
-- **Instructions**:
-  1. Create `exercise2.less` and `exercise2.scss` in the `exercises` directory.
-  2. Define a mixin for `border-radius`.
-  3. Use the mixin in a CSS class.
-  4. Compile both files to CSS using the respective commands:
-     - LESS: `npm run compile-less`
-     - SASS: `npm run compile-sass`
-  5. Compare the resulting CSS files.
-
-### Exercise 3: Guarded Mixins
-
-- **Objective**: Implement a guarded mixin in LESS and a conditional mixin in SASS.
-- **Instructions**:
-  1. Create `exercise3.less` and `exercise3.scss` in the `exercises` directory.
-  2. Define a guarded mixin in LESS and a conditional mixin in SASS.
-  3. Test both by passing different values.
-  4. Compile both files to CSS using the respective commands:
-     - LESS: `npm run compile-less`
-     - SASS: `npm run compile-sass`
-  5. Compare the resulting CSS files.
-
-## Conclusion
-
-- **Recap**:
-  - Reviewed key differences between LESS and SASS.
-  - Practiced writing basic LESS code.
-  - Compared the output of compiled CSS files.
-
-- **Encouragement**:
-  - Practice regularly to become proficient with LESS.
-  - Explore more advanced features and techniques.
-  - Join communities and forums for further learning.
+- Try LESS in a real project alongside a framework like Bootstrap
+- Explore LESS plugins and advanced features
+- Consider when LESS vs SCSS makes sense for your team/project
