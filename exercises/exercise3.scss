@@ -1,0 +1,12 @@
+// SASS Conditional Mixins
+@mixin mixin($a) {
+  @if $a == true {
+    background-color: black;
+  } @else {
+    background-color: white;
+  }
+}
+
+.element {
+  @include mixin(true);
+}

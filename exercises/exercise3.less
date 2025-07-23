@@ -1,0 +1,11 @@
+// LESS Guarded Mixins
+.mixin (@a) when (@a = true) {
+  background-color: black;
+}
+.mixin (@a) when (@a = false) {
+  background-color: white;
+}
+
+.element {
+  .mixin(true);
+}
