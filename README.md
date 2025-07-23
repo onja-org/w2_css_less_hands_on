@@ -52,35 +52,33 @@ Welcome to the LESS CSS tutorial! This tutorial is designed to help you get star
 
 ### Installation
 
-- **Install Node.js and npm** (You should already have this installed)
-
-  In case you don't have it installed:
+- **Install Node.js and npm**:
   - Download and install Node.js from [nodejs.org](https://nodejs.org/).
   - npm (Node Package Manager) comes bundled with Node.js.
 
-- **Install LESS and SASS Compilers in the project**:
+- **Clone the repository**:
+  ```bash
+  git clone <repository-url>
+  cd w2_css_less_tutorial
+  ```
 
-All you need to do is run `npm install`.
+- **Install dependencies locally**:
+  ```bash
+  npm install
+  ```
 
 ### Basic Configuration
-
-- **Create a simple project structure**:
-  ```bash
-  mkdir w2_css_less_tutorial
-  cd w2_css_less_tutorial
-  mkdir exercises
-  ```
 
 - **Example LESS file and compilation command**:
   ```bash
   echo "// LESS Variables\n@primary-color: #3498db;\n@font-size: 16px;\n\nbody {\n  color: @primary-color;\n  font-size: @font-size;\n}\n" > exercises/exercise1.less
-  lessc exercises/exercise1.less exercises/exercise1.css
+  npm run compile-less
   ```
 
 - **Example SASS file and compilation command**:
   ```bash
   echo "// SASS Variables\n\$primary-color: #3498db;\n\$font-size: 16px;\n\nbody {\n  color: \$primary-color;\n  font-size: \$font-size;\n}\n" > exercises/exercise1.scss
-  sass exercises/exercise1.scss exercises/exercise1.css
+  npm run compile-sass
   ```
 
 ## Basic Concepts
@@ -198,7 +196,9 @@ All you need to do is run `npm install`.
   1. Create `exercise1.less` and `exercise1.scss` in the `exercises` directory.
   2. Define variables for `primary-color` and `font-size`.
   3. Use these variables to style the `body` element.
-  4. Compile both files to CSS using the respective commands.
+  4. Compile both files to CSS using the respective commands:
+     - LESS: `npm run compile-less`
+     - SASS: `npm run compile-sass`
   5. Compare the resulting CSS files.
 
 ### Exercise 2: Mixins
@@ -208,7 +208,9 @@ All you need to do is run `npm install`.
   1. Create `exercise2.less` and `exercise2.scss` in the `exercises` directory.
   2. Define a mixin for `border-radius`.
   3. Use the mixin in a CSS class.
-  4. Compile both files to CSS using the respective commands.
+  4. Compile both files to CSS using the respective commands:
+     - LESS: `npm run compile-less`
+     - SASS: `npm run compile-sass`
   5. Compare the resulting CSS files.
 
 ### Exercise 3: Guarded Mixins
@@ -218,7 +220,9 @@ All you need to do is run `npm install`.
   1. Create `exercise3.less` and `exercise3.scss` in the `exercises` directory.
   2. Define a guarded mixin in LESS and a conditional mixin in SASS.
   3. Test both by passing different values.
-  4. Compile both files to CSS using the respective commands.
+  4. Compile both files to CSS using the respective commands:
+     - LESS: `npm run compile-less`
+     - SASS: `npm run compile-sass`
   5. Compare the resulting CSS files.
 
 ## Conclusion
