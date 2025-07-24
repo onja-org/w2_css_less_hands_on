@@ -4,9 +4,9 @@
   "description": "LESS CSS Tutorial",
   "main": "index.js",
   "scripts": {
-    "compile:ex1": "lessc exercises/exercise1.less exercises/exercise1.css && sass exercises/exercise1.scss exercises/exercise1.scss.css",
-    "compile:ex2": "lessc exercises/exercise2.less exercises/exercise2.css && sass exercises/exercise2.scss exercises/exercise2.css",
-    "compile:ex3": "lessc exercises/exercise3.less exercises/exercise3.css && sass exercises/exercise3.scss exercises/exercise3.css",
+    "compile:ex1": "lessc exercises/exercise1.less exercises/exercise1.css & sass exercises/exercise1.scss exercises/exercise1.scss.css",
+    "compile:ex2": "lessc exercises/exercise2.less exercises/exercise2.css",
+    "compile:ex3": "lessc exercises/exercise3.less exercises/exercise3.css",
     "compile:ex4": "lessc exercises/exercise4.less exercises/exercise4.css",
     "compile:all": "npm run compile:ex1 && npm run compile:ex2 && npm run compile:ex3 && npm run compile:ex4",
     "watch:less": "lessc --watch exercises/ exercises/",
@@ -18,6 +18,6 @@
   "license": "ISC",
   "devDependencies": {
     "less": "^4.2.0",
-    "sass": "^1.56.1"
+    "sass": "^1.89.2"
   }
 }

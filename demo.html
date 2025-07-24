@@ -1,169 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LESS CSS Lab - Demo</title>
-    <link rel="stylesheet" href="exercises/exercise1.css">
-    <link rel="stylesheet" href="exercises/exercise2.css">
-    <link rel="stylesheet" href="exercises/exercise3.css">
-    <link rel="stylesheet" href="exercises/exercise4.css">
-    <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 2rem;
-            background: #f8f9fa;
-        }
-        .section {
-            background: white;
-            margin: 2rem 0;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .section h2 {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5rem;
-        }
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        .theme-switcher {
-            margin: 1rem 0;
-            padding: 1rem;
-            background: #ecf0f1;
-            border-radius: 4px;
-        }
-        .theme-switcher button {
-            margin-right: 0.5rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid #bdc3c7;
-            background: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .theme-switcher button.active {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>🎨 LESS CSS Lab Demo</h1>
-        <p>This page demonstrates the results of your LESS exercises. Make sure to compile your LESS files to see changes!</p>
-        
-        <div class="theme-switcher">
-            <strong>Theme:</strong>
-            <button class="theme-btn active" data-theme="light">Light</button>
-            <button class="theme-btn" data-theme="dark">Dark</button>
-        </div>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>LESS CSS Lab - Demo</title>
+        <link rel="stylesheet" href="exercises/exercise1.css" />
+        <link rel="stylesheet" href="exercises/exercise2.css" />
+        <link rel="stylesheet" href="exercises/exercise3.css" />
+        <link rel="stylesheet" href="exercises/exercise4.css" />
+        <style>
+            body {
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 2rem;
+                background: #f8f9fa;
+            }
+            .section {
+                background: white;
+                margin: 2rem 0;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            .section h2 {
+                margin-top: 0;
+                color: #2c3e50;
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 0.5rem;
+            }
+            .demo-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+            .theme-switcher {
+                margin: 1rem 0;
+                padding: 1rem;
+                background: #ecf0f1;
+                border-radius: 4px;
+            }
+            .theme-switcher button {
+                margin-right: 0.5rem;
+                padding: 0.5rem 1rem;
+                border: 1px solid #bdc3c7;
+                background: white;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .theme-switcher button.active {
+                background: #3498db;
+                color: white;
+                border-color: #3498db;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>🎨 LESS CSS Lab Demo</h1>
+            <p>
+                This page demonstrates the results of your LESS exercises. Make
+                sure to compile your LESS files with `npm start` and then
+                refresh the browser to see changes!
+            </p>
 
-    <!-- Exercise 1: Variables & Basic Syntax -->
-    <section class="section">
-        <h2>Exercise 1: Variables & Basic Syntax</h2>
-        <p>These buttons use LESS variables for consistent theming:</p>
-        
-        <div class="demo-grid">
-            <button class="btn btn-primary">Primary Button</button>
-            <button class="btn btn-secondary">Secondary Button</button>
-            <button class="btn btn-danger">Danger Button</button>
-            <button class="btn btn-dark">Dark Button</button>
-        </div>
-    </section>
-
-    <!-- Exercise 2: Mixins & Functions -->
-    <section class="section">
-        <h2>Exercise 2: Mixins & Functions</h2>
-        <p>These components use LESS mixins and built-in functions:</p>
-        
-        <div class="demo-grid">
-            <div class="flex-center-demo">
-                <span>Centered with Mixin</span>
+            <div class="theme-switcher">
+                <strong>Theme:</strong>
+                <button class="theme-btn active" data-theme="light">
+                    Light
+                </button>
+                <button class="theme-btn" data-theme="dark">Dark</button>
             </div>
-            <button class="btn-styled btn-small">Small Button</button>
-            <button class="btn-styled btn-medium">Medium Button</button>
-            <button class="btn-styled btn-large">Large Button</button>
-        </div>
-        
-        <div class="color-functions-demo">
-            <div class="color-sample original">Original</div>
-            <div class="color-sample lightened">Lightened</div>
-            <div class="color-sample darkened">Darkened</div>
-            <div class="color-sample saturated">Saturated</div>
-            <div class="color-sample faded">Faded</div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Exercise 3: LESS-Specific Features -->
-    <section class="section">
-        <h2>Exercise 3: LESS-Specific Features</h2>
-        <p>Resize your browser to see responsive behavior and hover over the cards:</p>
-        
-        <div class="demo-grid">
-            <div class="card">
-                <h3>Card 1</h3>
-                <p>Hover over me! I use guarded mixins for responsive behavior.</p>
+        <!-- Exercise 1: Variables & Basic Syntax -->
+        <section class="section">
+            <h2>Exercise 1: Variables & Basic Syntax</h2>
+            <p>These buttons use LESS variables for consistent theming:</p>
+
+            <div class="demo-grid">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-danger">Danger Button</button>
+                <button class="btn btn-dark">Dark Button</button>
             </div>
-            <div class="card">
-                <h3>Card 2</h3>
-                <p>I change style based on the theme context above.</p>
+        </section>
+
+        <!-- Exercise 2: Mixins & Functions -->
+        <section class="section">
+            <h2>Exercise 2: Mixins & Functions</h2>
+            <p>These components use LESS mixins and built-in functions:</p>
+
+            <div class="demo-grid">
+                <div class="flex-center-demo">
+                    <span>Centered with Mixin</span>
+                </div>
+                <button class="btn-styled btn-small">Small Button</button>
+                <button class="btn-styled btn-medium">Medium Button</button>
+                <button class="btn-styled btn-large">Large Button</button>
             </div>
-            <div class="card">
-                <h3>Card 3</h3>
-                <p>Parent selector magic makes theming easy!</p>
+
+            <div class="color-functions-demo">
+                <div class="color-sample original">Original</div>
+                <div class="color-sample lightened">Lightened</div>
+                <div class="color-sample darkened">Darkened</div>
+                <div class="color-sample saturated">Saturated</div>
+                <div class="color-sample faded">Faded</div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Exercise 4: Mini Project -->
-    <section class="section">
-        <h2>Exercise 4: Mini Project - Theme Switcher</h2>
-        <p>Your completed theme switcher component:</p>
-        
-        <div class="theme-demo">
-            <div class="card-component">
-                <h3>Your Component Here</h3>
-                <p>This should change appearance based on the theme selected above.</p>
-                <button class="component-btn">Action Button</button>
+        <!-- Exercise 3: LESS-Specific Features -->
+        <section class="section">
+            <h2>Exercise 3: LESS-Specific Features</h2>
+            <p>
+                Resize your browser to see responsive behavior and hover over
+                the cards:
+            </p>
+
+            <div class="demo-grid">
+                <div class="card">
+                    <h3>Card 1</h3>
+                    <p>
+                        Hover over me! I use guarded mixins for responsive
+                        behavior.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Card 2</h3>
+                    <p>I change style based on the theme context above.</p>
+                </div>
+                <div class="card">
+                    <h3>Card 3</h3>
+                    <p>Parent selector magic makes theming easy!</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer style="text-align: center; margin-top: 3rem; color: #7f8c8d;">
-        <p>🎉 Great job working through the LESS CSS lab! Remember to compile your LESS files to see changes.</p>
-    </footer>
+        <!-- Exercise 4: Mini Project -->
+        <section class="section">
+            <h2>Exercise 4: Mini Project - Theme Switcher</h2>
+            <p>Your completed theme switcher component:</p>
 
-    <script>
-        // Theme switcher functionality
-        const themeButtons = document.querySelectorAll('.theme-btn');
-        const body = document.body;
+            <div class="theme-demo">
+                <div class="card-component">
+                    <h3>Your Component Here</h3>
+                    <p>
+                        This should change appearance based on the theme
+                        selected above.
+                    </p>
+                    <button class="component-btn">Action Button</button>
+                </div>
+            </div>
+        </section>
 
-        themeButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const theme = btn.dataset.theme;
-                
-                // Update active button
-                themeButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // Apply theme class
-                body.classList.remove('light-theme', 'dark-theme');
-                body.classList.add(`${theme}-theme`);
+        <footer style="text-align: center; margin-top: 3rem; color: #7f8c8d">
+            <p>
+                🎉 Great job working through the LESS CSS lab! Remember to
+                compile your LESS files to see changes.
+            </p>
+        </footer>
+
+        <script>
+            // Theme switcher functionality
+            const themeButtons = document.querySelectorAll(".theme-btn");
+            const body = document.body;
+
+            themeButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const theme = btn.dataset.theme;
+
+                    // Update active button
+                    themeButtons.forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    // Apply theme class
+                    body.classList.remove("light-theme", "dark-theme");
+                    body.classList.add(`${theme}-theme`);
+                });
             });
-        });
 
-        // Initialize with light theme
-        body.classList.add('light-theme');
-    </script>
-</body>
+            // Initialize with light theme
+            body.classList.add("light-theme");
+        </script>
+    </body>
 </html>

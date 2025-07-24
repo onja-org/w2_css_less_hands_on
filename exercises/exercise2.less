@@ -12,17 +12,31 @@
 // }
 
 // TODO: Create the button-style mixin
-// This should use the 'when' conditional to handle different sizes
+// This should use the 'when' conditional to handle different sizes (See mixin guards below)
 // .button-style(@bg: @primary, @size: medium) {
 //   background: @bg;
 //   border: none;
 //   padding: when(@size=small, 0.5rem 1rem, 0.75rem 1.5rem);
 //   border-radius: 4px;
 //   cursor: pointer;
-//   
+//
 //   &:hover {
 //     background: darken(@bg, 10%);
 //   }
+// }
+
+// Use the mixin guards to handle different sizes:
+// Padding for small
+// .button-style(@bg: @primary, @size: small) when (@size = small) {
+//  padding: 0.5rem 1rem;
+// }
+// Padding for medium (default)
+// .button-style(@bg: @primary, @size: medium) when (@size = medium) {
+//   padding: 0.75rem 1.5rem;
+// }
+// Padding for large
+// .button-style(@bg: @primary, @size: large) when (@size = large) {
+//   padding: 1.25rem 2rem;
 // }
 
 // Demo: Flex center usage
@@ -33,7 +47,7 @@
   background: lighten(@primary, 40%);
   border: 2px dashed @primary;
   border-radius: 8px;
-  
+
   span {
     color: @primary;
     font-weight: bold;
@@ -45,11 +59,11 @@
 // .btn-styled {
 //   .button-style(@primary, medium);
 // }
-// 
+//
 // .btn-small {
 //   .button-style(@secondary, small);
 // }
-// 
+//
 // .btn-large {
 //   .button-style(@danger, large);
 // }
@@ -59,7 +73,7 @@
   display: flex;
   gap: 1rem;
   margin: 1rem 0;
-  
+
   .color-sample {
     width: 80px;
     height: 80px;
@@ -72,7 +86,7 @@
     text-align: center;
     border-radius: 8px;
   }
-  
+
   // TODO: Experiment with LESS color functions
   .original { background: @primary; }
   // .lightened { background: lighten(@primary, 20%); }
