@@ -10,52 +10,52 @@
 
 // ✅ Theme Variables - Define your color palette
 // TODO: Uncomment and complete these variables
-@primary: #3498db;    // Blue - for primary actions
-@secondary: #2ecc71;  // Green - for success/secondary actions
-@danger: #e74c3c;     // Red - for warnings/errors
-@dark: #2c3e50;       // Dark blue-gray - for text/dark themes
-@spacing: 1rem;       // Base spacing unit for consistency
+// @primary: #3498db;    // Blue - for primary actions
+// @secondary: #2ecc71;  // Green - for success/secondary actions
+// @danger: #e74c3c;     // Red - for warnings/errors
+// @dark: #2c3e50;       // Dark blue-gray - for text/dark themes
+// @spacing: 1rem;       // Base spacing unit for consistency
 
 // ✅ Additional Variables - Extend your theme
 // TODO: Add these variables for a complete design system
-@light: #ecf0f1;      // Light gray for backgrounds
-@white: #ffffff;      // Pure white
-@border-radius: 4px;  // Consistent border radius
-@transition: all 0.2s ease; // Smooth transitions
+// @light: #ecf0f1;      // Light gray for backgrounds
+// @white: #ffffff;      // Pure white
+// @border-radius: 4px;  // Consistent border radius
+// @transition: all 0.2s ease; // Smooth transitions
 
 /* ========================================
    BASIC BUTTON COMPONENT
    ======================================== */
 
 // TODO: Create the base button class using your variables
-.btn {
-  // Base button styles - these apply to ALL buttons
-  padding: @spacing;
-  border: none;
-  border-radius: @border-radius;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 0.9rem;
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-  transition: @transition;
-
-  // Default button appearance
-  background: @light;
-  color: @dark;
-
-  // Hover effect for all buttons
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-
-  // Active/pressed state
-  &:active {
-    transform: translateY(0);
-  }
-}
+// .btn {
+//   // Base button styles - these apply to ALL buttons
+//   padding: @spacing;
+//   border: none;
+//   border-radius: @border-radius;
+//   cursor: pointer;
+//   font-weight: 500;
+//   font-size: 0.9rem;
+//   text-decoration: none;
+//   display: inline-block;
+//   text-align: center;
+//   transition: @transition;
+//
+//   // Default button appearance
+//   background: @light;
+//   color: @dark;
+//
+//   // Hover effect for all buttons
+//   &:hover {
+//     transform: translateY(-1px);
+//     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+//   }
+//
+//   // Active/pressed state
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
 
 /* ========================================
    BUTTON VARIANTS
@@ -64,53 +64,53 @@
 // TODO: Create button variants using your theme variables
 // Each variant overrides the background and text color
 
-.btn-primary {
-  background: @primary;
-  color: @white;
-
-  &:hover {
-    background: darken(@primary, 10%); // Using LESS color function!
-  }
-}
-
-.btn-secondary {
-  background: @secondary;
-  color: @white;
-
-  &:hover {
-    background: darken(@secondary, 10%);
-  }
-}
-
-.btn-danger {
-  background: @danger;
-  color: @white;
-
-  &:hover {
-    background: darken(@danger, 10%);
-  }
-}
-
-.btn-dark {
-  background: @dark;
-  color: @white;
-
-  &:hover {
-    background: lighten(@dark, 15%);
-  }
-}
-
-// Outline button variants
-.btn-outline {
-  background: transparent;
-  border: 2px solid @primary;
-  color: @primary;
-
-  &:hover {
-    background: @primary;
-    color: @white;
-  }
-}
+// .btn-primary {
+//   background: @primary;
+//   color: @white;
+//
+//   &:hover {
+//     background: darken(@primary, 10%); // Using LESS color function!
+//   }
+// }
+//
+// .btn-secondary {
+//   background: @secondary;
+//   color: @white;
+//
+//   &:hover {
+//     background: darken(@secondary, 10%);
+//   }
+// }
+//
+// .btn-danger {
+//   background: @danger;
+//   color: @white;
+//
+//   &:hover {
+//     background: darken(@danger, 10%);
+//   }
+// }
+//
+// .btn-dark {
+//   background: @dark;
+//   color: @white;
+//
+//   &:hover {
+//     background: lighten(@dark, 15%);
+//   }
+// }
+//
+// // Outline button variants
+// .btn-outline {
+//   background: transparent;
+//   border: 2px solid @primary;
+//   color: @primary;
+//
+//   &:hover {
+//     background: @primary;
+//     color: @white;
+//   }
+// }
 
 /* ========================================
    THEME CONTEXT STYLING
@@ -119,56 +119,58 @@
 // ✅ Light Theme Context
 // When buttons appear inside .light-theme container
 .light-theme {
-  background: @white;
-  color: @dark;
+  // TODO: Add light theme styling
+  // background: @white;
+  // color: @dark;
 
   .btn {
-    // Light theme button adjustments
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-
-    &:hover {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
+    // TODO: Light theme button adjustments
+    // box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    //
+    // &:hover {
+    //   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    // }
   }
 
-  // Override outline button for light theme
-  .btn-outline {
-    border-color: @primary;
-    color: @primary;
-  }
+  // TODO: Override outline button for light theme
+  // .btn-outline {
+  //   border-color: @primary;
+  //   color: @primary;
+  // }
 }
 
 // ✅ Dark Theme Context
 // When buttons appear inside .dark-theme container
 .dark-theme {
-  background: @dark;
-  color: @white;
+  // TODO: Add dark theme styling
+  // background: @dark;
+  // color: @white;
 
   .btn {
-    // Dark theme button adjustments
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-
-    // Default button gets dark theme styling
-    &:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.btn-dark) {
-      background: lighten(@dark, 10%);
-      color: @white;
-
-      &:hover {
-        background: lighten(@dark, 20%);
-      }
-    }
+    // TODO: Dark theme button adjustments (try using different opacity or colors)
+    // box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    //
+    // // Default button gets dark theme styling
+    // &:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.btn-dark) {
+    //   background: lighten(@dark, 10%);
+    //   color: @white;
+    //
+    //   &:hover {
+    //     background: lighten(@dark, 20%);
+    //   }
+    // }
   }
 
-  // Light outline for dark theme
-  .btn-outline {
-    border-color: @white;
-    color: @white;
-
-    &:hover {
-      background: @white;
-      color: @dark;
-    }
-  }
+  // TODO: Light outline for dark theme
+  // .btn-outline {
+  //   border-color: @white;
+  //   color: @white;
+  //
+  //   &:hover {
+  //     background: @white;
+  //     color: @dark;
+  //   }
+  // }
 }
 
 /* ========================================
@@ -186,17 +188,19 @@
   h3 {
     width: 100%;
     margin: 0 0 1rem 0;
-    color: @primary;
+    // TODO: Use your primary color here when you define it
+    // color: @primary;
   }
 }
 
 // Size variants (bonus!)
-.btn-small {
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-}
-
-.btn-large {
-  padding: 1.25rem 2rem;
-  font-size: 1.1rem;
-}
+// TODO: Create small and large button variants
+// .btn-small {
+//   padding: 0.5rem 1rem;
+//   font-size: 0.8rem;
+// }
+//
+// .btn-large {
+//   padding: 1.25rem 2rem;
+//   font-size: 1.1rem;
+// }
