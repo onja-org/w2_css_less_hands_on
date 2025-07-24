@@ -1,39 +1,202 @@
 // Exercise 1: Variables & Basic Syntax
-// TODO: Add the theme variables shown in the README
-// Hint: LESS variables use @ symbol
+// 🎯 Learning Goal: Understand LESS variables and how they differ from SCSS
 
-// Theme Variables (Add these!)
-// @primary: #3498db;
-// @secondary: #2ecc71;
-// @danger: #e74c3c;
-// @dark: #2c3e50;
-// @spacing: 1rem;
+/* ========================================
+   VARIABLES IN LESS
+   ======================================== */
 
-// TODO: Create button styles using your variables
-// Example structure:
-// .btn {
-//   padding: @spacing;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-//   font-weight: 500;
-//   transition: all 0.2s ease;
-// }
+// LESS variables use the @ symbol (SCSS uses $)
+// Variables store reusable values for consistency and maintainability
 
-// TODO: Create button variants
-// .btn-primary { background: @primary; color: white; }
-// Add more button variants for secondary, danger, and dark themes
+// ✅ Theme Variables - Define your color palette
+// TODO: Uncomment and complete these variables
+@primary: #3498db;    // Blue - for primary actions
+@secondary: #2ecc71;  // Green - for success/secondary actions
+@danger: #e74c3c;     // Red - for warnings/errors
+@dark: #2c3e50;       // Dark blue-gray - for text/dark themes
+@spacing: 1rem;       // Base spacing unit for consistency
 
-// Light/Dark theme styles
-// TODO: Add theme context styles
-.light-theme {
-  .btn {
-    // Light theme button adjustments
+// ✅ Additional Variables - Extend your theme
+// TODO: Add these variables for a complete design system
+@light: #ecf0f1;      // Light gray for backgrounds
+@white: #ffffff;      // Pure white
+@border-radius: 4px;  // Consistent border radius
+@transition: all 0.2s ease; // Smooth transitions
+
+/* ========================================
+   BASIC BUTTON COMPONENT
+   ======================================== */
+
+// TODO: Create the base button class using your variables
+.btn {
+  // Base button styles - these apply to ALL buttons
+  padding: @spacing;
+  border: none;
+  border-radius: @border-radius;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: @transition;
+
+  // Default button appearance
+  background: @light;
+  color: @dark;
+
+  // Hover effect for all buttons
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  // Active/pressed state
+  &:active {
+    transform: translateY(0);
   }
 }
 
-.dark-theme {
-  .btn {
-    // Dark theme button adjustments (try using different opacity or colors)
+/* ========================================
+   BUTTON VARIANTS
+   ======================================== */
+
+// TODO: Create button variants using your theme variables
+// Each variant overrides the background and text color
+
+.btn-primary {
+  background: @primary;
+  color: @white;
+
+  &:hover {
+    background: darken(@primary, 10%); // Using LESS color function!
   }
+}
+
+.btn-secondary {
+  background: @secondary;
+  color: @white;
+
+  &:hover {
+    background: darken(@secondary, 10%);
+  }
+}
+
+.btn-danger {
+  background: @danger;
+  color: @white;
+
+  &:hover {
+    background: darken(@danger, 10%);
+  }
+}
+
+.btn-dark {
+  background: @dark;
+  color: @white;
+
+  &:hover {
+    background: lighten(@dark, 15%);
+  }
+}
+
+// Outline button variants
+.btn-outline {
+  background: transparent;
+  border: 2px solid @primary;
+  color: @primary;
+
+  &:hover {
+    background: @primary;
+    color: @white;
+  }
+}
+
+/* ========================================
+   THEME CONTEXT STYLING
+   ======================================== */
+
+// ✅ Light Theme Context
+// When buttons appear inside .light-theme container
+.light-theme {
+  background: @white;
+  color: @dark;
+
+  .btn {
+    // Light theme button adjustments
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+  }
+
+  // Override outline button for light theme
+  .btn-outline {
+    border-color: @primary;
+    color: @primary;
+  }
+}
+
+// ✅ Dark Theme Context
+// When buttons appear inside .dark-theme container
+.dark-theme {
+  background: @dark;
+  color: @white;
+
+  .btn {
+    // Dark theme button adjustments
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+    // Default button gets dark theme styling
+    &:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.btn-dark) {
+      background: lighten(@dark, 10%);
+      color: @white;
+
+      &:hover {
+        background: lighten(@dark, 20%);
+      }
+    }
+  }
+
+  // Light outline for dark theme
+  .btn-outline {
+    border-color: @white;
+    color: @white;
+
+    &:hover {
+      background: @white;
+      color: @dark;
+    }
+  }
+}
+
+/* ========================================
+   DEMONSTRATION SECTION
+   ======================================== */
+
+// Demo container to showcase your buttons
+.button-demo {
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+
+  h3 {
+    width: 100%;
+    margin: 0 0 1rem 0;
+    color: @primary;
+  }
+}
+
+// Size variants (bonus!)
+.btn-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+.btn-large {
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
 }
