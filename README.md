@@ -1,24 +1,24 @@
-# LESS CSS Hands-On Lab (1 Hour)
+# LESS CSS Hands-On Lab
 
-**🎯 Goal:** Get familiar with LESS as an alternative to SCSS through hands-on practice  
-**⏱️ Duration:** ~60 minutes  
+**🎯 Goal:** Get familiar with LESS as an alternative to SCSS through hands-on practice
+**⏱️ Duration:** ~1.5 hours
 **📚 Prerequisites:** Basic knowledge of SCSS from previous lessons
 
 ## What You'll Learn
 
 By the end of this lab, you'll understand:
 - How LESS differs from SCSS syntactically
-- When you might choose LESS over SCSS in real projects  
+- When you might choose LESS over SCSS in real projects
 - Key LESS-specific features that make it unique
 - How LESS fits into the broader frontend tooling ecosystem
 
 ## Lab Structure
 
-- **Setup** (5 min)
-- **Exercise 1: Variables & Basic Syntax** (15 min)
-- **Exercise 2: Mixins & Functions** (15 min) 
-- **Exercise 3: LESS-Specific Features** (15 min)
-- **Exercise 4: Mini Project** (10 min)
+- **Setup**
+- **Exercise 1: Variables & Basic Syntax**
+- **Exercise 2: Mixins & Functions**
+- **Exercise 3: LESS-Specific Features**
+- **Exercise 4: Mini Project**
 
 ## Quick Start
 
@@ -26,9 +26,11 @@ By the end of this lab, you'll understand:
 # Install dependencies
 npm install
 
-# Start watching files (we'll use this throughout)
-npm run watch-all
+# Compile LESS to CSS
+npm start
 ```
+
+> Note that there are currently errors in some of the files -- these will be fixed as you go through the exercises.
 
 ## Why LESS?
 
@@ -50,13 +52,13 @@ LESS was one of the first CSS preprocessors and remains popular because:
 
 ---
 
-## Exercise 1: Variables & Basic Syntax (15 min)
+## Exercise 1: Variables & Basic Syntax
 
 **🎯 Objective:** Compare LESS and SCSS variable syntax by building a simple color theme.
 
 ### Task 1A: Create Theme Variables
 1. Open `exercises/exercise1.less` and `exercises/exercise1.scss`
-2. Add theme variables to both files:
+2. Add theme variables to the LESS file:
    ```less
    // LESS version
    @primary: #3498db;
@@ -71,12 +73,13 @@ LESS was one of the first CSS preprocessors and remains popular because:
 5. Open `demo.html` in your browser
 
 ### Task 1B: Spot the Differences
-- Compare the compiled CSS from both preprocessors
+- When you run `npm run compile:ex1`, it will compile both LESS and SCSS files.
+- Compare the compiled CSS from both preprocessors (LESS is compild to `css/exercise1.css`, SCSS is compiled to `css/exercise1.scss.css`)
 - Notice: Are there any differences in output? Why or why not?
 
 ---
 
-## Exercise 2: Mixins & Functions (15 min)
+## Exercise 2: Mixins & Functions
 
 **🎯 Objective:** Experience LESS's simpler mixin syntax and built-in functions.
 
@@ -98,7 +101,7 @@ Add these mixins to `exercise2.less`:
   padding: when(@size=small, 0.5rem 1rem, 0.75rem 1.5rem);
   border-radius: 4px;
   cursor: pointer;
-  
+
   &:hover {
     background: darken(@bg, 10%);
   }
@@ -114,7 +117,7 @@ Experiment with these LESS color functions:
 
 ---
 
-## Exercise 3: LESS-Specific Features (15 min)
+## Exercise 3: LESS-Specific Features
 
 **🎯 Objective:** Explore features that make LESS unique.
 
@@ -138,11 +141,11 @@ Create hover effects and state variations:
 .card {
   background: white;
   padding: 1rem;
-  
+
   &:hover {
     transform: translateY(-2px);
   }
-  
+
   .dark-theme & {
     background: @dark;
     color: white;
@@ -152,7 +155,7 @@ Create hover effects and state variations:
 
 ---
 
-## Exercise 4: Mini Project - Theme Switcher (10 min)
+## Exercise 4: Mini Project - Theme Switcher
 
 **🎯 Objective:** Build a component with light/dark theme using LESS.
 
@@ -169,9 +172,9 @@ Create a card component that:
 
 ## What You've Learned
 
-✅ **Syntax Differences:** `@` vs `$`, `.mixin()` vs `@include`  
-✅ **LESS Advantages:** Simpler syntax, guarded mixins, parent selector flexibility  
-✅ **When to Choose LESS:** Simpler projects, teams preferring CSS-like syntax, client-side compilation needs  
+✅ **Syntax Differences:** `@` vs `$`, `.mixin()` vs `@include`
+✅ **LESS Advantages:** Simpler syntax, guarded mixins, parent selector flexibility
+✅ **When to Choose LESS:** Simpler projects, teams preferring CSS-like syntax, client-side compilation needs
 ✅ **Ecosystem Fit:** Understanding preprocessor choices in different frameworks
 
 ## Next Steps
