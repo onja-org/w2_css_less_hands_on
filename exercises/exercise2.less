@@ -21,12 +21,12 @@
 
 // TODO: Create the flex-center mixin
 // This mixin helps center content with flexbox
-.flex-center(@direction: row) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: @direction;
-}
+// .flex-center(@direction: row) {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: @direction;
+// }
 
 // ✅ Breaking down the syntax:
 // .flex-center        - Mixin name (starts with .)
@@ -43,46 +43,46 @@
 
 // TODO: Create button-style mixin with size variants
 // Base mixin that applies common button styles
-.button-style(@bg: @primary, @size: medium) {
-  background: @bg;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-
-  // Hover effect using built-in function
-  &:hover {
-    background: darken(@bg, 10%);
-  }
-}
+// .button-style(@bg: @primary, @size: medium) {
+//   background: @bg;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   font-weight: 500;
+//   transition: all 0.2s ease;
+//
+//   // Hover effect using built-in function
+//   &:hover {
+//     background: darken(@bg, 10%);
+//   }
+// }
 
 // ✅ Guarded mixins for different sizes
 // These mixins have the same name but different conditions
 // LESS automatically picks the right one based on the @size parameter
 
-.button-style(@bg: @primary, @size) when (@size = small) {
-  .button-style(@bg, medium); // Include base styles
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-}
-
-.button-style(@bg: @primary, @size) when (@size = medium) {
-  .button-style(@bg, medium); // Include base styles
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
-}
-
-.button-style(@bg: @primary, @size) when (@size = large) {
-  .button-style(@bg, medium); // Include base styles
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-}
+// .button-style(@bg: @primary, @size) when (@size = small) {
+//   .button-style(@bg, medium); // Include base styles
+//   padding: 0.5rem 1rem;
+//   font-size: 0.8rem;
+// }
+//
+// .button-style(@bg: @primary, @size) when (@size = medium) {
+//   .button-style(@bg, medium); // Include base styles
+//   padding: 0.75rem 1.5rem;
+//   font-size: 0.9rem;
+// }
+//
+// .button-style(@bg: @primary, @size) when (@size = large) {
+//   .button-style(@bg, medium); // Include base styles
+//   padding: 1rem 2rem;
+//   font-size: 1.1rem;
+// }
 
 // ✅ Alternative approach: One mixin with multiple guards
-.button-padding(@size) when (@size = small) { padding: 0.5rem 1rem; }
-.button-padding(@size) when (@size = medium) { padding: 0.75rem 1.5rem; }
-.button-padding(@size) when (@size = large) { padding: 1rem 2rem; }
+// .button-padding(@size) when (@size = small) { padding: 0.5rem 1rem; }
+// .button-padding(@size) when (@size = medium) { padding: 0.75rem 1.5rem; }
+// .button-padding(@size) when (@size = large) { padding: 1rem 2rem; }
 
 /* ========================================
    DEMONSTRATION: USING MIXINS
@@ -91,7 +91,7 @@
 // Demo: Flex center usage
 .flex-center-demo {
   // TODO: Use your flex-center mixin here
-  .flex-center(column); // Using the mixin with column direction
+  // .flex-center(column); // Using the mixin with column direction
   width: 200px;
   height: 100px;
   background: lighten(@primary, 40%);
@@ -116,33 +116,35 @@
     border: 2px solid @secondary;
     border-radius: 4px;
 
-    &.horizontal { .flex-center(row); }
-    &.vertical { .flex-center(column); }
-    &.reverse { .flex-center(row-reverse); }
+    // TODO: Use your flex-center mixin with different directions
+    // &.horizontal { .flex-center(row); }
+    // &.vertical { .flex-center(column); }
+    // &.reverse { .flex-center(row-reverse); }
   }
 }
 
 // Demo: Button style variations using your mixins
-.btn-styled {
-  .button-style(@primary, medium);
-}
-
-.btn-small {
-  .button-style(@secondary, small);
-}
-
-.btn-large {
-  .button-style(@danger, large);
-}
-
-// Demo: Custom styled buttons
-.btn-custom-1 {
-  .button-style(mix(@primary, @secondary, 50%), medium);
-}
-
-.btn-custom-2 {
-  .button-style(fade(@danger, 80%), large);
-}
+// TODO: Create button classes using your mixin
+// .btn-styled {
+//   .button-style(@primary, medium);
+// }
+//
+// .btn-small {
+//   .button-style(@secondary, small);
+// }
+//
+// .btn-large {
+//   .button-style(@danger, large);
+// }
+//
+// // Demo: Custom styled buttons
+// .btn-custom-1 {
+//   .button-style(mix(@primary, @secondary, 50%), medium);
+// }
+//
+// .btn-custom-2 {
+//   .button-style(fade(@danger, 80%), large);
+// }
 
 /* ========================================
    LESS BUILT-IN FUNCTIONS
@@ -187,41 +189,42 @@
     &::after { content: "original"; }
   }
 
-  .lightened {
-    background: lighten(@primary, 20%);
-    &::after { content: "lighten 20%"; }
-  }
-
-  .darkened {
-    background: darken(@primary, 20%);
-    &::after { content: "darken 20%"; }
-  }
-
-  .saturated {
-    background: saturate(@primary, 30%);
-    &::after { content: "saturate 30%"; }
-  }
-
-  .desaturated {
-    background: desaturate(@primary, 30%);
-    &::after { content: "desaturate 30%"; }
-  }
-
-  .faded {
-    background: fade(@primary, 50%);
-    color: @dark;
-    &::after { content: "fade 50%"; color: @dark; }
-  }
-
-  .mixed {
-    background: mix(@primary, @secondary, 60%);
-    &::after { content: "mix 60%"; }
-  }
-
-  .spun {
-    background: spin(@primary, 60);
-    &::after { content: "spin 60°"; }
-  }
+  // TODO: Uncomment these to see color functions in action
+  // .lightened {
+  //   background: lighten(@primary, 20%);
+  //   &::after { content: "lighten 20%"; }
+  // }
+  //
+  // .darkened {
+  //   background: darken(@primary, 20%);
+  //   &::after { content: "darken 20%"; }
+  // }
+  //
+  // .saturated {
+  //   background: saturate(@primary, 30%);
+  //   &::after { content: "saturate 30%"; }
+  // }
+  //
+  // .desaturated {
+  //   background: desaturate(@primary, 30%);
+  //   &::after { content: "desaturate 30%"; }
+  // }
+  //
+  // .faded {
+  //   background: fade(@primary, 50%);
+  //   color: @dark;
+  //   &::after { content: "fade 50%"; color: @dark; }
+  // }
+  //
+  // .mixed {
+  //   background: mix(@primary, @secondary, 60%);
+  //   &::after { content: "mix 60%"; }
+  // }
+  //
+  // .spun {
+  //   background: spin(@primary, 60);
+  //   &::after { content: "spin 60°"; }
+  // }
 }
 
 /* ========================================
@@ -259,42 +262,42 @@
    ======================================== */
 
 // ✅ Advanced Mixin: Gradient Background
-.gradient-bg(@start: @primary, @end: @secondary, @direction: to bottom) {
-  background: @start; // Fallback for old browsers
-  background: linear-gradient(@direction, @start, @end);
-}
-
-// ✅ Advanced Mixin: Card with Shadow
-.card-style(@padding: 1rem, @shadow: true) {
-  padding: @padding;
-  border-radius: 8px;
-  background: white;
-
-  & when (@shadow = true) {
-    box-shadow: 0 2px 10px fade(black, 10%);
-  }
-
-  & when (@shadow = false) {
-    border: 1px solid @light;
-  }
-}
-
-// Demo: Using advanced mixins
-.gradient-demo {
-  .gradient-bg(@primary, @secondary, to right);
-  height: 100px;
-  .flex-center();
-  color: white;
-  font-weight: bold;
-  margin: 1rem 0;
-}
-
-.card-demo {
-  .card-style(2rem, true);
-  margin: 1rem 0;
-
-  h4 {
-    margin: 0 0 1rem 0;
-    color: @primary;
-  }
-}
+// .gradient-bg(@start: @primary, @end: @secondary, @direction: to bottom) {
+//   background: @start; // Fallback for old browsers
+//   background: linear-gradient(@direction, @start, @end);
+// }
+//
+// // ✅ Advanced Mixin: Card with Shadow
+// .card-style(@padding: 1rem, @shadow: true) {
+//   padding: @padding;
+//   border-radius: 8px;
+//   background: white;
+//
+//   & when (@shadow = true) {
+//     box-shadow: 0 2px 10px fade(black, 10%);
+//   }
+//
+//   & when (@shadow = false) {
+//     border: 1px solid @light;
+//   }
+// }
+//
+// // Demo: Using advanced mixins
+// .gradient-demo {
+//   .gradient-bg(@primary, @secondary, to right);
+//   height: 100px;
+//   .flex-center();
+//   color: white;
+//   font-weight: bold;
+//   margin: 1rem 0;
+// }
+//
+// .card-demo {
+//   .card-style(2rem, true);
+//   margin: 1rem 0;
+//
+//   h4 {
+//     margin: 0 0 1rem 0;
+//     color: @primary;
+//   }
+// }
