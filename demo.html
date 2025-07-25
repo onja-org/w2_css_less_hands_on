@@ -63,13 +63,22 @@
         <header>
             <h1>🎨 LESS CSS Lab Demo</h1>
             <p>
-                This page demonstrates the results of your LESS exercises. Make
-                sure to compile your LESS files with `npm start` and then
-                refresh the browser to see changes!
+                This page shows the results of your LESS problem-solving exercises. 
+                Compile your LESS files with <code>npm run compile:ex1</code> (or ex2, ex3) 
+                and refresh to see your changes!
             </p>
+            
+            <div class="workflow-reminder" style="background: #e8f4fd; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+                <strong>💡 Workflow Reminder:</strong>
+                <ol style="margin: 0.5rem 0 0 1rem;">
+                    <li>Work in the <code>exercises/</code> files</li>
+                    <li>Run <code>npm run compile:ex1</code> to compile LESS → CSS</li>
+                    <li>Refresh this page to see your results</li>
+                </ol>
+            </div>
 
             <div class="theme-switcher">
-                <strong>Theme:</strong>
+                <strong>Test Your Theme Variables:</strong>
                 <button class="theme-btn active" data-theme="light">
                     Light
                 </button>
@@ -77,90 +86,181 @@
             </div>
         </header>
 
-        <!-- Exercise 1: Variables & Basic Syntax -->
+        <!-- Exercise 1: The Color Nightmare -->
         <section class="section">
-            <h2>Exercise 1: Variables & Basic Syntax</h2>
-            <p>These buttons use LESS variables for consistent theming:</p>
-
-            <div class="demo-grid">
-                <button class="btn btn-primary">Primary Button</button>
-                <button class="btn btn-secondary">Secondary Button</button>
-                <button class="btn btn-danger">Danger Button</button>
-                <button class="btn btn-dark">Dark Button</button>
-            </div>
-        </section>
-
-        <!-- Exercise 2: Mixins & Functions -->
-        <section class="section">
-            <h2>Exercise 2: Mixins & Functions</h2>
-            <p>These components use LESS mixins and built-in functions:</p>
-
-            <div class="demo-grid">
-                <div class="flex-center-demo">
-                    <span>Centered with Mixin</span>
-                </div>
-                <button class="btn-styled btn-small">Small Button</button>
-                <button class="btn-styled btn-medium">Medium Button</button>
-                <button class="btn-styled btn-large">Large Button</button>
-            </div>
-
-            <div class="color-functions-demo">
-                <div class="color-sample original">Original</div>
-                <div class="color-sample lightened">Lightened</div>
-                <div class="color-sample darkened">Darkened</div>
-                <div class="color-sample saturated">Saturated</div>
-                <div class="color-sample faded">Faded</div>
-            </div>
-        </section>
-
-        <!-- Exercise 3: LESS-Specific Features -->
-        <section class="section">
-            <h2>Exercise 3: LESS-Specific Features</h2>
+            <h2>Exercise 1: The Color Nightmare</h2>
             <p>
-                Resize your browser to see responsive behavior and hover over
-                the cards:
+                <strong>Heritage Weavers</strong> rug company website. After completing Exercise 1, 
+                these elements should all use your <code>@brand-color</code> variable instead of hard-coded colors.
+                Try changing the variable and recompiling to see the entire theme update!
             </p>
 
             <div class="demo-grid">
-                <div class="card">
-                    <h3>Card 1</h3>
-                    <p>
-                        Hover over me! I use guarded mixins for responsive
-                        behavior.
-                    </p>
+                <div class="header" style="padding: 1rem; margin-bottom: 1rem;">
+                    <div class="logo">Heritage Weavers</div>
+                    <nav class="nav" style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                        <a href="#" class="nav-link">Home</a>
+                        <a href="#" class="nav-link active">Gallery</a>
+                        <a href="#" class="nav-link">About</a>
+                    </nav>
                 </div>
-                <div class="card">
-                    <h3>Card 2</h3>
-                    <p>I change style based on the theme context above.</p>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <button class="btn-primary">Shop Now</button>
+                    <button class="btn-outline">Learn More</button>
+                    <a href="#" class="link">View Collection</a>
                 </div>
-                <div class="card">
-                    <h3>Card 3</h3>
-                    <p>Parent selector magic makes theming easy!</p>
-                </div>
+            </div>
+
+            <div class="alert-info" style="margin-top: 1rem;">
+                <strong>Variables Test:</strong> If you completed the exercise correctly, changing 
+                <code>@brand-color</code> in exercise1.less should update ALL these elements at once!
             </div>
         </section>
 
-        <!-- Exercise 4: Mini Project -->
+        <!-- Exercise 2: The Button Factory Hell -->
         <section class="section">
-            <h2>Exercise 4: Mini Project - Theme Switcher</h2>
-            <p>Your completed theme switcher component:</p>
+            <h2>Exercise 2: The Button Factory Hell</h2>
+            <p>
+                <strong>Pixel Perfect Design Agency</strong> button library. After completing Exercise 2,
+                these buttons should be created using your <code>.button-base()</code> and size mixins
+                instead of repetitive CSS. Try updating the mixin to see ALL buttons change instantly!
+            </p>
+
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                <h4 style="margin-top: 0;">Before Mixins: 9 repetitive button classes</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <button class="btn-primary-small">Primary Small</button>
+                    <button class="btn-primary-medium">Primary Medium</button>
+                    <button class="btn-primary-large">Primary Large</button>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                    <button class="btn-secondary-small">Secondary Small</button>
+                    <button class="btn-secondary-medium">Secondary Medium</button>
+                    <button class="btn-secondary-large">Secondary Large</button>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <button class="btn-danger-small">Danger Small</button>
+                    <button class="btn-danger-medium">Danger Medium</button>
+                    <button class="btn-danger-large">Danger Large</button>
+                </div>
+            </div>
+
+            <div class="mixins-test" style="background: #e8f5e8; padding: 1.5rem; border-radius: 8px;">
+                <h4 style="margin-top: 0;">After Mixins: Clean, maintainable code</h4>
+                <p><strong>Mixins Test:</strong> If you completed the exercise, updating your 
+                <code>.button-base()</code> mixin should change ALL buttons above simultaneously!</p>
+                <p>Try changing the border-radius or adding a box-shadow to the mixin.</p>
+            </div>
+        </section>
+
+        <!-- Exercise 3: The 2000-Line Monster -->
+        <section class="section">
+            <h2>Exercise 3: The 2000-Line Monster</h2>
+            <p>
+                <strong>Artisan Marketplace</strong> e-commerce site. In Exercise 3, you experienced
+                hunting through a massive, unorganized stylesheet. This demonstrates why 
+                <code>@import</code> and partials are essential for any real project.
+            </p>
+
+            <div style="background: #fff3cd; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #ffc107;">
+                <h4 style="margin-top: 0; color: #856404;">📁 File Organization Nightmare</h4>
+                <p style="margin-bottom: 0;">Imagine trying to find specific components in a 2000+ line stylesheet:</p>
+                <ul style="margin: 0.5rem 0;">
+                    <li>🧭 Where are the card styles?</li>
+                    <li>🔍 Which section has the navigation code?</li>
+                    <li>👥 How do multiple developers avoid conflicts?</li>
+                    <li>♻️ How do you reuse components in other projects?</li>
+                </ul>
+            </div>
+
+            <div class="demo-grid">
+                <div class="card">
+                    <h3>Handwoven Rug</h3>
+                    <p>Traditional patterns from local artisans. This card component was buried somewhere in a massive CSS file!</p>
+                    <div class="card-price">$299</div>
+                </div>
+                <div class="card">
+                    <h3>Ceramic Pottery</h3>
+                    <p>Beautifully crafted pieces. Finding the card styles took way too long in the unorganized file.</p>
+                    <div class="card-price">$89</div>
+                </div>
+            </div>
+
+            <div style="background: #d1ecf1; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #17a2b8;">
+                <h4 style="margin-top: 0; color: #0c5460;">✅ Partials Solution</h4>
+                <p>With LESS partials, you'd organize this into logical files:</p>
+                <ul style="margin: 0.5rem 0 0 1rem; font-family: monospace; font-size: 0.9rem;">
+                    <li>_variables.less → All design tokens</li>
+                    <li>_cards.less → Card component styles</li>
+                    <li>_buttons.less → Button component styles</li>
+                    <li>_header.less → Navigation styles</li>
+                    <li>main.less → @import all partials</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Exercise 4: Putting It All Together -->
+        <section class="section">
+            <h2>Exercise 4: Putting It All Together</h2>
+            <p>
+                This exercise combines everything you've learned: variables for consistent theming,
+                mixins for reusable patterns, and organized code structure. Your theme switcher
+                should respond to the buttons at the top of the page.
+            </p>
+
+            <div style="background: #f0f8ff; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #007bff;">
+                <h4 style="margin-top: 0; color: #004085;">🎯 What You've Mastered</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div>
+                        <strong>✅ Variables</strong><br>
+                        <small>Single source of truth for design values</small>
+                    </div>
+                    <div>
+                        <strong>✅ Mixins</strong><br>
+                        <small>Reusable CSS patterns with parameters</small>
+                    </div>
+                    <div>
+                        <strong>✅ Partials</strong><br>
+                        <small>Organized, maintainable file structure</small>
+                    </div>
+                    <div>
+                        <strong>✅ LESS Syntax</strong><br>
+                        <small>@ variables, .mixins(), color functions</small>
+                    </div>
+                </div>
+            </div>
 
             <div class="theme-demo">
                 <div class="card-component">
-                    <h3>Your Component Here</h3>
+                    <h3>Your Theme-Aware Component</h3>
                     <p>
-                        This should change appearance based on the theme
-                        selected above.
+                        If you completed Exercise 4, this component should change 
+                        appearance when you click the Light/Dark theme buttons above.
+                        It demonstrates all the LESS features working together!
                     </p>
-                    <button class="component-btn">Action Button</button>
+                    <button class="component-btn">Test Button</button>
                 </div>
             </div>
         </section>
 
         <footer style="text-align: center; margin-top: 3rem; color: #7f8c8d">
-            <p>
-                🎉 Great job working through the LESS CSS lab! Remember to
-                compile your LESS files to see changes.
+            <div style="background: #f8f9fa; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+                <h3 style="color: #2c3e50; margin-top: 0;">🎉 Congratulations!</h3>
+                <p>
+                    You've experienced firsthand why CSS preprocessors are essential tools 
+                    for modern web development. You've felt the pain points they solve and 
+                    discovered how they make CSS maintainable, scalable, and enjoyable to write.
+                </p>
+                <p style="margin-bottom: 0;">
+                    <strong>Key Takeaway:</strong> Preprocessors aren't just "nice to have" - 
+                    they're indispensable for any serious CSS work!
+                </p>
+            </div>
+            
+            <p style="font-size: 0.9rem;">
+                💡 <strong>Next Steps:</strong> Try using LESS (or SCSS) in your next project. 
+                You'll never want to go back to plain CSS!
             </p>
         </footer>
 

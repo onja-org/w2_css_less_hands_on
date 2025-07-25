@@ -1,206 +1,270 @@
-// Exercise 1: Variables & Basic Syntax
-// 🎯 Learning Goal: Understand LESS variables and how they differ from SCSS
+// Exercise 1: The Color Nightmare - Why Variables Matter
+// 🎯 Learning Goal: Experience the pain of repeated values, then solve it with LESS variables
 
 /* ========================================
-   VARIABLES IN LESS
+   THE SITUATION: A Client's Website
    ======================================== */
 
-// LESS variables use the @ symbol (SCSS uses $)
-// Variables store reusable values for consistency and maintainability
-
-// ✅ Theme Variables - Define your color palette
-// TODO: Uncomment and complete these variables
-// @primary: #3498db;    // Blue - for primary actions
-// @secondary: #2ecc71;  // Green - for success/secondary actions
-// @danger: #e74c3c;     // Red - for warnings/errors
-// @dark: #2c3e50;       // Dark blue-gray - for text/dark themes
-// @spacing: 1rem;       // Base spacing unit for consistency
-
-// ✅ Additional Variables - Extend your theme
-// TODO: Add these variables for a complete design system
-// @light: #ecf0f1;      // Light gray for backgrounds
-// @white: #ffffff;      // Pure white
-// @border-radius: 4px;  // Consistent border radius
-// @transition: all 0.2s ease; // Smooth transitions
+/*
+   SCENARIO: You're building a website for "Heritage Weavers", a family-owned
+   rug-making business. They've been using a warm terracotta color (#c0392b) 
+   throughout their site to represent their traditional craftsmanship.
+   
+   But now they want to modernize their brand! The owner calls: "We love the 
+   website, but can you change our signature color to this beautiful teal 
+   (#16a085) to appeal to younger customers?"
+   
+   Your job: Update ALL instances of the brand color throughout the stylesheet.
+   Sound simple? Let's see how many places you need to change...
+*/
 
 /* ========================================
-   BASIC BUTTON COMPONENT
+   THE CURRENT STYLESHEET (The Problem)
    ======================================== */
 
-// TODO: Create the base button class using your variables
-// .btn {
-//   // Base button styles - these apply to ALL buttons
-//   padding: @spacing;
-//   border: none;
-//   border-radius: @border-radius;
-//   cursor: pointer;
-//   font-weight: 500;
-//   font-size: 0.9rem;
-//   text-decoration: none;
-//   display: inline-block;
-//   text-align: center;
-//   transition: @transition;
-//
-//   // Default button appearance
-//   background: @light;
-//   color: @dark;
-//
-//   // Hover effect for all buttons
-//   &:hover {
-//     transform: translateY(-1px);
-//     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-//   }
-//
-//   // Active/pressed state
-//   &:active {
-//     transform: translateY(0);
-//   }
-// }
+// Here's the current CSS for Heritage Weavers' website.
+// Notice how the brand color #c0392b appears everywhere...
 
-/* ========================================
-   BUTTON VARIANTS
-   ======================================== */
-
-// TODO: Create button variants using your theme variables
-// Each variant overrides the background and text color
-
-// .btn-primary {
-//   background: @primary;
-//   color: @white;
-//
-//   &:hover {
-//     background: darken(@primary, 10%); // Using LESS color function!
-//   }
-// }
-//
-// .btn-secondary {
-//   background: @secondary;
-//   color: @white;
-//
-//   &:hover {
-//     background: darken(@secondary, 10%);
-//   }
-// }
-//
-// .btn-danger {
-//   background: @danger;
-//   color: @white;
-//
-//   &:hover {
-//     background: darken(@danger, 10%);
-//   }
-// }
-//
-// .btn-dark {
-//   background: @dark;
-//   color: @white;
-//
-//   &:hover {
-//     background: lighten(@dark, 15%);
-//   }
-// }
-//
-// // Outline button variants
-// .btn-outline {
-//   background: transparent;
-//   border: 2px solid @primary;
-//   color: @primary;
-//
-//   &:hover {
-//     background: @primary;
-//     color: @white;
-//   }
-// }
-
-/* ========================================
-   THEME CONTEXT STYLING
-   ======================================== */
-
-// ✅ Light Theme Context
-// When buttons appear inside .light-theme container
-.light-theme {
-  // TODO: Add light theme styling
-  // background: @white;
-  // color: @dark;
-
-  .btn {
-    // TODO: Light theme button adjustments
-    // box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    //
-    // &:hover {
-    //   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    // }
-  }
-
-  // TODO: Override outline button for light theme
-  // .btn-outline {
-  //   border-color: @primary;
-  //   color: @primary;
-  // }
+.header {
+  background: #c0392b;
+  color: white;
+  padding: 1rem;
+  border-bottom: 3px solid #c0392b;
 }
 
-// ✅ Dark Theme Context
-// When buttons appear inside .dark-theme container
-.dark-theme {
-  // TODO: Add dark theme styling
-  // background: @dark;
-  // color: @white;
+.logo {
+  color: #c0392b;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
 
-  .btn {
-    // TODO: Dark theme button adjustments (try using different opacity or colors)
-    // box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    //
-    // // Default button gets dark theme styling
-    // &:not(.btn-primary):not(.btn-secondary):not(.btn-danger):not(.btn-dark) {
-    //   background: lighten(@dark, 10%);
-    //   color: @white;
-    //
-    //   &:hover {
-    //     background: lighten(@dark, 20%);
-    //   }
-    // }
-  }
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
 
-  // TODO: Light outline for dark theme
-  // .btn-outline {
-  //   border-color: @white;
-  //   color: @white;
-  //
-  //   &:hover {
-  //     background: @white;
-  //     color: @dark;
-  //   }
-  // }
+.nav-link:hover {
+  background: rgba(192, 57, 43, 0.1); // Same color, but with opacity!
+  color: #c0392b;
+}
+
+.nav-link.active {
+  background: #c0392b;
+  color: white;
+  box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3); // Yet another variation
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #c0392b;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #a93226; // Darker version of #c0392b
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #c0392b;
+  color: #c0392b;
+}
+
+.btn-outline:hover {
+  background: #c0392b;
+  color: white;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-left: 4px solid #c0392b; // Brand accent
+}
+
+.card-title {
+  color: #c0392b;
+  margin: 0 0 1rem 0;
+}
+
+.link {
+  color: #c0392b;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #a93226; // Darker version again
+  text-decoration: underline;
+}
+
+.alert-info {
+  background: rgba(192, 57, 43, 0.1);
+  border: 1px solid #c0392b;
+  color: #2c3e50;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #c0392b, #a93226);
+  transition: width 0.3s ease;
 }
 
 /* ========================================
-   DEMONSTRATION SECTION
+   TASK 1A: THE MANUAL APPROACH (Feel the Pain!)
    ======================================== */
 
-// Demo container to showcase your buttons
-.button-demo {
-  padding: 2rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  align-items: center;
+/*
+   🎯 TASK: Update ALL instances of #c0392b to #16a085 (teal)
+   
+   Instructions:
+   1. Go through the CSS above and change EVERY instance of the terracotta 
+      color (#c0392b) to the new teal color (#16a085)
+   2. Also change the darker version (#a93226) to a darker teal (#138d75)
+   3. Update the rgba values too: rgba(192, 57, 43, 0.1) becomes rgba(22, 160, 133, 0.1)
+   4. As you work, keep a count of how many places you had to change
+   5. Run `npm run compile:ex1` and open demo.html to see your changes
+   
+   Don't worry if this feels tedious - that's the point! 
+   Count how many places you changed: _____ (write your answer here)
+*/
 
-  h3 {
-    width: 100%;
-    margin: 0 0 1rem 0;
-    // TODO: Use your primary color here when you define it
-    // color: @primary;
-  }
-}
+/* ========================================
+   TASK 1B: WHAT WENT WRONG?
+   ======================================== */
 
-// Size variants (bonus!)
-// TODO: Create small and large button variants
-// .btn-small {
-//   padding: 0.5rem 1rem;
-//   font-size: 0.8rem;
-// }
-//
-// .btn-large {
-//   padding: 1.25rem 2rem;
-//   font-size: 1.1rem;
-// }
+/*
+   After you've made all those changes, think about these questions:
+   
+   💭 REFLECTION QUESTIONS:
+   1. How many different places did you have to update?
+   2. What happened if you missed one? (Try leaving one unchanged and see!)
+   3. What if the client changes their mind again tomorrow?
+   4. What if you had a 2000-line stylesheet instead of this small example?
+   5. How confident are you that you found ALL the instances?
+   
+   This is exactly the problem that CSS preprocessor VARIABLES solve!
+*/
+
+/* ========================================
+   TASK 1C: THE SOLUTION - LESS VARIABLES
+   ======================================== */
+
+/*
+   🎓 LEARNING TIME: What are Variables?
+   
+   Variables in LESS (and other preprocessors) store reusable values.
+   Instead of repeating #16a085 everywhere, you define it once:
+   
+   @brand-color: #16a085;
+   
+   Then use @brand-color everywhere instead of the hex code.
+   When you need to change the color, you update it in ONE place!
+   
+   LESS variables:
+   - Start with @ symbol (SCSS uses $ instead)
+   - Store colors, numbers, strings, even complex values
+   - Make your CSS maintainable and consistent
+   - Compile to regular CSS (browsers never see the @ symbol)
+*/
+
+// 🎯 TASK: Define your variables here
+// TODO: Create these LESS variables to replace all the repeated colors
+
+// @brand-color: #16a085;        // The main teal color
+// @brand-color-dark: #138d75;   // Darker version for hovers
+// @text-color: #2c3e50;         // Dark text color
+// @light-gray: #e0e0e0;         // Light gray for backgrounds
+// @white: #ffffff;              // Pure white
+
+/* ========================================
+   TASK 1D: REFACTOR WITH VARIABLES
+   ======================================== */
+
+/*
+   🎯 TASK: Now go back up to the CSS and replace ALL the hard-coded colors 
+   with your variables!
+   
+   For example, change:
+   .header { background: #16a085; }
+   
+   To:
+   .header { background: @brand-color; }
+   
+   🔥 PRO TIP: For rgba colors, you can use LESS color functions:
+   Instead of: rgba(22, 160, 133, 0.1)
+   Use: fade(@brand-color, 10%)   // 10% opacity
+   
+   Other useful LESS color functions:
+   - darken(@brand-color, 10%)  // Make it darker
+   - lighten(@brand-color, 10%) // Make it lighter
+   - fade(@brand-color, 50%)    // Add transparency
+*/
+
+/* ========================================
+   TASK 1E: TEST THE POWER OF VARIABLES
+   ======================================== */
+
+/*
+   🎯 FINAL TASK: Experience the magic!
+   
+   Now that you've refactored everything to use variables:
+   
+   1. Run `npm run compile:ex1` to see your current teal theme
+   2. Change JUST the @brand-color variable to a different color:
+      Try: #e67e22 (orange) or #8e44ad (purple) or #f39c12 (yellow)
+   3. Run `npm run compile:ex1` again
+   4. Open demo.html and see how the ENTIRE site updates!
+   
+   Compare this to Task 1A where you had to find and change dozens of places!
+   
+   🎉 You've just experienced why preprocessors are essential tools 
+   for modern web development!
+*/
+
+/* ========================================
+   WHAT YOU LEARNED
+   ======================================== */
+
+/*
+   ✅ THE PROBLEM: Hard-coded values scattered throughout CSS
+      - Difficult to maintain and update
+      - Easy to miss instances when making changes
+      - No single source of truth for design values
+   
+   ✅ THE SOLUTION: CSS Preprocessor Variables
+      - Define values once, use everywhere
+      - Single place to update design decisions
+      - More maintainable and consistent code
+      - LESS uses @ symbol, SCSS uses $ symbol
+   
+   ✅ LESS FEATURES YOU USED:
+      - Variables: @brand-color: #16a085;
+      - Color functions: darken(), lighten(), fade()
+      - Comments that compile away
+   
+   🚀 NEXT STEPS: In Exercise 2, you'll see how MIXINS solve the problem 
+   of repetitive CSS patterns (like button styles)!
+*/
