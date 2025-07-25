@@ -1,105 +1,284 @@
-// Exercise 3: LESS-Specific Features
-@import "exercise1.less";
+// Exercise 3: The 2000-Line Monster - Why Partials Matter
+// 🎯 Learning Goal: Experience CSS file organization chaos, then solve with LESS partials
 
-// TODO: Create responsive breakpoint mixins using guarded mixins
-// This is a unique LESS feature - multiple mixins with the same name!
- .respond-to(@size, @rules) when (@size = mobile) {
-   @media (max-width: 767px) {
-     @rules();
-   }
- }
+// Import your previous work - notice how partials let us build on previous exercises!
+@import "exercise1.less"; // Gets all your variables
+@import "exercise2.less"; // Gets all your mixins
 
- .respond-to(@size, @rules) when (@size = tablet) {
-   @media (min-width: 768px) and (max-width: 1023px) {
-     @rules();
-   }
- }
+/* ========================================
+   THE SITUATION: A Website Gone Wild
+   ======================================== */
 
- .respond-to(@size, @rules) when (@size = desktop) {
-   @media (min-width: 1024px) {
-     @rules();
-   }
- }
+/*
+   SCENARIO: You've inherited the CSS for "Artisan Marketplace", a large
+   e-commerce site selling handmade goods. The original developer put 
+   EVERYTHING in one file. The result? A 2000+ line CSS monster!
+   
+   Your task: Find and update the card component styles to have a new 
+   border-radius of 8px instead of 4px.
+   
+   Good luck finding it in this mess...
+*/
 
-// TODO: Create size-based styling mixins
-// .card-size(@size) when (@size = small) {
-//   padding: 1rem;
-//   font-size: 0.9rem;
-// }
-//
-// .card-size(@size) when (@size = large) {
-//   padding: 2rem;
-//   font-size: 1.1rem;
-// }
-//
-// .card-size(@size) when (default()) {
-//   padding: 1.5rem;
-//   font-size: 1rem;
-// }
+/* ========================================
+   THE MONSTER STYLESHEET (The Problem)
+   ======================================== */
 
-// Demo: Card component with LESS features
-.card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  color: @dark;
+// Here's what you're dealing with - and this is just a SMALL sample!
+// Imagine scrolling through 2000 lines looking for one specific component...
 
-  // TODO: Use your card-size mixin with default
-  // .card-size(default);
+/* NORMALIZE/RESET STYLES */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; padding: 0; margin: 0; }
+img { max-width: 100%; height: auto; }
 
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  }
+/* TYPOGRAPHY STYLES */
+.heading-xl { font-size: 3rem; font-weight: 800; line-height: 1.2; }
+.heading-lg { font-size: 2.5rem; font-weight: 700; line-height: 1.3; }
+.heading-md { font-size: 2rem; font-weight: 600; line-height: 1.4; }
+.heading-sm { font-size: 1.5rem; font-weight: 500; line-height: 1.4; }
+.text-lg { font-size: 1.25rem; line-height: 1.6; }
+.text-base { font-size: 1rem; line-height: 1.5; }
+.text-sm { font-size: 0.875rem; line-height: 1.4; }
+.text-xs { font-size: 0.75rem; line-height: 1.3; }
 
-  h3 {
-    margin-top: 0;
-    color: @primary;
-  }
+/* UTILITY CLASSES */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.flex { display: flex; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.grid { display: grid; }
+.hidden { display: none; }
+.visible { display: block; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
 
-  // Parent selector magic - context-dependent styling
-  .light-theme & {
-    background: white;
-    border: 1px solid #ecf0f1;
-  }
+/* HEADER STYLES */
+.header { background: @brand-color; color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+.header-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: bold; }
+.nav { display: flex; gap: 2rem; }
+.nav-link { color: white; padding: 0.5rem 1rem; border-radius: 4px; transition: background 0.2s; }
+.nav-link:hover { background: rgba(255,255,255,0.1); }
+.nav-link.active { background: rgba(255,255,255,0.2); }
 
-  // TODO: Add dark theme styling
-  // .dark-theme & {
-  //   background: @dark;
-  //   color: white;
-  //   border: 1px solid lighten(@dark, 20%);
-  //
-  //   h3 {
-  //     color: lighten(@primary, 20%);
-  //   }
-  // }
+/* MAIN CONTENT STYLES */
+.main { min-height: calc(100vh - 200px); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.hero { background: linear-gradient(135deg, @brand-color, darken(@brand-color, 20%)); color: white; padding: 4rem 0; text-align: center; }
+.hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9; }
 
-  // TODO: add responsive behavior using your mixins
-  // .respond-to(mobile, {
-  //   .card-size(small);
-  // });
-  // .respond-to(desktop, {
-  //    .card-size(large);
-  // });
+/* PRODUCT GRID STYLES */
+.products-section { padding: 4rem 0; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+
+/* CARD STYLES - THIS IS WHAT YOU'RE LOOKING FOR! */
+.card { 
+  background: white; 
+  border-radius: 4px;  /* <-- This is the line you need to change! */
+  padding: 1.5rem; 
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+  transition: all 0.3s ease; 
+  border: 1px solid #e0e0e0;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.card-image { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 1rem; }
+.card-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: @brand-color; }
+.card-description { color: #666; margin-bottom: 1rem; line-height: 1.5; }
+.card-price { font-size: 1.5rem; font-weight: bold; color: @brand-color; }
+
+/* MORE CARD VARIATIONS */
+.card-small { .card; padding: 1rem; }
+.card-large { .card; padding: 2rem; }
+.card-featured { .card; border: 2px solid @brand-color; }
+.card-sale { .card; position: relative; }
+.card-sale::before { content: "SALE"; position: absolute; top: -10px; right: -10px; background: #e74c3c; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+
+/* BUTTON STYLES */
+.btn { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-decoration: none; display: inline-block; text-align: center; transition: all 0.2s ease; }
+.btn-primary { background: @brand-color; color: white; }
+.btn-primary:hover { background: darken(@brand-color, 10%); }
+.btn-secondary { background: #2ecc71; color: white; }
+.btn-secondary:hover { background: darken(#2ecc71, 10%); }
+.btn-outline { background: transparent; border: 2px solid @brand-color; color: @brand-color; }
+.btn-outline:hover { background: @brand-color; color: white; }
+
+/* FOOTER STYLES */
+.footer { background: #2c3e50; color: white; padding: 3rem 0 1rem; margin-top: 4rem; }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.footer-section h3 { margin-bottom: 1rem; }
+.footer-section ul li { margin-bottom: 0.5rem; }
+.footer-section a { color: #bdc3c7; transition: color 0.2s; }
+.footer-section a:hover { color: white; }
+.footer-bottom { border-top: 1px solid #34495e; padding-top: 1rem; text-align: center; color: #95a5a6; }
+
+/* RESPONSIVE STYLES */
+@media (max-width: 768px) {
+  .header-container { flex-direction: column; gap: 1rem; }
+  .nav { flex-wrap: wrap; }
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 1rem; }
+  .products-grid { grid-template-columns: 1fr; }
+  .card { padding: 1rem; }
 }
 
-// Advanced: Pattern matching with guarded mixins
-// TODO: Create a theme mixin that handles multiple themes
-// .apply-theme(@theme) when (@theme = light) {
-//   background: white;
-//   color: @dark;
-//   border: 1px solid #ecf0f1;
-// }
-//
-// .apply-theme(@theme) when (@theme = dark) {
-//   background: @dark;
-//   color: white;
-//   border: 1px solid lighten(@dark, 20%);
-// }
-//
-// .apply-theme(@theme) when (@theme = colorful) {
-//   background: linear-gradient(45deg, @primary, @secondary);
-//   color: white;
-//   border: none;
-// }
+@media (max-width: 480px) {
+  .hero { padding: 2rem 0; }
+  .hero h1 { font-size: 1.5rem; }
+  .products-section { padding: 2rem 0; }
+  .footer-content { grid-template-columns: 1fr; }
+}
+
+/* ========================================
+   TASK 3A: THE SEARCH MISSION (Feel the Pain!)
+   ======================================== */
+
+/*
+   🎯 TASK: Find and update the card border-radius from 4px to 8px
+   
+   Instructions:
+   1. Scroll through ALL the CSS above and find the .card style
+   2. Change the border-radius from 4px to 8px
+   3. How long did it take you to find? _____ seconds
+   4. Now imagine if this was a 2000-line file instead of 140 lines!
+   5. Run `npm run compile:ex3` to see your change
+   
+   Hint: Look for the comment "THIS IS WHAT YOU'RE LOOKING FOR!"
+   But in a real project, there would be no helpful comments...
+*/
+
+/* ========================================
+   TASK 3B: THE BIGGER PROBLEM
+   ======================================== */
+
+/*
+   After finding that one line, consider these questions:
+   
+   💭 REFLECTION QUESTIONS:
+   1. How would you find the navigation styles if you needed to change them?
+   2. What if you needed to update ALL the button styles?
+   3. What if multiple developers work on this file - who edits what section?
+   4. How do you avoid merge conflicts when everyone edits the same huge file?
+   5. What if you want to reuse just the card styles in another project?
+   
+   Look at the sections in the file:
+   - Reset/Normalize styles (universal)
+   - Typography (could be shared)
+   - Utilities (could be shared)
+   - Header component (specific)
+   - Card component (specific)
+   - Button component (specific)
+   - Footer component (specific)
+   - Responsive breakpoints (global)
+   
+   This organizational nightmare is EXACTLY what PARTIALS solve!
+*/
+
+/* ========================================
+   TASK 3C: THE SOLUTION - LESS PARTIALS
+   ======================================== */
+
+/*
+   🎓 LEARNING TIME: What are Partials?
+   
+   Partials are separate LESS files that get combined into one CSS file.
+   Instead of one monster file, you organize code into logical pieces:
+   
+   _variables.less     // All your variables
+   _mixins.less       // All your mixins  
+   _normalize.less    // Reset styles
+   _typography.less   // Text styles
+   _buttons.less      // Button components
+   _cards.less        // Card components
+   _header.less       // Header component
+   _footer.less       // Footer component
+   main.less          // Imports everything
+   
+   LESS @import combines them:
+   @import "_variables";
+   @import "_mixins";
+   @import "_cards";
+   
+   Benefits:
+   - Easy to find specific components
+   - Multiple developers can work without conflicts
+   - Reusable components across projects
+   - Logical organization and maintenance
+*/
+
+/* ========================================
+   TASK 3D: ORGANIZE WITH PARTIALS
+   ======================================== */
+
+/*
+   🎯 TASK: Create a better file structure using partials
+   
+   If we were to organize the monster stylesheet above, we'd create:
+   
+   📁 partials/
+     _variables.less    // @brand-color, etc.
+     _mixins.less       // .button-base(), etc.
+     _normalize.less    // *, html, body reset
+     _typography.less   // .heading-*, .text-*
+     _utilities.less    // .flex, .text-center, margins
+     _header.less       // .header, .nav, .logo
+     _cards.less        // .card and variants
+     _buttons.less      // .btn and variants
+     _footer.less       // .footer styles
+   
+   📄 main.less         // @import all partials
+   
+   Then finding the card styles = open _cards.less (5 seconds!)
+   Need button changes = open _buttons.less
+   Want to reuse cards in another project = copy _cards.less
+   
+   Compare this to searching through 2000 lines!
+*/
+
+/*
+   Notice how we're already using partials in this exercise:
+   @import "exercise1.less"; // Gets variables
+   @import "exercise2.less"; // Gets mixins
+   
+   This lets us build on previous work without copying code!
+*/
+
+/* ========================================
+   WHAT YOU LEARNED
+   ======================================== */
+
+/*
+   ✅ THE PROBLEM: Massive, unorganized CSS files
+      - Impossible to find specific styles
+      - Multiple developers cause merge conflicts
+      - Can't reuse components easily
+      - No logical organization
+   
+   ✅ THE SOLUTION: CSS Preprocessor Partials
+      - Separate files for different concerns
+      - @import combines them into one CSS file
+      - Easy to find and maintain specific components
+      - Team-friendly development
+      - Reusable across projects
+   
+   ✅ LESS PARTIAL FEATURES YOU LEARNED:
+      - @import "filename"; // Combines files
+      - Underscore naming: _partial.less (convention)
+      - Logical file organization
+      - Building on previous work
+   
+   🚀 NEXT STEPS: In Exercise 4, you'll put EVERYTHING together - 
+   variables, mixins, and partials - to build a complete theme system!
+*/

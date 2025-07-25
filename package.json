@@ -4,7 +4,7 @@
   "description": "LESS CSS Tutorial",
   "main": "index.js",
   "scripts": {
-    "compile:ex1": "lessc exercises/exercise1.less exercises/exercise1.css & sass exercises/exercise1.scss exercises/exercise1.scss.css",
+    "compile:ex1": "lessc exercises/exercise1.less exercises/exercise1.css",
     "compile:ex2": "lessc exercises/exercise2.less exercises/exercise2.css",
     "compile:ex3": "lessc exercises/exercise3.less exercises/exercise3.css",
     "compile:ex4": "lessc exercises/exercise4.less exercises/exercise4.css",
