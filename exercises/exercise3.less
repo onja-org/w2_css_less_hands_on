@@ -11,12 +11,12 @@
 
 /*
    SCENARIO: You've inherited the CSS for "Artisan Marketplace", a large
-   e-commerce site selling handmade goods. The original developer put 
+   e-commerce site selling handmade goods. The original developer put
    EVERYTHING in one file. The result? A 2000+ line CSS monster!
-   
-   Your task: Find and update the card component styles to have a new 
+
+   Your task: Find and update the card component styles to have a new
    border-radius of 8px instead of 4px.
-   
+
    Good luck finding it in this mess...
 */
 
@@ -85,12 +85,12 @@ img { max-width: 100%; height: auto; }
 .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
 
 /* CARD STYLES - THIS IS WHAT YOU'RE LOOKING FOR! */
-.card { 
-  background: white; 
+.card {
+  background: white;
   border-radius: 4px;  /* <-- This is the line you need to change! */
-  padding: 1.5rem; 
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-  transition: all 0.3s ease; 
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
   border: 1px solid #e0e0e0;
 }
 .card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
@@ -147,14 +147,14 @@ img { max-width: 100%; height: auto; }
 
 /*
    🎯 TASK: Find and update the card border-radius from 4px to 8px
-   
+
    Instructions:
    1. Scroll through ALL the CSS above and find the .card style
    2. Change the border-radius from 4px to 8px
    3. How long did it take you to find? _____ seconds
    4. Now imagine if this was a 2000-line file instead of 140 lines!
    5. Run `npm run compile:ex3` to see your change
-   
+
    Hint: Look for the comment "THIS IS WHAT YOU'RE LOOKING FOR!"
    But in a real project, there would be no helpful comments...
 */
@@ -165,14 +165,14 @@ img { max-width: 100%; height: auto; }
 
 /*
    After finding that one line, consider these questions:
-   
+
    💭 REFLECTION QUESTIONS:
    1. How would you find the navigation styles if you needed to change them?
    2. What if you needed to update ALL the button styles?
    3. What if multiple developers work on this file - who edits what section?
    4. How do you avoid merge conflicts when everyone edits the same huge file?
    5. What if you want to reuse just the card styles in another project?
-   
+
    Look at the sections in the file:
    - Reset/Normalize styles (universal)
    - Typography (could be shared)
@@ -182,7 +182,7 @@ img { max-width: 100%; height: auto; }
    - Button component (specific)
    - Footer component (specific)
    - Responsive breakpoints (global)
-   
+
    This organizational nightmare is EXACTLY what PARTIALS solve!
 */
 
@@ -192,12 +192,12 @@ img { max-width: 100%; height: auto; }
 
 /*
    🎓 LEARNING TIME: What are Partials?
-   
+
    Partials are separate LESS files that get combined into one CSS file.
    Instead of one monster file, you organize code into logical pieces:
-   
+
    _variables.less     // All your variables
-   _mixins.less       // All your mixins  
+   _mixins.less       // All your mixins
    _normalize.less    // Reset styles
    _typography.less   // Text styles
    _buttons.less      // Button components
@@ -205,12 +205,12 @@ img { max-width: 100%; height: auto; }
    _header.less       // Header component
    _footer.less       // Footer component
    main.less          // Imports everything
-   
+
    LESS @import combines them:
    @import "_variables";
    @import "_mixins";
    @import "_cards";
-   
+
    Benefits:
    - Easy to find specific components
    - Multiple developers can work without conflicts
@@ -224,9 +224,9 @@ img { max-width: 100%; height: auto; }
 
 /*
    🎯 TASK: Create a better file structure using partials
-   
+
    If we were to organize the monster stylesheet above, we'd create:
-   
+
    📁 partials/
      _variables.less    // @brand-color, etc.
      _mixins.less       // .button-base(), etc.
@@ -237,13 +237,13 @@ img { max-width: 100%; height: auto; }
      _cards.less        // .card and variants
      _buttons.less      // .btn and variants
      _footer.less       // .footer styles
-   
+
    📄 main.less         // @import all partials
-   
+
    Then finding the card styles = open _cards.less (5 seconds!)
    Need button changes = open _buttons.less
    Want to reuse cards in another project = copy _cards.less
-   
+
    Compare this to searching through 2000 lines!
 */
 
@@ -251,7 +251,7 @@ img { max-width: 100%; height: auto; }
    Notice how we're already using partials in this exercise:
    @import "exercise1.less"; // Gets variables
    @import "exercise2.less"; // Gets mixins
-   
+
    This lets us build on previous work without copying code!
 */
 
@@ -265,20 +265,17 @@ img { max-width: 100%; height: auto; }
       - Multiple developers cause merge conflicts
       - Can't reuse components easily
       - No logical organization
-   
+
    ✅ THE SOLUTION: CSS Preprocessor Partials
       - Separate files for different concerns
       - @import combines them into one CSS file
       - Easy to find and maintain specific components
       - Team-friendly development
       - Reusable across projects
-   
+
    ✅ LESS PARTIAL FEATURES YOU LEARNED:
       - @import "filename"; // Combines files
       - Underscore naming: _partial.less (convention)
       - Logical file organization
       - Building on previous work
-   
-   🚀 NEXT STEPS: In Exercise 4, you'll put EVERYTHING together - 
-   variables, mixins, and partials - to build a complete theme system!
 */
