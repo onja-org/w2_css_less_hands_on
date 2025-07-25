@@ -1,7 +1,7 @@
 # LESS CSS Hands-On Lab
 
-**🎯 Goal:** Understand why CSS preprocessors are essential by experiencing real problems they solve
-**⏱️ Duration:** ~2 hours
+**🎯 Goal:** Understand why CSS preprocessors are essential by experiencing real problems they solve  
+**⏱️ Duration:** ~2 hours  
 **📚 Prerequisites:** Basic knowledge of SCSS from previous lessons
 
 ## What You'll Learn
@@ -16,9 +16,9 @@ By the end of this lab, you'll understand:
 
 This lab uses a **problem-first approach** - you'll experience real CSS maintenance nightmares, then discover how preprocessors solve them:
 
-- **Exercise 1: The Color Nightmare** - Experience changing colors across a stylesheet manually, then solve with variables
-- **Exercise 2: The Button Factory Hell** - Feel the pain of repetitive CSS patterns, then solve with mixins
-- **Exercise 3: The 2000-Line Monster** - Navigate an unorganized stylesheet chaos, then solve with partials
+- **Exercise 1: The Color Nightmare** - Experience changing colors across a stylesheet manually, then solve with variables  
+- **Exercise 2: The Button Factory Hell** - Feel the pain of repetitive CSS patterns, then solve with mixins  
+- **Exercise 3: The 2000-Line Monster** - Navigate an unorganized stylesheet chaos, then solve with partials  
 - **Exercise 4: Mini Project** - Apply everything you've learned to build a complete theme system
 
 > **Teaching Philosophy**: Instead of just learning syntax, you'll first *feel* the problems that make preprocessors indispensable in real projects.
@@ -129,20 +129,20 @@ You've inherited the CSS for "Artisan Marketplace", a large e-commerce site. The
 ## What You've Learned
 
 ### The Problems CSS Preprocessors Solve
-✅ **The Color Nightmare**: Hard-coded values scattered everywhere create maintenance hell
-✅ **The Button Factory**: Repetitive CSS patterns lead to bloated, error-prone code
-✅ **The 2000-Line Monster**: Unorganized stylesheets become impossible to navigate and maintain
+✅ **The Color Nightmare**: Hard-coded values scattered everywhere create maintenance hell  
+✅ **The Button Factory**: Repetitive CSS patterns lead to bloated, error-prone code  
+✅ **The 2000-Line Monster**: Unorganized stylesheets become impossible to navigate and maintain  
 
 ### How LESS Solves These Problems
-✅ **Variables**: `@brand-color` provides single source of truth for repeated values
-✅ **Mixins**: `.button-base(@color, @size)` eliminates repetitive CSS patterns
-✅ **Partials**: `@import` organizes code into logical, maintainable files
-✅ **Color Functions**: `darken(@color, 10%)` creates consistent variations automatically
+✅ **Variables**: `@brand-color` provides single source of truth for repeated values  
+✅ **Mixins**: `.button-base(@color, @size)` eliminates repetitive CSS patterns  
+✅ **Partials**: `@import` organizes code into logical, maintainable files  
+✅ **Color Functions**: `darken(@color, 10%)` creates consistent variations automatically  
 
 ### LESS vs SCSS Key Differences
-✅ **Syntax**: LESS uses `@` for variables, simpler `.mixin()` syntax
-✅ **Philosophy**: LESS is more CSS-like and flexible, SCSS is more structured
-✅ **Functions**: Similar capabilities, slightly different syntax
+✅ **Syntax**: LESS uses `@` for variables, simpler `.mixin()` syntax  
+✅ **Philosophy**: LESS is more CSS-like and flexible, SCSS is more structured  
+✅ **Functions**: Similar capabilities, slightly different syntax  
 
 ### When to Use Preprocessors (Any Preprocessor!)
 **Preprocessors become essential when:**
