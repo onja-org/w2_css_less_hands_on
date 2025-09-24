@@ -1,163 +1,120 @@
 # LESS CSS Hands-On Lab
 
-**🎯 Goal:** Understand why CSS preprocessors are essential by experiencing real problems they solve  
-**⏱️ Duration:** ~2 hours  
-**📚 Prerequisites:** Basic knowledge of SCSS from previous lessons
+A practical workshop designed to teach CSS preprocessors through- Integrate LESS compilation into development workflows
+
+## Project Structure
+
+```-world problems and solutions.
+
+## Overview
+
+This lab takes a **problem-first approach** to learning CSS preprocessors. Instead of jumping straight into syntax, you'll first experience the real maintenance nightmares that make preprocessors essential in professional web development.
+
+**Duration:** ~2 hours  
+**Prerequisites:** Basic knowledge of SCSS from previous lessons
 
 ## What You'll Learn
 
-By the end of this lab, you'll understand:
-- **Why** CSS preprocessors exist and when they're essential
-- **What problems** variables, mixins, and partials actually solve
+By completing this lab, you'll understand:
+
+- **Why** CSS preprocessors exist and when they become essential
+- **What problems** variables, mixins, and partials actually solve in real projects  
 - How LESS syntax compares to SCSS you already know
 - How preprocessors fit into professional web development workflows
+- When to choose LESS over other preprocessors
 
-## Lab Structure & Methodology
+## Lab Structure
 
-This lab uses a **problem-first approach** - you'll experience real CSS maintenance nightmares, then discover how preprocessors solve them:
+The lab consists of three main exercises that build upon each other:
 
-- **Exercise 1: The Color Nightmare** - Experience changing colors across a stylesheet manually, then solve with variables  
-- **Exercise 2: The Button Factory Hell** - Feel the pain of repetitive CSS patterns, then solve with mixins  
-- **Exercise 3: The 2000-Line Monster** - Navigate an unorganized stylesheet chaos, then solve with partials  
-- **Exercise 4: Mini Project** - Apply everything you've learned to build a complete theme system
+### Exercise 1: The Color Nightmare
+Experience the maintenance hell of changing colors across a stylesheet manually, then discover how LESS variables provide a single source of truth.
 
-> **Teaching Philosophy**: Instead of just learning syntax, you'll first *feel* the problems that make preprocessors indispensable in real projects.
+**Problem:** Client wants to change brand color from terracotta to teal across entire site  
+**Learning:** Variables aren't just convenient - they're essential for maintainable CSS
+
+### Exercise 2: The Button Factory Hell  
+Feel the pain of repetitive CSS patterns when updating dozens of similar button components, then solve it with LESS mixins.
+
+**Problem:** Update border-radius across 9+ nearly identical button classes  
+**Learning:** Mixins eliminate repetitive patterns and make scalable CSS possible
+
+### Exercise 3: The 2000-Line Monster
+Navigate an unorganized stylesheet chaos to find specific components, then solve it with LESS partials and imports.
+
+**Problem:** Hunt through a massive single-file stylesheet to find one component  
+**Learning:** Partials organize code into logical, maintainable files for team development
 
 ## Quick Start
 
 ```bash
+# Navigate to the lab directory
+cd lab
+
 # Install dependencies
 npm install
 
-# Compile LESS to CSS
+# Compile LESS to CSS and open demo
 npm start
 ```
 
-> Note that there are currently errors in some of the files -- these will be fixed as you go through the exercises.
+> **Note:** Some files contain intentional errors that you'll fix during the exercises.
+
+## Available Commands
+
+From the `lab` directory:
+
+```bash
+npm run compile:ex1    # Compile exercise 1 only
+npm run compile:ex2    # Compile exercise 2 only  
+npm run compile:ex3    # Compile exercise 3 only
+npm run compile:all    # Compile all exercises
+npm run watch:less     # Watch for changes and auto-compile
+npm start              # Compile all and prepare demo
+```
 
 ## Why LESS?
 
-LESS was one of the first CSS preprocessors and remains popular because:
-- **Simpler syntax** - Closer to vanilla CSS, easier learning curve
-- **Client-side compilation** - Can run in the browser during development (great for prototyping)
-- **JavaScript integration** - Written in JavaScript, easy to extend with custom functions
-- **Bootstrap legacy** - Bootstrap used LESS before switching to SCSS (many projects still use LESS)
-- **Flexible approach** - Less opinionated than SCSS, multiple ways to solve problems
+LESS remains popular in web development because:
 
-## LESS vs SCSS: Quick Reference
+- **Simpler syntax** - Closer to vanilla CSS with easier learning curve
+- **Client-side compilation** - Can run in browser during development  
+- **JavaScript integration** - Written in JavaScript, easy to extend
+- **Bootstrap legacy** - Many projects still use LESS from Bootstrap's legacy
+- **Flexible approach** - Less opinionated than SCSS
 
-| Feature | LESS | SCSS |
-|---------|------|------|
-| Variables | `@color: blue;` | `$color: blue;` |
-| Mixins | `.border-radius(@r) { }` | `@mixin border-radius($r) { }` |
-| Using Mixins | `.border-radius(5px);` | `@include border-radius(5px);` |
-| Interpolation | `@{variable}` | `#{$variable}` |
-| Conditionals | `when (@a > 0)` | `@if $a > 0` |
+## Learning Outcomes
+
+After completing this lab, you'll be able to:
+
+✅ Identify when CSS preprocessors become essential (file size, team size, repetition)  
+✅ Use LESS variables, mixins, and partials to solve real maintenance problems  
+✅ Organize stylesheets for professional team development  
+✅ Choose the right preprocessor for different project needs  
+✅ Integrate LESS compilation into development workflows
+
+## 📁 Project Structure
+
+```
+lab/
+├── demo.html           # Demo page to test your solutions
+├── package.json        # Build scripts and dependencies  
+├── exercises/          # LESS exercise files
+│   ├── exercise1.less  # Variables exercise
+│   ├── exercise2.less  # Mixins exercise
+│   └── exercise3.less  # Partials exercise
+└── resources/          # Reference images
+    ├── less_ex_1.png
+    ├── less_ex_2.png
+    └── less_ex_3.png
+```
+
+## Additional Resources
+
+- [LESS Documentation](https://lesscss.org/)
+- [LESS vs SCSS Comparison](https://lesscss.org/features/#features-overview-feature)
+- [CSS Preprocessor Comparison Guide](https://sass-lang.com/guide)
 
 ---
 
-## Exercise 1: The Color Nightmare
-
-
-**🎯 Objective:** Experience the maintenance hell of repeated values, then solve with LESS variables.
-
-### The Scenario
-You're working on "Heritage Weavers" (a rug-making company) website. The client wants to change their brand color from terracotta to teal across their entire site. You'll discover why hard-coded color values create maintenance nightmares.
-
-### What You'll Experience
-1. **The Pain**: Manually find and change dozens of color instances across a stylesheet
-2. **The Pattern Recognition**: Identify what makes this so error-prone and tedious
-3. **The Solution**: Learn how LESS variables solve this exact problem
-4. **The Magic**: Change one variable and watch the entire site update
-
-### Key Learning Moments
-- **Variables aren't just convenient** - they're essential for maintainable CSS
-- **LESS syntax**: `@brand-color: #16a085;` vs SCSS's `$brand-color`
-- **Color functions**: `darken(@brand-color, 10%)` for automatic variations
-- **Single source of truth**: One place to update, everywhere changes
-
-![Exercise 1 Image](./resources/less_ex_1.png)
----
-
-## Exercise 2: The Button Factory Hell
-
-**🎯 Objective:** Feel the pain of repetitive CSS patterns, then solve with LESS mixins.
-
-### The Scenario
-You work at "Pixel Perfect Design Agency" with a component library containing dozens of button variations. Each button is 90% identical code with slight differences. Your boss wants to change ALL buttons to have rounded corners - good luck finding every instance!
-
-### What You'll Experience
-1. **The Tedium**: Manually update border-radius across 9+ nearly identical button classes
-2. **The Repetition**: See how much duplicate code exists in "well-organized" CSS
-3. **The Solution**: Learn how LESS mixins eliminate repetitive patterns
-4. **The Power**: Create new button variants in seconds instead of minutes
-
-### Key Learning Moments
-- **Mixins solve repetition** - not just convenience, but essential for scalable CSS
-- **LESS syntax**: `.button-base(@color, @size)` vs SCSS's `@mixin` and `@include`
-- **Parameters with defaults**: `@bg-color: @brand-color` for flexible reuse
-- **Color functions**: `darken(@bg-color, 10%)` for automatic hover states
-- **Maintainability**: Change one mixin, update all buttons instantly
-
-![Exercise 1 Image](./resources/less_ex_2.png)
----
-
-## Exercise 3: The 2000-Line Monster
-
-**🎯 Objective:** Navigate unorganized stylesheet chaos, then solve with LESS partials.
-
-### The Scenario
-You've inherited the CSS for "Artisan Marketplace", a large e-commerce site. The previous developer put EVERYTHING in one massive file. Need to find the card component styles? Good luck scrolling through 2000+ lines looking for the right section!
-
-### What You'll Experience
-1. **The Search**: Hunt through a monster stylesheet to find one specific component
-2. **The Frustration**: Realize how impossible large codebases become without organization
-3. **The Solution**: Learn how LESS partials organize code into logical, manageable files
-4. **The Structure**: See how professional projects organize stylesheets for teams
-
-### Key Learning Moments
-- **Partials aren't optional** - they're essential for any real project
-- **@import**: How LESS combines separate files into one CSS output
-- **File organization**: Logical separation by component, utility, and purpose
-- **Team development**: How multiple developers work without conflicts
-- **Reusability**: How organized partials enable component sharing across projects
-- **Maintainability**: Finding specific styles in seconds instead of minutes
-
-![Exercise 1 Image](./resources/less_ex_3.png)
----
-
-## What You've Learned
-
-### The Problems CSS Preprocessors Solve
-✅ **The Color Nightmare**: Hard-coded values scattered everywhere create maintenance hell  
-✅ **The Button Factory**: Repetitive CSS patterns lead to bloated, error-prone code  
-✅ **The 2000-Line Monster**: Unorganized stylesheets become impossible to navigate and maintain  
-
-### How LESS Solves These Problems
-✅ **Variables**: `@brand-color` provides single source of truth for repeated values  
-✅ **Mixins**: `.button-base(@color, @size)` eliminates repetitive CSS patterns  
-✅ **Partials**: `@import` organizes code into logical, maintainable files  
-✅ **Color Functions**: `darken(@color, 10%)` creates consistent variations automatically  
-
-### LESS vs SCSS Key Differences
-✅ **Syntax**: LESS uses `@` for variables, simpler `.mixin()` syntax  
-✅ **Philosophy**: LESS is more CSS-like and flexible, SCSS is more structured  
-✅ **Functions**: Similar capabilities, slightly different syntax  
-
-### When to Use Preprocessors (Any Preprocessor!)
-**Preprocessors become essential when:**
-- Your CSS file grows beyond ~200 lines
-- Multiple developers work on the same styles
-- You need consistent theming across a project
-- You're repeating the same patterns multiple times
-- You're building reusable component libraries
-
-**Choose LESS specifically when:**
-- Team prefers CSS-like syntax (easier learning curve)
-- Working with Bootstrap-based projects (legacy compatibility)
-- Need client-side compilation for rapid prototyping
-- Want a more flexible, less opinionated approach
-
-## Next Steps
-
-If you have time remaining, explore the [LESS documentation](https://lesscss.org/#overview) for more features.
+**Ready to start?** Head to the `lab` directory and follow the README there for detailed exercise instructions!
