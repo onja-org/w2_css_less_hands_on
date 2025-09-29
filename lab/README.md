@@ -1,4 +1,30 @@
-# LESS CSS Lab - E**Note:** Some files contain intentional errors that you'll fix during the exercises.
+# LE# LESS CSS Lab - Exercise Instruction## 📋 Available Scripts
+
+**Note:** All commands should be run from the project root directory (not the lab directory).
+
+```bash
+npm run compile:ex1    # Compile exercise 1 only
+npm run compile:ex2    # Compile exercise 2 only  
+npm run compile:ex3    # Compile exercise 3 only
+npm run compile:all    # Compile all exercises
+npm run watch:less     # Watch for changes and auto-compile
+npm start              # Compile all and prepare demo
+```rectory contains the hands-on exercises for learning LESS CSS preprocessor.
+
+## Getting Started
+
+1. **Install dependencies (from project root):**
+   ```bash
+   cd ..  # if you're in the lab directory
+   npm install
+   ```
+
+2. **Compile and run demo (from project root):**
+   ```bash
+   npm start
+   ```
+
+3. **Open `lab/demo.html` in your browser** to see the resultsote:** Some files contain intentional errors that you'll fix during the exercises.
 
 ## Available Scripts
 
@@ -112,9 +138,9 @@ You'll know you've succeeded when:
 
 ## Debugging Tips
 
-- Use `npm run compile:ex1` to compile individual exercises
+- Use `npm run compile:ex1` (from project root) to compile individual exercises
 - Check the terminal for LESS compilation errors
-- Refresh `demo.html` after each compilation
+- Refresh `lab/demo.html` after each compilation
 - Use browser dev tools to inspect generated CSS
 
 ## What You're Learning
@@ -135,6 +161,8 @@ You'll know you've succeeded when:
 **Need help?** Check the main project README for overview and additional resources.
 
 ## Quick Start
+
+**Note:** Run these commands from the project root directory (not the lab directory).
 
 ```bash
 # Install dependencies

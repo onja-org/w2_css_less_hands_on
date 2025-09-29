@@ -48,10 +48,7 @@ Navigate an unorganized stylesheet chaos to find specific components, then solve
 ## Quick Start
 
 ```bash
-# Navigate to the lab directory
-cd lab
-
-# Install dependencies
+# Install dependencies (run from project root)
 npm install
 
 # Compile LESS to CSS and open demo
@@ -62,7 +59,7 @@ npm start
 
 ## Available Commands
 
-From the `lab` directory:
+From the project root directory:
 
 ```bash
 npm run compile:ex1    # Compile exercise 1 only
@@ -96,17 +93,19 @@ After completing this lab, you'll be able to:
 ## 📁 Project Structure
 
 ```
-lab/
-├── demo.html           # Demo page to test your solutions
 ├── package.json        # Build scripts and dependencies  
-├── exercises/          # LESS exercise files
-│   ├── exercise1.less  # Variables exercise
-│   ├── exercise2.less  # Mixins exercise
-│   └── exercise3.less  # Partials exercise
-└── resources/          # Reference images
-    ├── less_ex_1.png
-    ├── less_ex_2.png
-    └── less_ex_3.png
+├── .gitignore         # Git ignore patterns
+└── lab/
+    ├── demo.html      # Demo page to test your solutions
+    ├── README.md      # Detailed exercise instructions
+    ├── exercises/     # LESS exercise files
+    │   ├── exercise1.less  # Variables exercise
+    │   ├── exercise2.less  # Mixins exercise
+    │   └── exercise3.less  # Partials exercise
+    └── resources/     # Reference images
+        ├── less_ex_1.png
+        ├── less_ex_2.png
+        └── less_ex_3.png
 ```
 
 ## Additional Resources
@@ -117,4 +116,4 @@ lab/
 
 ---
 
-**Ready to start?** Head to the `lab` directory and follow the README there for detailed exercise instructions!
+**Ready to start?** Check the `lab/README.md` for detailed exercise instructions!

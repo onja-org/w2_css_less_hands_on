@@ -1,0 +1,225 @@
+/* ========================================
+   THE SITUATION: A Client's Website
+   ======================================== */
+/*
+   SCENARIO: You're building a website for "Heritage Weavers", a family-owned
+   rug-making business. They've been using a warm terracotta color (#c0392b)
+   throughout their site to represent their traditional craftsmanship.
+
+   But now they want to modernize their brand! The owner calls: "We love the
+   website, but can you change our signature color to this beautiful teal
+   (#16a085) to appeal to younger customers?"
+
+   Your job: Update ALL instances of the brand color throughout the stylesheet.
+   Sound simple? Let's see how many places you need to change...
+*/
+/* ========================================
+   THE CURRENT STYLESHEET (The Problem)
+   ======================================== */
+.header {
+  background: #c0392b;
+  color: white;
+  padding: 1rem;
+  border-bottom: 3px solid #c0392b;
+  margin-bottom: 0rem;
+}
+.logo {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.nav-link:hover {
+  background: rgba(192, 57, 43, 0.1);
+  color: #c0392b;
+}
+.nav-link.active {
+  background: #c0392b;
+  color: white;
+  box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
+}
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+.btn-primary {
+  background: #c0392b;
+  color: white;
+}
+.btn-primary:hover {
+  background: #a93226;
+}
+.btn-outline {
+  background: transparent;
+  border: 2px solid #c0392b;
+  color: #c0392b;
+}
+.btn-outline:hover {
+  background: #c0392b;
+  color: white;
+}
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #c0392b;
+}
+.card-title {
+  color: #c0392b;
+  margin: 0 0 1rem 0;
+}
+.link {
+  color: #c0392b;
+  text-decoration: none;
+}
+.link:hover {
+  color: #a93226;
+  text-decoration: underline;
+}
+.alert-info {
+  background: rgba(192, 57, 43, 0.1);
+  border: 1px solid #c0392b;
+  color: #2c3e50;
+  padding: 1rem;
+  border-radius: 4px;
+}
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #c0392b, #a93226);
+  transition: width 0.3s ease;
+}
+/* ========================================
+   TASK 1A: THE MANUAL APPROACH (Feel the Pain!)
+   ======================================== */
+/*
+   🎯 TASK: Update ALL instances of #c0392b to #16a085 (teal)
+
+   Instructions:
+   1. Go through the CSS above and change EVERY instance of the terracotta
+      color (#c0392b) to the new teal color (#16a085)
+   2. Also change the darker version (#a93226) to a darker teal (#138d75)
+   3. Update the rgba values too: rgba(192, 57, 43, 0.1) becomes rgba(22, 160, 133, 0.1)
+   4. As you work, keep a count of how many places you had to change
+   5. Run `npm run compile:ex1` and open demo.html to see your changes
+
+   Don't worry if this feels tedious - that's the point!
+   Count how many places you changed: _____ (write your answer here)
+*/
+/* ========================================
+   TASK 1B: WHAT WENT WRONG?
+   ======================================== */
+/*
+   After you've made all those changes, think about these questions:
+
+   💭 REFLECTION QUESTIONS:
+   1. How many different places did you have to update?
+   2. What happened if you missed one? (Try leaving one unchanged and see!)
+   3. What if the client changes their mind again tomorrow?
+   4. What if you had a 2000-line stylesheet instead of this small example?
+   5. How confident are you that you found ALL the instances?
+
+   This is exactly the problem that CSS preprocessor VARIABLES solve!
+*/
+/* ========================================
+   TASK 1C: THE SOLUTION - LESS VARIABLES
+   ======================================== */
+/*
+   🎓 LEARNING TIME: What are Variables?
+
+   Variables in LESS (and other preprocessors) store reusable values.
+   Instead of repeating #16a085 everywhere, you define it once:
+
+   @brand-color: #16a085;
+
+   Then use @brand-color everywhere instead of the hex code.
+   When you need to change the color, you update it in ONE place!
+
+   LESS variables:
+   - Start with @ symbol (SCSS uses $ instead)
+   - Store colors, numbers, strings, even complex values
+   - Make your CSS maintainable and consistent
+   - Compile to regular CSS (browsers never see the @ symbol)
+*/
+/* ========================================
+   TASK 1D: REFACTOR WITH VARIABLES
+   ======================================== */
+/*
+   🎯 TASK: Now go back up to the CSS and replace ALL the hard-coded colors
+   with your variables!
+
+   For example, change:
+   .header { background: #16a085; }
+
+   To:
+   .header { background: @brand-color; }
+
+   🔥 PRO TIP: For rgba colors, you can use LESS color functions:
+   Instead of: rgba(22, 160, 133, 0.1)
+   Use: fade(@brand-color, 10%)   // 10% opacity
+
+   Other useful LESS color functions:
+   - darken(@brand-color, 10%)  // Make it darker
+   - lighten(@brand-color, 10%) // Make it lighter
+   - fade(@brand-color, 50%)    // Add transparency
+*/
+/* ========================================
+   TASK 1E: TEST THE POWER OF VARIABLES
+   ======================================== */
+/*
+   🎯 FINAL TASK: Experience the magic!
+
+   Now that you've refactored everything to use variables:
+
+   1. Run `npm run compile:ex1` to see your current teal theme
+   2. Change JUST the @brand-color variable to a different color:
+      Try: #e67e22 (orange) or #8e44ad (purple) or #f39c12 (yellow)
+   3. Run `npm run compile:ex1` again
+   4. Open demo.html and see how the ENTIRE site updates!
+
+   Compare this to Task 1A where you had to find and change dozens of places!
+
+   🎉 You've just experienced why preprocessors are essential tools
+   for modern web development!
+*/
+/* ========================================
+   WHAT YOU LEARNED
+   ======================================== */
+/*
+   ✅ THE PROBLEM: Hard-coded values scattered throughout CSS
+      - Difficult to maintain and update
+      - Easy to miss instances when making changes
+      - No single source of truth for design values
+
+   ✅ THE SOLUTION: CSS Preprocessor Variables
+      - Define values once, use everywhere
+      - Single place to update design decisions
+      - More maintainable and consistent code
+      - LESS uses @ symbol, SCSS uses $ symbol
+
+   ✅ LESS FEATURES YOU USED:
+      - Variables: @brand-color: #16a085;
+      - Color functions: darken(), lighten(), fade()
+      - Comments that compile away
+
+   🚀 NEXT STEPS: In Exercise 2, you'll see how MIXINS solve the problem
+   of repetitive CSS patterns (like button styles)!
+*/
