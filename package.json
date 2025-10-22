@@ -11,12 +11,19 @@
     "watch:less": "lessc --watch lab/exercises/ lab/exercises/",
     "watch:all": "npm run compile:all && npm run watch:less",
     "demo": "npm run compile:all && echo 'Files compiled! Open lab/demo.html in your browser.'",
-    "start": "npm run demo"
+    "start": "npm run demo",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "less": "^4.2.0",
-    "sass": "^1.89.2"
+    "sass": "^1.89.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^22.1.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   }
 }

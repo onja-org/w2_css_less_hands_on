@@ -4,8 +4,6 @@ A practical workshop designed to teach CSS preprocessors through- Integrate LESS
 
 ## Project Structure
 
-```-world problems and solutions.
-
 ## Overview
 
 This lab takes a **problem-first approach** to learning CSS preprocessors. Instead of jumping straight into syntax, you'll first experience the real maintenance nightmares that make preprocessors essential in professional web development.
