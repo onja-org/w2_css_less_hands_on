@@ -3,12 +3,12 @@
    ======================================== */
 /*
    SCENARIO: You're building a website for "Heritage Weavers", a family-owned
-   rug-making business. They've been using a warm terracotta color (#c0392b)
+   rug-making business. They've been using a warm terracotta color
    throughout their site to represent their traditional craftsmanship.
 
    But now they want to modernize their brand! The owner calls: "We love the
    website, but can you change our signature color to this beautiful teal
-   (#16a085) to appeal to younger customers?"
+   to appeal to younger customers?"
 
    Your job: Update ALL instances of the brand color throughout the stylesheet.
    Sound simple? Let's see how many places you need to change...
@@ -20,7 +20,6 @@
   background: #16a085;
   color: white;
   padding: 1rem;
-  border-bottom: 3px solid #c0392b;
   margin-bottom: 0rem;
 }
 .logo {
@@ -36,13 +35,11 @@
   transition: all 0.2s ease;
 }
 .nav-link:hover {
-  background: rgba(192, 57, 43, 0.1);
-  color: #c0392b;
+  background: rgba(22, 160, 133, 0.1);
 }
 .nav-link.active {
-  background: #c0392b;
+  background: #16a085;
   color: white;
-  box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
 }
 .btn {
   padding: 0.75rem 1.5rem;
@@ -55,19 +52,18 @@
   transition: all 0.2s ease;
 }
 .btn-primary {
-  background: #c0392b;
+  background: #16a085;
   color: white;
 }
 .btn-primary:hover {
-  background: #a93226;
+  background: #138d75;
 }
 .btn-outline {
   background: transparent;
-  border: 2px solid #c0392b;
-  color: #c0392b;
+  border: 2px solid #16a085;
 }
 .btn-outline:hover {
-  background: #c0392b;
+  background: #16a085;
   color: white;
 }
 .card {
@@ -75,23 +71,23 @@
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #c0392b;
+  border: 1px solid #e0e0e0;
 }
 .card-title {
-  color: #c0392b;
+  color: #16a085;
   margin: 0 0 1rem 0;
 }
 .link {
-  color: #c0392b;
+  color: #2980b9;
   text-decoration: none;
 }
 .link:hover {
-  color: #a93226;
+  color: #138d75;
   text-decoration: underline;
 }
 .alert-info {
-  background: rgba(192, 57, 43, 0.1);
-  border: 1px solid #c0392b;
+  background: rgba(52, 152, 219, 0.1);
+  border: 1px solid #3498db;
   color: #2c3e50;
   padding: 1rem;
   border-radius: 4px;
@@ -104,20 +100,20 @@
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #c0392b, #a93226);
+  background: #16a085;
   transition: width 0.3s ease;
 }
 /* ========================================
    TASK 1A: THE MANUAL APPROACH (Feel the Pain!)
    ======================================== */
 /*
-   🎯 TASK: Update ALL instances of #c0392b to #16a085 (teal)
+   🎯 TASK: Update ALL instances of the old color to the new teal
 
    Instructions:
    1. Go through the CSS above and change EVERY instance of the terracotta
-      color (#c0392b) to the new teal color (#16a085)
-   2. Also change the darker version (#a93226) to a darker teal (#138d75)
-   3. Update the rgba values too: rgba(192, 57, 43, 0.1) becomes rgba(22, 160, 133, 0.1)
+      color to the new teal color
+   2. Also change the darker version to a darker teal
+   3. Update the rgba values too
    4. As you work, keep a count of how many places you had to change
    5. Run `npm run compile:ex1` and open demo.html to see your changes
 
@@ -146,11 +142,8 @@
    🎓 LEARNING TIME: What are Variables?
 
    Variables in LESS (and other preprocessors) store reusable values.
-   Instead of repeating #16a085 everywhere, you define it once:
-
-   @brand-color: #16a085;
-
-   Then use @brand-color everywhere instead of the hex code.
+   Instead of repeating color codes everywhere, you define them once
+   and use the variable name throughout your stylesheet.
    When you need to change the color, you update it in ONE place!
 
    LESS variables:
@@ -167,19 +160,19 @@
    with your variables!
 
    For example, change:
-   .header { background: #16a085; }
+   .header { background: teal-color-code-here; }
 
    To:
-   .header { background: @brand-color; }
+   .header { background: variable-name-here; }
 
    🔥 PRO TIP: For rgba colors, you can use LESS color functions:
    Instead of: rgba(22, 160, 133, 0.1)
-   Use: fade(@brand-color, 10%)   // 10% opacity
+   Use: fade(variable-name, 10%)   // 10% opacity
 
    Other useful LESS color functions:
-   - darken(@brand-color, 10%)  // Make it darker
-   - lighten(@brand-color, 10%) // Make it lighter
-   - fade(@brand-color, 50%)    // Add transparency
+   - darken(color-variable, 10%)  // Make it darker
+   - lighten(color-variable, 10%) // Make it lighter
+   - fade(color-variable, 50%)    // Add transparency
 */
 /* ========================================
    TASK 1E: TEST THE POWER OF VARIABLES
@@ -190,8 +183,8 @@
    Now that you've refactored everything to use variables:
 
    1. Run `npm run compile:ex1` to see your current teal theme
-   2. Change JUST the @brand-color variable to a different color:
-      Try: #e67e22 (orange) or #8e44ad (purple) or #f39c12 (yellow)
+   2. Change JUST the main color variable to a different color:
+      Try: orange, purple, or yellow hex codes
    3. Run `npm run compile:ex1` again
    4. Open demo.html and see how the ENTIRE site updates!
 
@@ -216,7 +209,7 @@
       - LESS uses @ symbol, SCSS uses $ symbol
 
    ✅ LESS FEATURES YOU USED:
-      - Variables: @brand-color: #16a085;
+      - Variables with @ symbol
       - Color functions: darken(), lighten(), fade()
       - Comments that compile away
 

@@ -1,0 +1,550 @@
+/* ========================================
+   THE SITUATION: A Client's Website
+   ======================================== */
+/*
+   SCENARIO: You're building a website for "Heritage Weavers", a family-owned
+   rug-making business. They've been using a warm terracotta color
+   throughout their site to represent their traditional craftsmanship.
+
+   But now they want to modernize their brand! The owner calls: "We love the
+   website, but can you change our signature color to this beautiful teal
+   to appeal to younger customers?"
+
+   Your job: Update ALL instances of the brand color throughout the stylesheet.
+   Sound simple? Let's see how many places you need to change...
+*/
+/* ========================================
+   THE CURRENT STYLESHEET (The Problem)
+   ======================================== */
+.header {
+  background: #16a085;
+  color: white;
+  padding: 1rem;
+  margin-bottom: 0rem;
+}
+.logo {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.nav-link {
+  color: #333;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+.nav-link:hover {
+  background: rgba(22, 160, 133, 0.1);
+}
+.nav-link.active {
+  background: #16a085;
+  color: white;
+}
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+.btn-primary {
+  background: #16a085;
+  color: white;
+}
+.btn-primary:hover {
+  background: #138d75;
+}
+.btn-outline {
+  background: transparent;
+  border: 2px solid #16a085;
+}
+.btn-outline:hover {
+  background: #16a085;
+  color: white;
+}
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+.card-title {
+  color: #16a085;
+  margin: 0 0 1rem 0;
+}
+.link {
+  color: #2980b9;
+  text-decoration: none;
+}
+.link:hover {
+  color: #138d75;
+  text-decoration: underline;
+}
+.alert-info {
+  background: rgba(52, 152, 219, 0.1);
+  border: 1px solid #3498db;
+  color: #2c3e50;
+  padding: 1rem;
+  border-radius: 4px;
+}
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #16a085;
+  transition: width 0.3s ease;
+}
+/* ========================================
+   TASK 1A: THE MANUAL APPROACH (Feel the Pain!)
+   ======================================== */
+/*
+   🎯 TASK: Update ALL instances of the old color to the new teal
+
+   Instructions:
+   1. Go through the CSS above and change EVERY instance of the terracotta
+      color to the new teal color
+   2. Also change the darker version to a darker teal
+   3. Update the rgba values too
+   4. As you work, keep a count of how many places you had to change
+   5. Run `npm run compile:ex1` and open demo.html to see your changes
+
+   Don't worry if this feels tedious - that's the point!
+   Count how many places you changed: _____ (write your answer here)
+*/
+/* ========================================
+   TASK 1B: WHAT WENT WRONG?
+   ======================================== */
+/*
+   After you've made all those changes, think about these questions:
+
+   💭 REFLECTION QUESTIONS:
+   1. How many different places did you have to update?
+   2. What happened if you missed one? (Try leaving one unchanged and see!)
+   3. What if the client changes their mind again tomorrow?
+   4. What if you had a 2000-line stylesheet instead of this small example?
+   5. How confident are you that you found ALL the instances?
+
+   This is exactly the problem that CSS preprocessor VARIABLES solve!
+*/
+/* ========================================
+   TASK 1C: THE SOLUTION - LESS VARIABLES
+   ======================================== */
+/*
+   🎓 LEARNING TIME: What are Variables?
+
+   Variables in LESS (and other preprocessors) store reusable values.
+   Instead of repeating color codes everywhere, you define them once
+   and use the variable name throughout your stylesheet.
+   When you need to change the color, you update it in ONE place!
+
+   LESS variables:
+   - Start with @ symbol (SCSS uses $ instead)
+   - Store colors, numbers, strings, even complex values
+   - Make your CSS maintainable and consistent
+   - Compile to regular CSS (browsers never see the @ symbol)
+*/
+/* ========================================
+   TASK 1D: REFACTOR WITH VARIABLES
+   ======================================== */
+/*
+   🎯 TASK: Now go back up to the CSS and replace ALL the hard-coded colors
+   with your variables!
+
+   For example, change:
+   .header { background: teal-color-code-here; }
+
+   To:
+   .header { background: variable-name-here; }
+
+   🔥 PRO TIP: For rgba colors, you can use LESS color functions:
+   Instead of: rgba(22, 160, 133, 0.1)
+   Use: fade(variable-name, 10%)   // 10% opacity
+
+   Other useful LESS color functions:
+   - darken(color-variable, 10%)  // Make it darker
+   - lighten(color-variable, 10%) // Make it lighter
+   - fade(color-variable, 50%)    // Add transparency
+*/
+/* ========================================
+   TASK 1E: TEST THE POWER OF VARIABLES
+   ======================================== */
+/*
+   🎯 FINAL TASK: Experience the magic!
+
+   Now that you've refactored everything to use variables:
+
+   1. Run `npm run compile:ex1` to see your current teal theme
+   2. Change JUST the main color variable to a different color:
+      Try: orange, purple, or yellow hex codes
+   3. Run `npm run compile:ex1` again
+   4. Open demo.html and see how the ENTIRE site updates!
+
+   Compare this to Task 1A where you had to find and change dozens of places!
+
+   🎉 You've just experienced why preprocessors are essential tools
+   for modern web development!
+*/
+/* ========================================
+   WHAT YOU LEARNED
+   ======================================== */
+/*
+   ✅ THE PROBLEM: Hard-coded values scattered throughout CSS
+      - Difficult to maintain and update
+      - Easy to miss instances when making changes
+      - No single source of truth for design values
+
+   ✅ THE SOLUTION: CSS Preprocessor Variables
+      - Define values once, use everywhere
+      - Single place to update design decisions
+      - More maintainable and consistent code
+      - LESS uses @ symbol, SCSS uses $ symbol
+
+   ✅ LESS FEATURES YOU USED:
+      - Variables with @ symbol
+      - Color functions: darken(), lighten(), fade()
+      - Comments that compile away
+
+   🚀 NEXT STEPS: In Exercise 2, you'll see how MIXINS solve the problem
+   of repetitive CSS patterns (like button styles)!
+*/
+/* ========================================
+   THE SITUATION: A Design Agency's Nightmare
+   ======================================== */
+/*
+   SCENARIO: You work at "Pixel Perfect Design Agency". Your team has built
+   a component library with many button variations for different clients.
+   
+   Each button follows the same basic pattern (padding, border-radius, font-weight, etc.)
+   but with different colors and sizes. The CSS has grown into a monster...
+   
+   Then your boss says: "Great news! All our clients want their buttons to have 
+   rounded corners now - change the border-radius from 4px to 12px on ALL buttons!"
+   
+   Let's see what you're dealing with...
+*/
+/* ========================================
+   THE CURRENT BUTTON LIBRARY (The Problem)
+   ======================================== */
+.btn-primary-small {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #16a085;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+.btn-primary-small:hover {
+  background: #107360;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-primary-medium {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #16a085;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+}
+.btn-primary-medium:hover {
+  background: #107360;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-primary-large {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #16a085;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+.btn-primary-large:hover {
+  background: #107360;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-secondary-small {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #2ecc71;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+.btn-secondary-small:hover {
+  background: #25a25a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-secondary-medium {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #2ecc71;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+}
+.btn-secondary-medium:hover {
+  background: #25a25a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-secondary-large {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #2ecc71;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+.btn-secondary-large:hover {
+  background: #25a25a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-danger-small {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #e74c3c;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+.btn-danger-small:hover {
+  background: #d62c1a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-danger-medium {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #e74c3c;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+}
+.btn-danger-medium:hover {
+  background: #d62c1a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.btn-danger-large {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: #e74c3c;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+.btn-danger-large:hover {
+  background: #d62c1a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+/* ========================================
+   TASK 2A: THE MAINTENANCE NIGHTMARE (Feel the Pain!)
+   ======================================== */
+/*
+   🎯 TASK: Change border-radius from 4px to 12px on ALL buttons
+   
+   Instructions:
+   1. Go through ALL the button CSS above and change every border-radius 
+      from 4px to 12px
+   2. Count how many places you had to change (there should be 9)
+   3. Run `npm run compile:ex2` and open demo.html to see the result
+   4. As you work, imagine if this was a 50-button library instead of 9...
+   
+   Count how many places you changed: _____ (write your answer here)
+   
+   Now imagine your boss says: "Actually, let's also add a subtle shadow 
+   to ALL buttons: box-shadow: 0 1px 3px rgba(0,0,0,0.1);"
+   
+   How many more places would you need to update? _____
+*/
+/* ========================================
+   TASK 2B: SPOT THE PATTERN
+   ======================================== */
+/*
+   After making those changes, look closely at the CSS above.
+   
+   💭 REFLECTION QUESTIONS:
+   1. What properties are EXACTLY the same across all buttons?
+   2. What properties only differ by specific values (like color, padding, font-size)?
+   3. What would happen if you needed to add a new button type (like "warning")?
+   4. How many lines of code would you need to write for 3 sizes of warning buttons?
+   5. What if you had 20 different button types instead of 3?
+   
+   Look at this pattern:
+   - BASE PROPERTIES: border, cursor, font-weight, display, text-align, transition
+   - VARIABLE PROPERTIES: padding, font-size, background color
+   
+   This repetitive pattern is EXACTLY what CSS preprocessor MIXINS solve!
+*/
+/* ========================================
+   TASK 2C: THE SOLUTION - LESS MIXINS
+   ======================================== */
+/*
+   🎓 LEARNING TIME: What are Mixins?
+   
+   Mixins are reusable blocks of CSS that can accept parameters.
+   Think of them as "CSS functions" that eliminate repetition.
+   
+   Instead of writing the same properties over and over, you define them once:
+   
+   .button-base(@bg-color, @size) {
+     border: none;
+     cursor: pointer;
+     // ... other common properties
+     background: @bg-color;
+     // size-specific properties based on @size parameter
+   }
+   
+   Then use it like this:
+   .btn-primary-small { .button-base(@brand-color, small); }
+   
+   LESS mixin syntax:
+   - Define: .mixin-name(@param1, @param2) { ... }
+   - Use: .mixin-name(value1, value2);
+   - SCSS is different: @mixin name() and @include name()
+*/
+/* ========================================
+   TASK 2D: REFACTOR WITH MIXINS
+   ======================================== */
+/*
+   🎯 TASK: Replace all the repetitive button CSS with your mixins!
+   
+   Instructions:
+   1. First, uncomment the mixins you created above
+   2. Then replace ALL the button classes with clean, simple versions using mixins
+   3. For example, replace the entire .btn-primary-small class with:
+   
+   .btn-primary-small {
+     .button-base(@brand-color);
+     .button-small();
+   }
+   
+   4. Do this for ALL 9 button variations
+   5. Run `npm run compile:ex2` to make sure it still works
+   
+   Compare your new code to the original:
+   - Original: ~180 lines of repetitive CSS
+   - With mixins: ~30 lines of clean, maintainable code!
+*/
+/* ========================================
+   TASK 2E: TEST THE POWER OF MIXINS
+   ======================================== */
+/*
+   🎯 FINAL TASK: Experience the magic of mixins!
+   
+   Now that you've refactored everything:
+   
+   1. Want to change ALL button shadows? Update just the .button-base() mixin!
+   2. Want to adjust ALL large button sizes? Update just the .button-large() mixin!
+   3. Need a new button type? Just create one line:
+      .btn-warning-medium { .button-base(#f39c12); .button-medium(); }
+   
+   Try this:
+   1. Add a new "warning" button color (#f39c12) in one line of code
+   2. Change the border-radius in the mixin from 12px to 20px
+   3. Run the compiler and see ALL buttons update instantly!
+   
+   Compare this to Task 2A where you had to find and change 9+ places manually!
+*/
+/* ========================================
+   WHAT YOU LEARNED
+   ======================================== */
+/*
+   ✅ THE PROBLEM: Repetitive CSS patterns
+      - Same properties copied across multiple classes
+      - Maintenance nightmare when making changes
+      - Lots of code duplication
+      - Error-prone manual updates
+   
+   ✅ THE SOLUTION: CSS Preprocessor Mixins
+      - Define reusable blocks of CSS with parameters
+      - One place to update common properties
+      - Much less code to maintain
+      - Easy to create new variations
+   
+   ✅ LESS MIXIN FEATURES YOU USED:
+      - Basic mixins: .mixin-name(@param) { ... }
+      - Parameters with defaults: (@color: @brand-color)
+      - Using mixins: .mixin-name(value);
+      - Color functions: darken(), lighten()
+   
+   🚀 NEXT STEPS: In Exercise 3, you'll see how PARTIALS solve the problem 
+   of organizing large stylesheets across multiple files!
+*/
