@@ -1,77 +1,89 @@
 // lab/tests/exercise3.test.js
 
-const fs = require('fs');
-const path = require('path');
-const less = require('less');
+const { read, stripComments, compile, compileWithEdits, allRules } = require('./helpers');
 
-const lessContent = fs.readFileSync(
-  path.join(__dirname, '../exercises/exercise3.less'),
-  'utf8'
-);
+const source = read('exercise3.less');
+const main = stripComments(source);
+const cards = stripComments(read('partials/_cards.less'));
+const buttons = stripComments(read('partials/_buttons.less'));
 
-describe('TASK 3A: Manual Search and Update', () => {
-  test('TASK 3A: update .card border-radius from 4px to 8px', () => {
-    expect(lessContent).toMatch(/\.card\s*\{[^}]*border-radius\s*:\s*8px/);
-    expect(lessContent).not.toContain('border-radius: 4px');
-  });
-});
+const VARIANTS = ['card-small', 'card-large', 'card-featured', 'card-sale'];
 
-describe('TASK 3C: Understand Partials', () => {
-  test('TASK 3C: imports exercise1.less for variables', () => {
-    expect(lessContent).toMatch(/@import\s*['"]exercise1\.less['"]/);
-  });
+// The .card block from exercise 3 (not the one imported from exercise 1),
+// recognisable by its 1px #e0e0e0 border.
+const cardBlocks = (css) =>
+  [...css.matchAll(/(^|\n)\.card\s*\{([^}]*)\}/g)]
+    .map((m) => m[2])
+    .filter((body) => /border:\s*1px solid #e0e0e0/.test(body));
 
-  test('TASK 3C: imports exercise2.less for mixins', () => {
-    expect(lessContent).toMatch(/@import\s*['"]exercise2\.less['"]/);
+describe('TASK 3A: The Search Mission', () => {
+  test('the .card component compiles with border-radius: 8px', async () => {
+    const css = await compile(source, 'exercise3.less');
+    const blocks = cardBlocks(css);
+    expect(blocks.length).toBeGreaterThan(0);
+    for (const body of blocks) {
+      expect(body).toMatch(/border-radius:\s*8px/);
+    }
   });
 });
 
 describe('TASK 3D: Organize with Partials', () => {
-  test('TASK 3D: .card styles remain intact after organization', async () => {
-    const result = await less.render(lessContent);
-    const css = result.css;
-
-    expect(css).toMatch(/\.card\s*\{[^}]*border-radius:\s*8px/);
-    expect(css).toMatch(/\.card\s*\{[^}]*background:\s*white/);
-    expect(css).toMatch(/\.card\s*\{[^}]*padding:\s*1\.5rem/);
-    expect(css).toMatch(/\.card\s*\{[^}]*box-shadow:\s*0\s+2px\s+10px\s+rgba\(0,0,0,0\.1\)/);
-    expect(css).toMatch(/\.card\s*\{[^}]*border:\s*1px\s+solid\s+#e0e0e0/);
+  test('partials/_cards.less holds the card component and its variants', () => {
+    expect(cards).toMatch(/(^|\n)\s*\.card\s*\{[^}]*border-radius\s*:\s*8px/);
+    for (const name of ['card-title', 'card-price', ...VARIANTS]) {
+      expect(cards).toMatch(new RegExp(`\\.${name}\\s*\\{`));
+    }
   });
 
-  test('TASK 3D: card variants use .card mixin correctly', () => {
-    expect(lessContent).toMatch(/\.card-small\s*\{[^}]*\.card;/);
-    expect(lessContent).toMatch(/\.card-large\s*\{[^}]*\.card;/);
-    expect(lessContent).toMatch(/\.card-featured\s*\{[^}]*\.card;/);
-    expect(lessContent).toMatch(/\.card-sale\s*\{[^}]*\.card;/);
+  test('partials/_buttons.less holds the button styles', () => {
+    for (const name of ['btn', 'btn-primary', 'btn-secondary', 'btn-outline']) {
+      expect(buttons).toMatch(new RegExp(`(^|\\n)\\s*\\.${name}\\s*\\{`));
+    }
   });
 
-  test('TASK 3D: NO hardcoded border-radius in card variants', () => {
-    const withoutComments = lessContent.replace(/\/\*[\s\S]*?\*\//g, '');
-    expect(withoutComments).not.toMatch(/\.card-(small|large|featured|sale)\s*\{[^}]*border-radius/);
+  test('exercise3.less imports both partials', () => {
+    expect(main).toMatch(/@import\s*["']partials\/_cards(\.less)?["']\s*;/);
+    expect(main).toMatch(/@import\s*["']partials\/_buttons(\.less)?["']\s*;/);
+  });
+
+  test('the card and button code was moved out of exercise3.less, not copied', () => {
+    // Top-level rules only — the .card override inside @media stays here.
+    expect(main).not.toMatch(/(^|\n)\.card(-[a-z]+)?\s*\{/);
+    expect(main).not.toMatch(/(^|\n)\.btn(-[a-z]+)?\s*\{/);
+  });
+
+  test('card variants reuse .card() and do not hard-code border-radius', () => {
+    for (const name of VARIANTS) {
+      const body = (cards.match(new RegExp(`\\.${name}\\s*\\{([^}]*)\\}`)) || [])[1] || '';
+      expect(body).toMatch(/\.card\s*(\(\s*\))?\s*;/);
+      expect(body).not.toMatch(/border-radius/);
+    }
+  });
+
+  test('exercise3.less compiles from the partials with the same styles', async () => {
+    expect(cards).not.toBe('');
+    expect(buttons).not.toBe('');
+    const css = await compile(source, 'exercise3.less');
+    expect(cardBlocks(css).join('\n')).toMatch(/padding:\s*1\.5rem/);
+    expect(allRules(css, '.btn-outline')).toMatch(/border:\s*2px solid #16a085/);
+    expect(allRules(css, '.card-featured')).toMatch(/border:\s*2px solid #16a085/);
+    expect(allRules(css, '.hero')).toMatch(/linear-gradient/);
   });
 });
 
-describe('TASK 3D: Partials Power', () => {
-  test('TASK 3D: compiles with imported partials correctly', async () => {
-    const result = await less.render(lessContent);
-    const css = result.css;
-
-    // Check for variables from exercise1.less
-    expect(css).toContain('#16a085');
-    // Check for button styles from exercise2.less
-    expect(css).toMatch(/\.btn-primary\s*\{[^}]*background:\s*#16a085/);
-    // Check for card styles
-    expect(css).toMatch(/\.card\s*\{[^}]*border-radius:\s*8px/);
-  });
-
-  test('TASK 3D: changing ONE border-radius updates ALL cards', async () => {
-    const updatedLess = lessContent.replace(/border-radius\s*:\s*8px/, 'border-radius: 16px');
-    const result = await less.render(updatedLess);
-    const css = result.css;
-
-    expect(css).toContain('border-radius: 16px');
-    expect(css).not.toContain('border-radius: 8px');
-    const count = (css.match(/border-radius\s*:\s*16px/g) || []).length;
-    expect(count).toBeGreaterThanOrEqual(5); // Main .card + 4 variants
+describe('TASK 3E: Partials Power', () => {
+  test('changing border-radius once in _cards.less updates every card variant', async () => {
+    expect(cards).not.toBe('');
+    const css = await compileWithEdits('exercise3.less', {
+      'partials/_cards.less': (src) =>
+        stripComments(src).replace(
+          /((^|\n)\s*\.card\s*\{[^}]*?border-radius\s*:\s*)8px/,
+          '$116px'
+        ),
+    });
+    expect(cardBlocks(css).join('\n')).toMatch(/border-radius:\s*16px/);
+    for (const name of VARIANTS) {
+      expect(allRules(css, `.${name}`)).toMatch(/border-radius:\s*16px/);
+    }
   });
 });

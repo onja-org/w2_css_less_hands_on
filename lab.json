@@ -1,0 +1,14 @@
+{
+  "id": "w4-less-hands-on",
+  "title": "LESS Fundamentals: Variables, Mixins and Partials",
+  "block": "CSS",
+  "week": 4,
+  "day": 3,
+
+  "canvas": {
+    "course_id": 114,
+    "assignment_id": 10884
+  },
+
+  "test_command": "cd lab && npm install --no-audit --no-fund --silent && npx jest --ci"
+}

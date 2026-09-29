@@ -1,0 +1,39 @@
+{
+  "name": "less-css-hands-on-lab",
+  "version": "1.0.0",
+  "description": "CSS · Week 4 · Day 3 — solve real CSS maintenance problems with LESS variables, mixins and partials",
+  "scripts": {
+    "compile:ex1": "lessc exercises/exercise1.less exercises/exercise1.css",
+    "compile:ex2": "lessc exercises/exercise2.less exercises/exercise2.css",
+    "compile:ex3": "lessc exercises/exercise3.less exercises/exercise3.css",
+    "compile:all": "npm run compile:ex1 && npm run compile:ex2 && npm run compile:ex3",
+    "watch:less": "nodemon --watch exercises --ext less --exec \"npm run compile:all\"",
+    "watch:all": "npm run watch:less",
+    "demo": "npm run compile:all && echo 'Files compiled! Open demo.html in your browser.'",
+    "start": "npm run demo",
+    "test": "jest --ci"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^22.1.0",
+    "less": "^4.2.0",
+    "nodemon": "^3.1.14"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "reporters": [
+      "default",
+      [
+        "<rootDir>/tests/score-reporter.js",
+        {
+          "expectedTotal": 23,
+          "expectedSuites": 3
+        }
+      ]
+    ]
+  },
+  "private": true
+}
