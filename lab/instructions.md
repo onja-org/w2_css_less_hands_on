@@ -1,12 +1,14 @@
-# LESS CSS Lab - Exercise Instruction
+# LESS CSS Lab - Exercise Instructions
 
-This directory contains hands-on exercises to learn the LESS CSS preprocessor by solving real-world frontend problems.
+> **CSS · Week 4 · Day 3**. Read `lesson/index.md` before starting.
+
+This folder contains hands-on exercises to learn the LESS CSS preprocessor by solving real-world frontend problems.
 
 > **Note:** Some files contain intentional errors that you'll fix during the exercises.
 
 ## 🚀 Quick Start
 
-**Note**: All commands should be run from the project root directory (not the lab directory).
+**Note**: Run all commands from inside the `lab/` folder (`cd lab` from the project root).
 
 1. **Install dependencies:**
 
@@ -22,16 +24,18 @@ This directory contains hands-on exercises to learn the LESS CSS preprocessor by
 
 3. **Open `demo.html` in your browser** to see the results
 
-## � Available Scripts
+> **Expected at first:** until you define the variables in Exercise 1 (Task 1C), `npm start`, `compile:ex2` and `compile:ex3` stop with `NameError: variable @brand-color is undefined`. Exercises 2 and 3 import Exercise 1, so they need its variables. Do the exercises in order.
+
+## 📜 Available Scripts
 
 ```bash
 npm run compile:ex1    # Compile exercise 1 only
 npm run compile:ex2    # Compile exercise 2 only  
 npm run compile:ex3    # Compile exercise 3 only
 npm run compile:all    # Compile all exercises
-npm run watch:less     # Watch for changes and auto-compile
+npm run watch:less     # Recompile all exercises every time you save a .less file (Ctrl+C to stop)
 npm start              # Compile all and prepare demo
-npm test               # check for passing tasks
+npm test               # Run the automated checks (the last line shows your score)
 ```
 
 ## Exercise Instructions
@@ -67,8 +71,9 @@ npm test               # check for passing tasks
 **Your Task:**
 
 1. First, manually update border-radius across all button classes (experience the repetition!)
-2. Then, create LESS mixins to eliminate the repetitive patterns
-3. Use parameters and defaults for flexible reuse
+2. Then, create LESS mixins to eliminate the repetitive patterns: `.button-base(@bg-color, ...)` plus `.button-small()`, `.button-medium()` and `.button-large()`
+3. Rewrite all 9 button classes so each one is just two mixin calls
+4. Add a new `.btn-warning-medium` button (`#f39c12`) in one line
 
 **Key Concepts:**
 
@@ -88,13 +93,17 @@ npm test               # check for passing tasks
 
 **Your Task:**
 
-1. First, hunt through the monster stylesheet to find specific components (feel the frustration!)
-2. Then, organize code into logical partials using `@import`
-3. Create a maintainable file structure for team development
+1. First, hunt through the monster stylesheet to find the `.card` component and change its border-radius from 4px to 8px (feel the frustration!)
+2. Create `exercises/partials/_cards.less` and move all the card styles into it
+3. Create `exercises/partials/_buttons.less` and move all the button styles into it
+4. Import both partials at the top of `exercise3.less` with `@import "partials/_cards.less";` and `@import "partials/_buttons.less";`
+5. Recompile and check the result looks exactly the same, then change the card border-radius once in `_cards.less` and watch every card variant update
+
+The detailed steps are in the Task 3D and 3E comments inside `exercise3.less`.
 
 **Key Concepts:**
 
-- File organization with `@import`
+- File organization with `@import` (paths are relative to the file doing the importing)
 - Logical separation by component and purpose
 - Professional stylesheet structure for teams
 
@@ -122,9 +131,9 @@ You'll know you've succeeded when:
 
 ## Debugging Tips
 
-- Use `npm run compile:ex1` (from project root) to compile individual exercises
+- Use `npm run compile:ex1` (from inside `lab/`) to compile individual exercises
 - Check the terminal for LESS compilation errors
-- Refresh `lab/demo.html` after each compilation
+- Refresh `demo.html` after each compilation
 - Use browser dev tools to inspect generated CSS
 
 ## What You're Learning
@@ -145,7 +154,7 @@ You'll know you've succeeded when:
 ---
 
 **Need help?**  
-Check the main project `README` for overview and additional resources.
+Check the project `README.md` (one folder up) for the overview, and `lesson/index.md` for the concepts.
 
 > Note that there are currently errors in some of the files -- these will be fixed as you go through the exercises.
 

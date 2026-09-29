@@ -100,10 +100,10 @@ img { max-width: 100%; height: auto; }
 .card-price { font-size: 1.5rem; font-weight: bold; color: @brand-color; }
 
 /* MORE CARD VARIATIONS */
-.card-small { .card; padding: 1rem; }
-.card-large { .card; padding: 2rem; }
-.card-featured { .card; border: 2px solid @brand-color; }
-.card-sale { .card; position: relative; }
+.card-small { .card(); padding: 1rem; }
+.card-large { .card(); padding: 2rem; }
+.card-featured { .card(); border: 2px solid @brand-color; }
+.card-sale { .card(); position: relative; }
 .card-sale::before { content: "SALE"; position: absolute; top: -10px; right: -10px; background: #e74c3c; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
 
 /* BUTTON STYLES */
@@ -223,9 +223,7 @@ img { max-width: 100%; height: auto; }
    ======================================== */
 
 /*
-   🎯 TASK: Create a better file structure using partials
-
-   If we were to organize the monster stylesheet above, we'd create:
+   If we fully organized the monster stylesheet above, we'd end up with:
 
    📁 partials/
      _variables.less    // @brand-color, etc.
@@ -244,7 +242,30 @@ img { max-width: 100%; height: auto; }
    Need button changes = open _buttons.less
    Want to reuse cards in another project = copy _cards.less
 
-   Compare this to searching through 2000 lines!
+   You'll build the first two of these now.
+
+   🎯 TASK: Split the cards and buttons out into partials
+
+   1. Create a folder: lab/exercises/partials/
+   2. Create partials/_cards.less and MOVE (cut, don't copy) everything from
+      the "CARD STYLES" and "MORE CARD VARIATIONS" sections into it:
+      .card, .card:hover, .card-image, .card-title, .card-description,
+      .card-price, and the four variants (.card-small, .card-large,
+      .card-featured, .card-sale and .card-sale::before)
+   3. Create partials/_buttons.less and MOVE the "BUTTON STYLES" section
+      into it (.btn, .btn-primary, .btn-secondary, .btn-outline and their
+      :hover rules)
+   4. Back in this file, import the two partials right after the existing
+      imports at the top:
+        @import "partials/_cards.less";
+        @import "partials/_buttons.less";
+   5. Run `npm run compile:ex3` — the output should look exactly the same
+      as before, even though the code now lives in three files.
+      (Leave the `.card { padding: 1rem; }` inside the @media block here —
+      responsive overrides stay with the other breakpoints for now.)
+
+   Partials don't need their own @import of exercise1.less: they're
+   compiled as part of this file, so they can already see @brand-color.
 */
 
 /*
@@ -253,6 +274,18 @@ img { max-width: 100%; height: auto; }
    @import "exercise2.less"; // Gets mixins
 
    This lets us build on previous work without copying code!
+*/
+
+/* ========================================
+   TASK 3E: TEST THE POWER OF PARTIALS
+   ======================================== */
+
+/*
+   🎯 FINAL TASK:
+   1. Open partials/_cards.less (no scrolling through the monster file!)
+   2. Change the .card border-radius from 8px to 16px
+   3. Run `npm run compile:ex3` and check that every card variant updated
+   4. Change it back to 8px when you're done
 */
 
 /* ========================================
