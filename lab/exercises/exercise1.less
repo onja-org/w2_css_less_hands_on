@@ -144,12 +144,15 @@
    1. Go through the CSS above and change EVERY instance of the terracotta
       color (#c0392b) to the new teal color (#16a085)
    2. Also change the darker version (#a93226) to a darker teal (#138d75)
-   3. Update the rgba values too: rgba(192, 57, 43, 0.1) becomes rgba(22, 160, 133, 0.1)
+   3. Update the rgba values too:
+      rgba(192, 57, 43, 0.1) becomes rgba(22, 160, 133, 0.1)  (2 places)
+      rgba(192, 57, 43, 0.3) becomes rgba(22, 160, 133, 0.3)  (in .nav-link.active)
    4. As you work, keep a count of how many places you had to change
    5. Run `npm run compile:ex1` and open demo.html to see your changes
 
    Don't worry if this feels tedious - that's the point!
-   Count how many places you changed: _____ (write your answer here)
+   Count how many places you changed: _____ (write your answer here -
+   the blanks and reflection questions in this lab are for you, not graded)
 */
 
 /* ========================================
@@ -192,7 +195,12 @@
 */
 
 // 🎯 TASK: Define your variables here
-// TODO: Create these LESS variables to replace all the repeated colors
+// TODO: Uncomment the variables below (delete the leading //).
+//   REQUIRED (the tests check these): @brand-color and @brand-color-dark
+//   OPTIONAL (use them if you like):  @text-color, @light-gray, @white
+//
+// These sit below the rules that use them, and that's fine: LESS reads the
+// whole file before resolving variables. You may also move them to the top.
 
 // @brand-color: #16a085;        // The main teal color
 // @brand-color-dark: #138d75;   // Darker version for hovers
@@ -214,11 +222,21 @@
    To:
    .header { background: @brand-color; }
 
-   🔥 PRO TIP: For rgba colors, you can use LESS color functions:
-   Instead of: rgba(22, 160, 133, 0.1)
-   Use: fade(@brand-color, 10%)   // 10% opacity
+   Use exactly these replacements:
+   - #16a085 (the teal)               ->  @brand-color
+   - #138d75 (the darker teal)        ->  @brand-color-dark
+       (3 places: .btn-primary:hover, .link:hover, and the second color
+        in the .progress-fill gradient)
+   - rgba(22, 160, 133, 0.1)          ->  fade(@brand-color, 10%)
+   - rgba(22, 160, 133, 0.3)          ->  fade(@brand-color, 30%)
 
-   Other useful LESS color functions:
+   When you're done, no brand hex code or brand rgba() should be left
+   anywhere except in the two variable definitions.
+
+   🔥 PRO TIP: fade() turns a variable into a see-through color:
+   fade(@brand-color, 10%) is @brand-color at 10% opacity.
+
+   Other useful LESS color functions (good to know, not required here):
    - darken(@brand-color, 10%)  // Make it darker
    - lighten(@brand-color, 10%) // Make it lighter
    - fade(@brand-color, 50%)    // Add transparency
@@ -238,6 +256,8 @@
       Try: #e67e22 (orange) or #8e44ad (purple) or #f39c12 (yellow)
    3. Run `npm run compile:ex1` again
    4. Open demo.html and see how the ENTIRE site updates!
+   5. Change @brand-color back to #16a085 and recompile. The tests
+      expect the teal, so don't leave the experiment color in place.
 
    Compare this to Task 1A where you had to find and change dozens of places!
 
@@ -263,7 +283,7 @@
 
    ✅ LESS FEATURES YOU USED:
       - Variables: @brand-color: #16a085;
-      - Color functions: darken(), lighten(), fade()
+      - Color functions: fade() (and you met darken() and lighten())
       - Comments that compile away
 
    🚀 NEXT STEPS: In Exercise 2, you'll see how MIXINS solve the problem

@@ -38,7 +38,7 @@ w2_css_less_hands_on/
 
 You need Node.js 18 or newer (`node --version`). Before you start, run `npm install` once from inside the `lab/` folder (`cd lab`). All `npm run ...` commands in the instructions are run from inside `lab/` too.
 
-> **Note:** Some exercise files contain intentional errors that you'll fix as you go.
+> **Note:** Until you define the variables in Exercise 1 (Task 1C), Exercises 2 and 3 won't compile (`NameError: variable @brand-color is undefined`). That's expected, and it's the only error in the starter files. Do the exercises in order.
 
 ---
 

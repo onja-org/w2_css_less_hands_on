@@ -2,35 +2,33 @@
 
 > **CSS · Week 4 · Day 3**. Read `lesson/index.md` before starting.
 
-This folder contains hands-on exercises to learn the LESS CSS preprocessor by solving real-world frontend problems.
-
-> **Note:** Some files contain intentional errors that you'll fix during the exercises.
+You'll fix three real maintenance problems with the LESS preprocessor: a brand color copied everywhere (variables), nine near-identical buttons (mixins), and one giant stylesheet (partials). Each exercise has you feel the pain by hand first, then solve it with LESS.
 
 ## 🚀 Quick Start
 
-**Note**: Run all commands from inside the `lab/` folder (`cd lab` from the project root).
+Run every command from inside the `lab/` folder (`cd lab` from the project root).
 
-1. **Install dependencies:**
+1. **Install dependencies (once):**
 
    ```bash
    npm install
    ```
 
-2. **Compile and run demo:**
+2. **Compile and run the demo:**
 
    ```bash
    npm start
    ```
 
-3. **Open `demo.html` in your browser** to see the results
+3. **Open `demo.html` in your browser** to see the results. Recompile and refresh after every change.
 
-> **Expected at first:** until you define the variables in Exercise 1 (Task 1C), `npm start`, `compile:ex2` and `compile:ex3` stop with `NameError: variable @brand-color is undefined`. Exercises 2 and 3 import Exercise 1, so they need its variables. Do the exercises in order.
+> **Expected at first:** `npm run compile:ex1` works straight away, but `npm start`, `compile:ex2` and `compile:ex3` stop with `NameError: variable @brand-color is undefined`. That's because Exercises 2 and 3 import Exercise 1, and `@brand-color` doesn't exist until you define it in **Task 1C**. This is the only error in the starter files. Do the exercises in order and it goes away.
 
 ## 📜 Available Scripts
 
 ```bash
 npm run compile:ex1    # Compile exercise 1 only
-npm run compile:ex2    # Compile exercise 2 only  
+npm run compile:ex2    # Compile exercise 2 only
 npm run compile:ex3    # Compile exercise 3 only
 npm run compile:all    # Compile all exercises
 npm run watch:less     # Recompile all exercises every time you save a .less file (Ctrl+C to stop)
@@ -38,86 +36,134 @@ npm start              # Compile all and prepare demo
 npm test               # Run the automated checks (the last line shows your score)
 ```
 
-## Exercise Instructions
+## How to work through each exercise
 
-### Exercise 1: Variables - The Color Nightmare
+- The detailed steps are in comments **inside each `.less` file**, labelled Task 1A, 1B, 1C… Work through them top to bottom. This page gives you the overview and tells you what the tests check.
+- `npm test` groups its checks by the same task labels (e.g. `TASK 1D: Use Variables`), so a failing check tells you which task to revisit.
+- The fill-in blanks (`_____`) and 💭 reflection questions are for you to think about. They are **not graded**.
+- Some tasks ask you to try a temporary change (a different color or radius) to watch everything update. **Always change it back afterwards**. The tests check the final values listed below.
+
+---
+
+## Exercise 1: Variables - The Color Nightmare
 
 **File:** `exercises/exercise1.less`
 
-**Scenario:** You're working on "Heritage Weavers" website. The client wants to change their brand color from terracotta to teal across the entire site.
+**Scenario:** "Heritage Weavers", a rug-making business, wants their brand color changed from terracotta (`#c0392b`) to teal (`#16a085`) across their whole site.
 
-**Your Task:**
+**Steps:**
 
-1. First, manually find and change all color instances (feel the pain!)
-2. Then, implement LESS variables to solve the maintenance nightmare
-3. Use color functions like `darken()` and `lighten()` for variations
+1. **1A** - By hand, change every terracotta value to teal: `#c0392b` → `#16a085`, the darker `#a93226` → `#138d75`, and the two rgba colors `rgba(192, 57, 43, 0.1)` / `rgba(192, 57, 43, 0.3)` → `rgba(22, 160, 133, 0.1)` / `rgba(22, 160, 133, 0.3)`. Count how many places you touch.
+2. **1B** - Think through the reflection questions.
+3. **1C** - Uncomment the variables. `@brand-color: #16a085;` and `@brand-color-dark: #138d75;` are required. `@text-color`, `@light-gray` and `@white` are optional.
+4. **1D** - Replace the hard-coded colors in the rules:
+   - `#16a085` → `@brand-color`
+   - `#138d75` → `@brand-color-dark` (3 places: `.btn-primary:hover`, `.link:hover`, and the second color of the `.progress-fill` gradient)
+   - `rgba(22, 160, 133, 0.1)` → `fade(@brand-color, 10%)`, and `rgba(22, 160, 133, 0.3)` → `fade(@brand-color, 30%)`
+5. **1E** - Change only `@brand-color` to another color (e.g. `#e67e22`), recompile and watch the whole page change. **Then set it back to `#16a085`.**
 
-**Key Concepts:**
+**The tests check:**
 
-- LESS variable syntax: `@brand-color: #16a085;`
-- Color functions: `darken(@brand-color, 10%)`
-- Single source of truth for repeated values
+- Both brand variables are defined with the exact values above
+- No brand hex code (old or new) or brand `rgba()` is left outside the two variable definitions, and `fade(@brand-color, 10%)` is used
+- `@brand-color` is used in at least 12 places and `@brand-color-dark` in at least 3
+- The file compiles, `.header` comes out teal, and changing the two variables recolors everything
 
-![Exercise 1 Reference](./resources/less_ex_1.png)
+![Exercise 1 reference: the Heritage Weavers page in teal](./resources/less_ex_1.png)
 
 ---
 
-### Exercise 2: Mixins - The Button Factory Hell
+## Exercise 2: Mixins - The Button Factory
 
 **File:** `exercises/exercise2.less`
 
-**Scenario:** You work at "Pixel Perfect Design Agency" with dozens of button variations. Your boss wants to change ALL buttons to have rounded corners.
+**Scenario:** "Pixel Perfect Design Agency" has 9 button classes (primary / secondary / danger × small / medium / large) that are about 90% identical. The boss wants every button to have rounded corners and a subtle shadow.
 
-**Your Task:**
+**Steps:**
 
-1. First, manually update border-radius across all button classes (experience the repetition!)
-2. Then, create LESS mixins to eliminate the repetitive patterns: `.button-base(@bg-color, ...)` plus `.button-small()`, `.button-medium()` and `.button-large()`
-3. Rewrite all 9 button classes so each one is just two mixin calls
-4. Add a new `.btn-warning-medium` button (`#f39c12`) in one line
+1. **2A** - By hand, change `border-radius: 4px` to `12px` on all 9 buttons. Don't add the shadow yet. You'll add it once, in the mixin.
+2. **2B** - Think through the reflection questions.
+3. **2C** - Uncomment the `.button-base(@bg-color: @brand-color, @text-color: white)` mixin and the three size mixins `.button-small()`, `.button-medium()` and `.button-large()`. The base mixin already includes the 12px radius, the new `box-shadow: 0 1px 3px rgba(0,0,0,0.1)` and the `&:hover` rule.
+4. **2D** - Rewrite each of the 9 button classes as just two mixin calls, and delete the old `.btn-*:hover` rules:
 
-**Key Concepts:**
+   ```less
+   .btn-primary-small {
+     .button-base(@brand-color);
+     .button-small();
+   }
+   ```
 
-- LESS mixin syntax: `.button-base(@color, @size)`
-- Parameters with defaults: `@bg-color: @brand-color`
-- Color functions for hover states: `darken(@bg-color, 10%)`
+   Colors: primary = `@brand-color`, secondary = `#2ecc71`, danger = `#e74c3c`.
+5. **2E** - Add a new button in one line and **keep it**: `.btn-warning-medium { .button-base(#f39c12); .button-medium(); }`. Then try changing the mixin's radius to `20px`, recompile, watch all buttons update, and **change it back to `12px`.**
 
-![Exercise 2 Reference](./resources/less_ex_2.png)
+**The tests check:**
+
+- `.button-base(@bg-color …)` and the three size mixins are defined
+- Every button class calls `.button-base(...)` plus its size mixin, with no repeated properties (`border`, `cursor`, `transition`) left inside
+- All 9 buttons compile with `border-radius: 12px`, the right color, padding and font-size, the new shadow, and a hover color
+- `12px` appears exactly once (in the mixin), so changing it there updates every button
+- `.btn-warning-medium` exists with background `#f39c12` and medium padding
+
+![Exercise 2 reference: the 9 rounded buttons](./resources/less_ex_2.png)
 
 ---
 
-### Exercise 3: Partials - The 2000-Line Monster  
+## Exercise 3: Partials - The 2000-Line Monster
 
 **File:** `exercises/exercise3.less`
 
-**Scenario:** You've inherited CSS for "Artisan Marketplace". The previous developer put EVERYTHING in one massive file.
+**Scenario:** You've inherited the CSS for "Artisan Marketplace". The previous developer put everything in one file.
 
-**Your Task:**
+**Steps:**
 
-1. First, hunt through the monster stylesheet to find the `.card` component and change its border-radius from 4px to 8px (feel the frustration!)
-2. Create `exercises/partials/_cards.less` and move all the card styles into it
-3. Create `exercises/partials/_buttons.less` and move all the button styles into it
-4. Import both partials at the top of `exercise3.less` with `@import "partials/_cards.less";` and `@import "partials/_buttons.less";`
-5. Recompile and check the result looks exactly the same, then change the card border-radius once in `_cards.less` and watch every card variant update
+1. **3A** - Find the `.card` rule and change its `border-radius` from `4px` to `8px`. Change only that rule, not `.card-image` or the other `4px` values.
+2. **3B / 3C** - Read the reflection questions and the partials explanation.
+3. **3D** - Split two components into partials:
+   - Create the folder `exercises/partials/`
+   - Create `partials/_cards.less` and **move** (cut, don't copy) everything from the "CARD STYLES" and "MORE CARD VARIATIONS" sections into it
+   - Create `partials/_buttons.less` and **move** the "BUTTON STYLES" section into it
+   - Add these right after the existing imports at the top of `exercise3.less`:
 
-The detailed steps are in the Task 3D and 3E comments inside `exercise3.less`.
+     ```less
+     @import "partials/_cards.less";
+     @import "partials/_buttons.less";
+     ```
 
-**Key Concepts:**
+   - Leave the `.card { padding: 1rem; }` inside the `@media` block in `exercise3.less`
+   - Run `npm run compile:ex3`. The page should look exactly the same as before
+4. **3E** - In `_cards.less`, change the `.card` radius to `16px`, recompile, check every card variant updated, then **change it back to `8px`.**
 
-- File organization with `@import` (paths are relative to the file doing the importing)
-- Logical separation by component and purpose
-- Professional stylesheet structure for teams
+You don't need to import `exercise1.less` inside the partials. They're compiled as part of `exercise3.less`, so they can already see `@brand-color` and `.card()`.
 
-![Exercise 3 Reference](./resources/less_ex_3.png)
+**The tests check:**
+
+- `.card` compiles with `border-radius: 8px`
+- `_cards.less` holds `.card` (with the 8px radius), `.card-title`, `.card-price` and the four variants. The variants still reuse `.card();` and don't set their own radius
+- `_buttons.less` holds `.btn`, `.btn-primary`, `.btn-secondary` and `.btn-outline`
+- `exercise3.less` imports both partials, and no top-level `.card…` or `.btn…` rules are left in it
+- It still compiles with the same styles, and changing the radius once in `_cards.less` updates every card variant
+
+![Exercise 3 reference: the Artisan Marketplace cards](./resources/less_ex_3.png)
 
 ---
 
-## Success Criteria
+## Finish
 
-You'll know you've succeeded when:
+1. Run `npm test` from inside `lab/`. The last line shows your score out of 23.
+2. Submit from the project root, as described in the project `README.md` (`./submit <your-student-id>`).
 
-✅ **Exercise 1:** You can change the entire site's color scheme by modifying one variable  
-✅ **Exercise 2:** You can create new button variants in seconds using your mixins  
-✅ **Exercise 3:** You can quickly find and modify any component in organized partials
+**You've succeeded when:**
+
+- ✅ **Exercise 1:** You can change the entire site's color scheme by modifying one variable
+- ✅ **Exercise 2:** You can create new button variants in seconds using your mixins
+- ✅ **Exercise 3:** You can quickly find and modify any component in organized partials
+
+## Debugging Tips
+
+- Compile one exercise at a time (`npm run compile:ex1`) and read the error in the terminal. LESS tells you the file, line and column
+- Refresh `demo.html` after each compile. The browser reads the compiled `.css`, not your `.less`
+- Use browser dev tools to inspect the generated CSS
+- See the "Common mistakes" table in `lesson/index.md` (e.g. `$` instead of `@`, or `@include` instead of `.mixin();`)
 
 ## LESS vs SCSS Quick Reference
 
@@ -129,175 +175,17 @@ You'll know you've succeeded when:
 | Interpolation | `@{variable}` | `#{$variable}` |
 | Conditionals | `when (@a > 0)` | `@if $a > 0` |
 
-## Debugging Tips
-
-- Use `npm run compile:ex1` (from inside `lab/`) to compile individual exercises
-- Check the terminal for LESS compilation errors
-- Refresh `demo.html` after each compilation
-- Use browser dev tools to inspect generated CSS
-
-## What You're Learning
-
-**The Problems CSS Preprocessors Solve:**
-
-- Hard-coded values scattered everywhere create maintenance hell
-- Repetitive CSS patterns lead to bloated, error-prone code  
-- Unorganized stylesheets become impossible to navigate and maintain
-
-**How LESS Solves These Problems:**
-
-- **Variables** provide single source of truth for repeated values
-- **Mixins** eliminate repetitive CSS patterns  
-- **Partials** organize code into logical, maintainable files
-- **Color Functions** create consistent variations automatically
-
----
-
-**Need help?**  
-Check the project `README.md` (one folder up) for the overview, and `lesson/index.md` for the concepts.
-
-> Note that there are currently errors in some of the files -- these will be fixed as you go through the exercises.
-
 ## Why LESS?
 
-LESS was one of the first CSS preprocessors and remains popular because:
-
-- **Simpler syntax** - Closer to vanilla CSS, easier learning curve
-- **Client-side compilation** - Can run in the browser during development (great for prototyping)
-- **JavaScript integration** - Written in JavaScript, easy to extend with custom functions
-- **Bootstrap legacy** - Bootstrap used LESS before switching to SCSS (many projects still use LESS)
-- **Flexible approach** - Less opinionated than SCSS, multiple ways to solve problems
-
-## LESS vs SCSS: Quick Reference
-
-| Feature | LESS | SCSS |
-|---------|------|------|
-| Variables | `@color: blue;` | `$color: blue;` |
-| Mixins | `.border-radius(@r) { }` | `@mixin border-radius($r) { }` |
-| Using Mixins | `.border-radius(5px);` | `@include border-radius(5px);` |
-| Interpolation | `@{variable}` | `#{$variable}` |
-| Conditionals | `when (@a > 0)` | `@if $a > 0` |
-
----
-
-## Exercise 1: The Color Nightmare
-
-**🎯 Objective:** Experience the maintenance hell of repeated values, then solve with LESS variables.
-
-### The Scenario
-
-You're working on "Heritage Weavers" (a rug-making company) website. The client wants to change their brand color from terracotta to teal across their entire site. You'll discover why hard-coded color values create maintenance nightmares.
-
-### What You'll Experience
-
-1. **The Pain**: Manually find and change dozens of color instances across a stylesheet
-2. **The Pattern Recognition**: Identify what makes this so error-prone and tedious
-3. **The Solution**: Learn how LESS variables solve this exact problem
-4. **The Magic**: Change one variable and watch the entire site update
-
-### Key Learning Moments
-
-- **Variables aren't just convenient** - they're essential for maintainable CSS
-- **LESS syntax**: `@brand-color: #16a085;` vs SCSS's `$brand-color`
-- **Color functions**: `darken(@brand-color, 10%)` for automatic variations
-- **Single source of truth**: One place to update, everywhere changes
-
-![Exercise 1 Image](./resources/less_ex_1.png)
----
-
-## Exercise 2: The Button Factory Hell
-
-**🎯 Objective:** Feel the pain of repetitive CSS patterns, then solve with LESS mixins.
-
-### The Scenario
-
-You work at "Pixel Perfect Design Agency" with a component library containing dozens of button variations. Each button is 90% identical code with slight differences. Your boss wants to change ALL buttons to have rounded corners - good luck finding every instance!
-
-### What You'll Experience
-
-1. **The Tedium**: Manually update border-radius across 9+ nearly identical button classes
-2. **The Repetition**: See how much duplicate code exists in "well-organized" CSS
-3. **The Solution**: Learn how LESS mixins eliminate repetitive patterns
-4. **The Power**: Create new button variants in seconds instead of minutes
-
-### Key Learning Moments
-
-- **Mixins solve repetition** - not just convenience, but essential for scalable CSS
-- **LESS syntax**: `.button-base(@color, @size)` vs SCSS's `@mixin` and `@include`
-- **Parameters with defaults**: `@bg-color: @brand-color` for flexible reuse
-- **Color functions**: `darken(@bg-color, 10%)` for automatic hover states
-- **Maintainability**: Change one mixin, update all buttons instantly
-
-![Exercise 1 Image](./resources/less_ex_2.png)
-
----
-
-## Exercise 3: The 2000-Line Monster
-
-**🎯 Objective:** Navigate unorganized stylesheet chaos, then solve with LESS partials.
-
-### The Scenario
-
-You've inherited the CSS for "Artisan Marketplace", a large e-commerce site. The previous developer put EVERYTHING in one massive file. Need to find the card component styles? Good luck scrolling through 2000+ lines looking for the right section!
-
-### What You'll Experience
-
-1. **The Search**: Hunt through a monster stylesheet to find one specific component
-2. **The Frustration**: Realize how impossible large codebases become without organization
-3. **The Solution**: Learn how LESS partials organize code into logical, manageable files
-4. **The Structure**: See how professional projects organize stylesheets for teams
-
-### Key Learning Moments
-
-- **Partials aren't optional** - they're essential for any real project
-- **@import**: How LESS combines separate files into one CSS output
-- **File organization**: Logical separation by component, utility, and purpose
-- **Team development**: How multiple developers work without conflicts
-- **Reusability**: How organized partials enable component sharing across projects
-- **Maintainability**: Finding specific styles in seconds instead of minutes
-
-![Exercise 1 Image](./resources/less_ex_3.png)
-
----
-
-## What You've Learned
-
-### The Problems CSS Preprocessors Solve
-
-✅ **The Color Nightmare**: Hard-coded values scattered everywhere create maintenance hell  
-✅ **The Button Factory**: Repetitive CSS patterns lead to bloated, error-prone code  
-✅ **The 2000-Line Monster**: Unorganized stylesheets become impossible to navigate and maintain  
-
-### How LESS Solves These Problems
-
-✅ **Variables**: `@brand-color` provides single source of truth for repeated values  
-✅ **Mixins**: `.button-base(@color, @size)` eliminates repetitive CSS patterns  
-✅ **Partials**: `@import` organizes code into logical, maintainable files  
-✅ **Color Functions**: `darken(@color, 10%)` creates consistent variations automatically  
-
-### LESS vs SCSS Key Differences
-
-✅ **Syntax**: LESS uses `@` for variables, simpler `.mixin()` syntax  
-✅ **Philosophy**: LESS is more CSS-like and flexible, SCSS is more structured  
-✅ **Functions**: Similar capabilities, slightly different syntax  
-
-### When to Use Preprocessors (Any Preprocessor!)
-
-**Preprocessors become essential when:**
-
-- Your CSS file grows beyond ~200 lines
-- Multiple developers work on the same styles
-- You need consistent theming across a project
-- You're repeating the same patterns multiple times
-- You're building reusable component libraries
-
-**Choose LESS specifically when:**
-
-- Team prefers CSS-like syntax (easier learning curve)
-- Working with Bootstrap-based projects (legacy compatibility)
-- Need client-side compilation for rapid prototyping
-- Want a more flexible, less opinionated approach
+- **Simpler syntax** - closer to vanilla CSS, easier learning curve
+- **Client-side compilation** - can run in the browser during development (handy for prototyping)
+- **JavaScript integration** - written in JavaScript, easy to extend with custom functions
+- **Bootstrap legacy** - Bootstrap used LESS before switching to SCSS, and many projects still use it
 
 ## Next Steps
 
-If you have time remaining, explore the [LESS documentation](https://lesscss.org/#overview) for more features.
+If you have time left, explore the [LESS documentation](https://lesscss.org/#overview) for more features.
+
+---
+
+**Need help?** Check the project `README.md` (one folder up) for the overview and the "Getting stuck" steps, and `lesson/index.md` for the concepts.
