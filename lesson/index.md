@@ -146,7 +146,7 @@ People choose LESS when a team wants CSS-like syntax, when a project comes from 
 | Using `@include` or `@mixin` | SCSS syntax | Define with `.name() { }` and call with `.name();` |
 | Changes don't show in the browser | The browser reads the compiled `.css`, not the `.less` | Run `npm run compile:ex1` (or `compile:all`) from inside `lab/`, then refresh |
 | `'exercise1.less' wasn't found` | The `@import` path is wrong for where the file sits | Make the path relative to the file doing the import |
-| Hard-coding a darker hex for a hover state | Copying the old CSS pattern | Use `darken(@brand-color, 10%)` so it follows the base color |
+| Hard-coding a darker hex for a hover state | Copying the old CSS pattern | Use a variable (`@brand-color-dark`) or `darken(@brand-color, 10%)`, so the shade is defined once |
 
 ---
 

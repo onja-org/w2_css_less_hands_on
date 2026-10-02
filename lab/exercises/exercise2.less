@@ -234,12 +234,16 @@
    3. Run `npm run compile:ex2` and open demo.html to see the result
    4. As you work, imagine if this was a 50-button library instead of 9...
    
-   Count how many places you changed: _____ (write your answer here)
+   Count how many places you changed: _____ (write your answer here -
+   not graded)
    
-   Now imagine your boss says: "Actually, let's also add a subtle shadow 
+   Now your boss says: "Actually, let's also add a subtle shadow 
    to ALL buttons: box-shadow: 0 1px 3px rgba(0,0,0,0.1);"
    
    How many more places would you need to update? _____
+   
+   Don't add the shadow by hand. It's a real requirement (the tests check
+   for it), but you'll add it ONCE, inside the .button-base() mixin in 2C.
 */
 
 /* ========================================
@@ -275,16 +279,16 @@
    
    Instead of writing the same properties over and over, you define them once:
    
-   .button-base(@bg-color, @size) {
+   .button-base(@bg-color: @brand-color, @text-color: white) {
      border: none;
      cursor: pointer;
      // ... other common properties
      background: @bg-color;
-     // size-specific properties based on @size parameter
+     color: @text-color;
    }
    
-   Then use it like this:
-   .btn-primary-small { .button-base(@brand-color, small); }
+   Then use it like this (a size mixin adds the padding and font-size):
+   .btn-primary-small { .button-base(@brand-color); .button-small(); }
    
    LESS mixin syntax:
    - Define: .mixin-name(@param1, @param2) { ... }
@@ -293,7 +297,9 @@
 */
 
 // 🎯 TASK: Create your button mixin
-// TODO: Create a mixin that handles all the repetitive button properties
+// TODO: Uncomment the mixin below (delete the leading // on every line).
+//   It already contains the new 12px border-radius and the new shadow from
+//   Task 2A. Keep @bg-color as its first parameter - the tests look for it.
 
 // .button-base(@bg-color: @brand-color, @text-color: white) {
 //   // All the properties that are the same for every button
@@ -320,7 +326,7 @@
 // }
 
 // 🎯 TASK: Create size mixins for different button sizes
-// TODO: Create mixins for different sizes
+// TODO: Uncomment the three size mixins below
 
 // .button-small() {
 //   padding: 0.5rem 1rem;
@@ -345,7 +351,7 @@
    🎯 TASK: Replace all the repetitive button CSS with your mixins!
    
    Instructions:
-   1. First, uncomment the mixins you created above
+   1. Make sure the mixins above are uncommented (Task 2C)
    2. Then replace ALL the button classes with clean, simple versions using mixins
    3. For example, replace the entire .btn-primary-small class with:
    
@@ -354,8 +360,11 @@
      .button-small();
    }
    
-   4. Do this for ALL 9 button variations
-   5. Run `npm run compile:ex2` to make sure it still works
+   4. Do this for ALL 9 button variations. Colors: primary = @brand-color,
+      secondary = #2ecc71, danger = #e74c3c
+   5. Delete the old .btn-*:hover rules too. The &:hover inside
+      .button-base() now creates them for you
+   6. Run `npm run compile:ex2` to make sure it still works
    
    Compare your new code to the original:
    - Original: ~180 lines of repetitive CSS
@@ -377,9 +386,12 @@
       .btn-warning-medium { .button-base(#f39c12); .button-medium(); }
    
    Try this:
-   1. Add a new "warning" button color (#f39c12) in one line of code
+   1. Add the new .btn-warning-medium button (#f39c12) in one line of code,
+      below your other buttons. Keep it - the tests check for it
    2. Change the border-radius in the mixin from 12px to 20px
    3. Run the compiler and see ALL buttons update instantly!
+   4. Change the border-radius back to 12px and recompile. The tests
+      expect 12px, so don't leave the experiment value in place
    
    Compare this to Task 2A where you had to find and change 9+ places manually!
 */

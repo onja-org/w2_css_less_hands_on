@@ -7,7 +7,7 @@
 
   "canvas": {
     "course_id": 114,
-    "assignment_id": 10884
+    "assignment_id": 1345
   },
 
   "test_command": "cd lab && npm install --no-audit --no-fund --silent && npx jest --ci"
