@@ -1,6 +1,6 @@
 // lab/tests/exercise1.test.js
 
-const { read, stripComments, compile, compileWithEdits } = require('./helpers');
+const { read, stripComments, compile, compileWithEdits, allRules } = require('./helpers');
 
 const code = stripComments(read('exercise1.less'));
 const usages = (name) =>
@@ -8,8 +8,8 @@ const usages = (name) =>
 
 describe('TASK 1C: Define Variables', () => {
   test('define @brand-color: #16a085 and @brand-color-dark: #138d75', () => {
-    expect(code).toMatch(/@brand-color\s*:\s*#16a085\s*;/);
-    expect(code).toMatch(/@brand-color-dark\s*:\s*#138d75\s*;/);
+    expect(code).toMatch(/@brand-color\s*:\s*#16a085\s*;/i);
+    expect(code).toMatch(/@brand-color-dark\s*:\s*#138d75\s*;/i);
   });
 });
 
@@ -36,6 +36,31 @@ describe('TASK 1D: Use Variables', () => {
   test('@brand-color-dark is used for the darker shades (at least 3 places)', () => {
     expect(usages('@brand-color-dark')).toBeGreaterThanOrEqual(3);
   });
+
+  test('every original rule still compiles (none deleted while replacing colors)', async () => {
+    const css = await compile(read('exercise1.less'), 'exercise1.less');
+    const selectors = [
+      '.header', '.logo', '.nav-link', '.nav-link:hover', '.nav-link.active',
+      '.btn', '.btn-primary', '.btn-primary:hover', '.btn-outline', '.btn-outline:hover',
+      '.card', '.card-title', '.link', '.link:hover', '.alert-info',
+      '.progress-bar', '.progress-fill',
+    ];
+    for (const selector of selectors) {
+      expect([selector, allRules(css, selector)]).not.toEqual([selector, '']);
+    }
+    // Also require the new color, so the untouched starter file doesn't pass.
+    expect(allRules(css, '.header')).toMatch(/background:\s*#16a085/i);
+  });
+
+  test('the shades and opacities compile to the right values', async () => {
+    const css = await compile(read('exercise1.less'), 'exercise1.less');
+    expect(allRules(css, '.nav-link:hover')).toMatch(/background:\s*rgba\(22,\s*160,\s*133,\s*0\.1\)/);
+    expect(allRules(css, '.nav-link.active')).toMatch(/box-shadow:[^;]*rgba\(22,\s*160,\s*133,\s*0\.3\)/);
+    expect(allRules(css, '.alert-info')).toMatch(/background:\s*rgba\(22,\s*160,\s*133,\s*0\.1\)/);
+    expect(allRules(css, '.btn-primary:hover')).toMatch(/background:\s*#138d75/i);
+    expect(allRules(css, '.link:hover')).toMatch(/color:\s*#138d75/i);
+    expect(allRules(css, '.progress-fill')).toMatch(/linear-gradient\(90deg,\s*#16a085,\s*#138d75\)/i);
+  });
 });
 
 describe('TASK 1E: Variable Power', () => {
@@ -43,8 +68,8 @@ describe('TASK 1E: Variable Power', () => {
     const css = await compileWithEdits('exercise1.less', {
       'exercise1.less': (src) =>
         stripComments(src)
-          .replace(/@brand-color\s*:\s*#16a085/g, '@brand-color: #e67e22')
-          .replace(/@brand-color-dark\s*:\s*#138d75/g, '@brand-color-dark: #d35400'),
+          .replace(/@brand-color\s*:\s*#16a085/gi, '@brand-color: #e67e22')
+          .replace(/@brand-color-dark\s*:\s*#138d75/gi, '@brand-color-dark: #d35400'),
     });
     expect(css).toContain('#e67e22');
     expect(css).toContain('#d35400');
@@ -55,6 +80,6 @@ describe('TASK 1E: Variable Power', () => {
 
   test('exercise1.less compiles and the header uses the teal brand color', async () => {
     const css = await compile(read('exercise1.less'), 'exercise1.less');
-    expect(css).toMatch(/\.header\s*\{[^}]*background:\s*#16a085/);
+    expect(css).toMatch(/\.header\s*\{[^}]*background:\s*#16a085/i);
   });
 });

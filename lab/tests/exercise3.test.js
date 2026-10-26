@@ -9,6 +9,18 @@ const buttons = stripComments(read('partials/_buttons.less'));
 
 const VARIANTS = ['card-small', 'card-large', 'card-featured', 'card-sale'];
 
+// Every rule that was in the original file must still exist after the move.
+const CARD_SELECTORS = [
+  '.card', '.card:hover', '.card-image', '.card-title', '.card-description', '.card-price',
+  ...VARIANTS.map((v) => `.${v}`), '.card-sale::before',
+];
+const BUTTON_SELECTORS = [
+  '.btn', '.btn-primary', '.btn-primary:hover', '.btn-secondary', '.btn-secondary:hover',
+  '.btn-outline', '.btn-outline:hover',
+];
+const hasRule = (code, selector) =>
+  new RegExp(`(^|\\n)\\s*${selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{`).test(code);
+
 // The .card block from exercise 3 (not the one imported from exercise 1),
 // recognisable by its 1px #e0e0e0 border.
 const cardBlocks = (css) =>
@@ -24,6 +36,14 @@ describe('TASK 3A: The Search Mission', () => {
     for (const body of blocks) {
       expect(body).toMatch(/border-radius:\s*8px/);
     }
+  });
+});
+
+describe('TASK 3A (continued): Only .card changed', () => {
+  test('.card is 8px but .card-image keeps its 4px radius', async () => {
+    const css = await compile(source, 'exercise3.less');
+    expect(cardBlocks(css).join('\n')).toMatch(/border-radius:\s*8px/);
+    expect(allRules(css, '.card-image')).toMatch(/border-radius:\s*4px/);
   });
 });
 
@@ -60,14 +80,32 @@ describe('TASK 3D: Organize with Partials', () => {
     }
   });
 
+  test('no card or button rule was lost in the move', () => {
+    for (const selector of CARD_SELECTORS) {
+      expect([selector, hasRule(cards, selector)]).toEqual([selector, true]);
+    }
+    for (const selector of BUTTON_SELECTORS) {
+      expect([selector, hasRule(buttons, selector)]).toEqual([selector, true]);
+    }
+  });
+
+  test('the .card override inside @media stays in exercise3.less', async () => {
+    // Only meaningful once the cards were moved out, so the starter shouldn't pass.
+    expect(main).toMatch(/@import\s*["']partials\/_cards(\.less)?["']\s*;/);
+    const css = await compile(source, 'exercise3.less');
+    expect(css).toMatch(/@media[^{]*\{[^@]*?\.card\s*\{\s*padding:\s*1rem;\s*\}/);
+  });
+
   test('exercise3.less compiles from the partials with the same styles', async () => {
     expect(cards).not.toBe('');
     expect(buttons).not.toBe('');
     const css = await compile(source, 'exercise3.less');
     expect(cardBlocks(css).join('\n')).toMatch(/padding:\s*1\.5rem/);
-    expect(allRules(css, '.btn-outline')).toMatch(/border:\s*2px solid #16a085/);
-    expect(allRules(css, '.card-featured')).toMatch(/border:\s*2px solid #16a085/);
+    expect(allRules(css, '.btn-outline')).toMatch(/border:\s*2px solid #16a085/i);
+    expect(allRules(css, '.card-featured')).toMatch(/border:\s*2px solid #16a085/i);
     expect(allRules(css, '.hero')).toMatch(/linear-gradient/);
+    expect(allRules(css, '.btn-secondary')).toMatch(/background:\s*#2ecc71/i);
+    expect(allRules(css, '.card-sale::before')).toMatch(/content:\s*"SALE"/);
   });
 });
 
