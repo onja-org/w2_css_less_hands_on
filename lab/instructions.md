@@ -149,7 +149,7 @@ You don't need to import `exercise1.less` inside the partials. They're compiled 
 
 ## Finish
 
-1. Run `npm test` from inside `lab/`. The last line shows your score out of 23.
+1. Run `npm test` from inside `lab/`. The last line shows your score out of 30.
 2. Submit from the project root, as described in the project `README.md` (`./submit <your-student-id>`).
 
 **You've succeeded when:**

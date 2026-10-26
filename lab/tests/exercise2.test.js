@@ -13,6 +13,12 @@ const SIZES = {
 };
 const BUTTONS = Object.keys(COLORS).flatMap((c) => Object.keys(SIZES).map((s) => [c, s]));
 
+// Perceived brightness of a #rrggbb color (0 = black, 255 = white).
+const brightness = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  return 0.299 * r + 0.587 * g + 0.114 * b;
+};
+
 // The source block of one button class, e.g. ".btn-primary-small { ... }".
 const block = (name) => {
   const match = code.match(new RegExp(`\\.${name}\\s*\\{([^}]*)\\}`));
@@ -63,7 +69,7 @@ describe('TASK 2D: Refactor with Mixins', () => {
   test('buttons still compile with the right color, size, shadow and hover', async () => {
     const css = await compile(source, 'exercise2.less');
     for (const [color, size] of BUTTONS) {
-      const declarations = rule(css, `.btn-${color}-${size}`);
+      const declarations = rule(css, `.btn-${color}-${size}`).toLowerCase();
       expect(declarations).toContain(`background: ${COLORS[color]}`);
       expect(declarations).toContain(`padding: ${SIZES[size].padding}`);
       expect(declarations).toContain(`font-size: ${SIZES[size].fontSize}`);
@@ -73,10 +79,30 @@ describe('TASK 2D: Refactor with Mixins', () => {
   });
 });
 
+describe('TASK 2D (continued): Hover states', () => {
+  test('every button gets a darker background on hover', async () => {
+    // Hover belongs to the mixin refactor, so the untouched starter shouldn't pass.
+    expect(code).toMatch(/\.button-base\s*\(/);
+    const css = await compile(source, 'exercise2.less');
+    const background = (declarations) => (declarations.match(/background:\s*(#[0-9a-f]{6})/i) || [])[1];
+    for (const [color, size] of BUTTONS) {
+      const selector = `.btn-${color}-${size}`;
+      const base = background(rule(css, selector));
+      const hover = background(allRules(css, `${selector}:hover`));
+      expect(hover).toBeDefined();
+      expect(brightness(hover)).toBeLessThan(brightness(base));
+    }
+  });
+
+  test('the old standalone .btn-*:hover rules were deleted', () => {
+    expect(code).not.toMatch(/\.btn-[a-z]+(-[a-z]+)?\s*:hover/);
+  });
+});
+
 describe('TASK 2E: Test Mixin Power', () => {
   test('a .btn-warning-medium button (#f39c12) built from the mixins', async () => {
     const css = await compile(source, 'exercise2.less');
-    const declarations = rule(css, '.btn-warning-medium');
+    const declarations = rule(css, '.btn-warning-medium').toLowerCase();
     expect(declarations).toContain('background: #f39c12');
     expect(declarations).toContain('padding: 0.75rem 1.5rem');
   });

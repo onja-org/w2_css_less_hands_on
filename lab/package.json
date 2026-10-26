@@ -29,7 +29,7 @@
       [
         "<rootDir>/tests/score-reporter.js",
         {
-          "expectedTotal": 23,
+          "expectedTotal": 30,
           "expectedSuites": 3
         }
       ]
